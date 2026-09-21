@@ -19,6 +19,7 @@ const TowerView = () => {
   const towerId = parseInt(id) || 1;
 
   const [hoveredFloor, setHoveredFloor] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
@@ -192,8 +193,8 @@ const TowerView = () => {
                       transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                       pointerEvents: 'auto'
                     }}
-                    onMouseEnter={() => setHoveredFloor(floorData)}
-                    onMouseLeave={() => setHoveredFloor(null)}
+                    onMouseEnter={() => { setHoveredFloor(floorData); setShowTooltip(true); }}
+                    onMouseLeave={() => { setHoveredFloor(null); setShowTooltip(false); }}
                     onClick={() => handleFloorClick(floorData.floor)}
                   />
                 );
@@ -202,7 +203,7 @@ const TowerView = () => {
 
             {/* Floor Info Card (Tooltip Tracking) */}
             <AnimatePresence>
-              {hoveredFloor && (
+              {hoveredFloor && showTooltip && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -321,7 +322,7 @@ const TowerView = () => {
               flexDirection: 'column',
               border: isMobile ? 'none' : '1px solid rgba(56, 189, 248, 0.25)',
               borderRadius: isMobile ? '0' : '16px',
-              background: isMobile ? 'rgba(7, 7, 9, 0.95)' : 'rgba(7, 7, 9, 0.72)',
+              background: isMobile ? 'rgba(7, 7, 9, 0.95)' : 'rgba(8, 8, 12, 0.73)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               overflow: 'hidden',
@@ -331,7 +332,7 @@ const TowerView = () => {
           >
             <div style={{
               padding: '0.95rem 1rem',
-              borderBottom: '1px solid rgba(255,255,255,0.08)',
+              borderBottom: '1px solid rgba(8, 8, 8, 0)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -384,8 +385,8 @@ const TowerView = () => {
                     background: hoveredFloor?.floor === item.floor ? 'rgba(56, 189, 248, 0.12)' : 'none',
                     border: hoveredFloor?.floor === item.floor ? '1px solid rgba(56, 189, 248, 0.3)' : '1px solid transparent'
                   }}
-                  onMouseEnter={() => setHoveredFloor(item)}
-                  onMouseLeave={() => setHoveredFloor(null)}
+                  onMouseEnter={() => { setHoveredFloor(item); setShowTooltip(false); }}
+                  onMouseLeave={() => { setHoveredFloor(null); setShowTooltip(false); }}
                   onClick={() => handleFloorClick(item.floor)}
                 >
                   <div>

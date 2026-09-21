@@ -130,33 +130,26 @@ const FloorView = () => {
       <div style={{
         position: 'absolute',
         top: isMobile ? '1.25rem' : '4rem',
+        marginTop: '3rem',
         left: '1.25rem',
-        right: isMobile ? '4.5rem' : '290px',
+        right: '1.25rem',
         zIndex: 20,
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-        padding: '0.75rem 1.25rem',
-        borderRadius: '16px',
-        background: 'rgba(3, 3, 3, 0.65)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
-        flexDirection: isMobile ? 'column' : 'row',
-        alignItems: isMobile ? 'stretch' : 'center',
-        gap: '0.75rem'
+        padding: '0.75rem 0',
+        pointerEvents: 'none'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: isMobile ? '100%' : 'auto' }}>
+        <div style={{ position: 'absolute', left: 0, pointerEvents: 'auto' }}>
           <Link to={`/tower/${tower}`} style={{
-            color: 'var(--text-secondary)',
+            color: '#FFFFFF',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
             fontSize: '0.8rem',
-            background: 'rgba(56, 189, 248, 0.08)',
-            border: '1px solid rgba(56, 189, 248, 0.15)',
+            background: '#000000',
+            border: '1px solid #333333',
             padding: '0.4rem 0.8rem',
             borderRadius: '20px',
             transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -164,54 +157,35 @@ const FloorView = () => {
             flexShrink: 0
           }}
           onMouseOver={e => {
-            e.currentTarget.style.borderColor = 'var(--primary)';
-            e.currentTarget.style.boxShadow = '0 0 10px rgba(56, 189, 248, 0.2)';
+            e.currentTarget.style.background = '#BE9D7C';
+            e.currentTarget.style.borderColor = '#BE9D7C';
+            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.color = '#FFFFFF';
           }}
           onMouseOut={e => {
-            e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.15)';
+            e.currentTarget.style.background = '#000000';
+            e.currentTarget.style.borderColor = '#333333';
             e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.color = '#FFFFFF';
           }}
           >
             <ArrowLeft size={12} />
             {isMobile ? 'Back' : `Tower ${tower} View`}
           </Link>
-          <div style={{ overflow: 'hidden' }}>
-            <h1 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: isMobile ? '1rem' : '1.4rem',
-              fontWeight: '700',
-              margin: 0,
-              letterSpacing: '-0.3px',
-              whiteSpace: isMobile ? 'normal' : 'nowrap',
-              textOverflow: 'ellipsis',
-              overflowWrap: isMobile ? 'anywhere' : 'normal'
-            }}>
-              {block} Block — Floor {floor}
-            </h1>
-          </div>
         </div>
-
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'flex-end' }}>
-          <button
-            onClick={() => setIsDetailsVisible(!isDetailsVisible)}
-            style={{
-              background: isDetailsVisible ? 'rgba(56, 189, 248, 0.15)' : 'rgba(7, 7, 9, 0.6)',
-              border: isDetailsVisible ? '1px solid var(--primary)' : '1px solid rgba(56, 189, 248, 0.25)',
-              borderRadius: '20px',
-              padding: '0.35rem 0.85rem',
-              color: isDetailsVisible ? 'white' : 'var(--text-secondary)',
-              fontSize: '0.8rem',
-              fontWeight: '600',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              transition: 'all 0.2s'
-            }}
-          >
-            <Info size={12} color="var(--primary)" />
-            <span>Floor Details</span>
-          </button>
+        
+        <div style={{ pointerEvents: 'auto', textAlign: 'center' }}>
+          <h1 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: isMobile ? '1.2rem' : '1.6rem',
+            fontWeight: '700',
+            margin: 0,
+            letterSpacing: '-0.3px',
+            color: '#BE9D7C',
+            textShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}>
+            {block} Block — Floor {floor}
+          </h1>
         </div>
       </div>
 
@@ -227,7 +201,7 @@ const FloorView = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#000000',
+             background: '#FBF8F3',
           padding: 0,
           paddingTop: '90px'
         }}
@@ -235,14 +209,17 @@ const FloorView = () => {
         <div 
           onMouseMove={handleMouseMove}
           style={{
+            marginRight:"100px",
             position: 'relative',
             width: 'min(92vw, 1000px)',
             height: 'min(82vh, 700px)',
             maxHeight: 'calc(100vh - 140px)',
+            
             overflow: 'hidden',
             borderRadius: '20px',
-            background: '#000000',
-            boxShadow: '0 10px 35px rgba(0,0,0,0.45)'
+            // background: '#000000',
+            // boxShadow: '0 10px 35px rgba(0,0,0,0.45)'
+            
           }}
           ref={containerRef}
         >
@@ -258,7 +235,8 @@ const FloorView = () => {
               display: 'block',
               objectFit: 'contain',
               objectPosition: 'center',
-              background: '#000000',
+             background: '#FBF8F3',
+             
               userSelect: 'none'
             }}
           />
@@ -290,8 +268,8 @@ const FloorView = () => {
                 <polygon
                   key={idx}
                   points={flatData.points}
-                  fill={isHovered ? 'rgba(56, 189, 248, 0.3)' : 'rgba(255, 255, 255, 0.001)'}
-                  stroke={isHovered ? 'var(--primary)' : 'transparent'}
+                  fill={isHovered ? 'rgba(190, 157, 124, 0.3)' : 'rgba(255, 255, 255, 0.001)'}
+                  stroke={isHovered ? '#BE9D7C' : 'transparent'}
                   strokeWidth={isHovered ? '1.5' : '1'}
                   filter={isHovered ? 'url(#hoverGlow)' : undefined}
                   pointerEvents="all"
@@ -326,7 +304,7 @@ const FloorView = () => {
                   background: 'rgba(4, 4, 4, 0.85)',
                   backdropFilter: 'blur(25px)',
                   WebkitBackdropFilter: 'blur(25px)',
-                  border: '1px solid rgba(56, 189, 248, 0.35)',
+                  border: '1px solid rgba(190, 157, 124, 0.35)',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
                   display: 'flex',
                   flexDirection: 'column',
@@ -340,7 +318,7 @@ const FloorView = () => {
                   alignItems: 'center',
                   gap: '8px'
                 }}>
-                  <Info size={14} color="var(--primary)" />
+                  <Info size={14} color="#BE9D7C" />
                   <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '0.95rem', fontWeight: '600', color: 'white' }}>
                     Floor details
                   </h4>
@@ -353,7 +331,7 @@ const FloorView = () => {
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>Apartment Type</span>
-                    <span style={{ fontWeight: '600', color: 'var(--primary)' }}>{floorDetail.bhk}</span>
+                    <span style={{ fontWeight: '600', color: '#BE9D7C' }}>{floorDetail.bhk}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>Super Built-up</span>
@@ -388,8 +366,8 @@ const FloorView = () => {
                   borderRadius: '12px',
                   background: 'rgba(3, 3, 3, 0.9)',
                   backdropFilter: 'blur(10px)',
-                  border: '1px solid var(--primary)',
-                  boxShadow: '0 8px 32px rgba(56, 189, 248, 0.15)'
+                  border: '1px solid #BE9D7C',
+                  boxShadow: '0 8px 32px rgba(190, 157, 124, 0.15)'
                 }}
               >
                 <div style={{
@@ -403,7 +381,7 @@ const FloorView = () => {
                   <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, fontWeight: '700', fontSize: '1.05rem', color: 'white' }}>
                     Apartment {hoveredFlat.flatNo}
                   </h4>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: '600' }}>
+                  <span style={{ fontSize: '0.7rem', color: '#BE9D7C', fontWeight: '600' }}>
                     {floorDetail.bhk}
                   </span>
                 </div>
@@ -415,7 +393,7 @@ const FloorView = () => {
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>Orientation</span>
                     <span style={{ fontWeight: '600', color: 'white', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Compass size={12} color="var(--primary)" />
+                      <Compass size={12} color="#BE9D7C" />
                       {hoveredFlat.facing}
                     </span>
                   </div>
@@ -423,7 +401,7 @@ const FloorView = () => {
                 <div style={{
                   marginTop: '0.6rem',
                   fontSize: '0.75rem',
-                  color: 'var(--primary)',
+                  color: '#BE9D7C',
                   fontWeight: '600',
                   textAlign: 'right'
                 }}>
@@ -445,14 +423,14 @@ const FloorView = () => {
             right: '1.25rem',
             zIndex: 30,
             background: 'rgba(7, 7, 9, 0.8)',
-            border: '1px solid rgba(56, 189, 248, 0.4)',
+            border: '1px solid rgba(190, 157, 124, 0.4)',
             borderRadius: '50%',
             width: '40px',
             height: '40px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--primary)',
+            color: '#BE9D7C',
             boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
             cursor: 'pointer'
           }}
@@ -479,9 +457,9 @@ const FloorView = () => {
               height: isMobile ? '100%' : 'auto',
               display: 'flex',
               flexDirection: 'column',
-              border: isMobile ? 'none' : '1px solid rgba(56, 189, 248, 0.25)',
+              border: isMobile ? 'none' : '1px solid rgba(190, 157, 124, 0.4)',
               borderRadius: isMobile ? '0' : '16px',
-              background: isMobile ? 'rgba(0, 0, 0, 0.95)' : 'rgba(13, 13, 15, 0.78)',
+              background: isMobile ? 'rgba(13, 13, 15, 0.97)' : 'rgba(13, 13, 15, 0.97)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               overflow: 'hidden',
@@ -499,7 +477,7 @@ const FloorView = () => {
               flexShrink: 0
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px',  }}>
-                <Layers size={16} color="var(--primary)" />
+                <Layers size={16} color="#BE9D7C" />
                 <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: isMobile ? '0.9rem' : '1rem', fontWeight: '600', color: 'white' }}>
                   Jump to Floor
                 </h3>
@@ -533,7 +511,7 @@ const FloorView = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: isMobile ? '0.65rem' : '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-secondary)' }}>Floor overview</span>
-                <span style={{ fontSize: isMobile ? '0.7rem' : '0.75rem', fontWeight: '700', color: 'var(--primary)' }}>Floor {floor}</span>
+                <span style={{ fontSize: isMobile ? '0.7rem' : '0.75rem', fontWeight: '700', color: '#BE9D7C' }}>Floor {floor}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
                 <span>Tower</span>
@@ -587,8 +565,8 @@ const FloorView = () => {
                     style={{
                       padding: '0.5rem 0',
                       borderRadius: '6px',
-                      border: isCurrent ? '1px solid var(--primary)' : '1px solid rgba(255,255,255,0.05)',
-                      background: isCurrent ? 'rgba(56, 189, 248, 0.12)' : 'rgba(255,255,255,0.02)',
+                      border: isCurrent ? '#BE9D7C' : '1px solid rgba(255,255,255,0.05)',
+                      background: isCurrent ? '#BE9D7C' : 'rgba(255,255,255,0.02)',
                       color: isCurrent ? 'white' : 'var(--text-secondary)',
                       fontSize: '0.75rem',
                       fontWeight: '600',
@@ -597,8 +575,8 @@ const FloorView = () => {
                     }}
                     onMouseOver={e => {
                       if (!isCurrent) {
-                        e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-                        e.currentTarget.style.color = 'var(--primary)';
+                        e.currentTarget.style.borderColor = '#BE9D7C';
+                        e.currentTarget.style.color = '#BE9D7C';
                       }
                     }}
                     onMouseOut={e => {
@@ -629,11 +607,11 @@ const FloorView = () => {
         gap: '1rem',
         padding: '0.6rem 1.25rem',
         borderRadius: '24px',
-        background: 'rgba(7, 7, 9, 0.75)',
+        background: 'rgba(1, 1, 5, 0.87)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(56, 189, 248, 0.3)',
-        boxShadow: '0 8px 32px rgba(56, 189, 248, 0.15)',
+        border: '1px solid rgba(190, 157, 124, 0.3)',
+        boxShadow: '0 8px 32px rgba(190, 157, 124, 0.15)',
       }}>
         <button 
           disabled={floor <= 1}
@@ -651,7 +629,7 @@ const FloorView = () => {
             cursor: floor <= 1 ? 'not-allowed' : 'pointer',
             transition: 'all 0.2s'
           }}
-          onMouseOver={e => { if (floor > 1) e.currentTarget.style.borderColor = 'var(--primary)'; }}
+          onMouseOver={e => { if (floor > 1) e.currentTarget.style.borderColor = '#BE9D7C'; }}
           onMouseOut={e => { if (floor > 1) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
         >
           <ChevronLeft size={16} />
@@ -677,7 +655,7 @@ const FloorView = () => {
             cursor: floor >= 50 ? 'not-allowed' : 'pointer',
             transition: 'all 0.2s'
           }}
-          onMouseOver={e => { if (floor < 50) e.currentTarget.style.borderColor = 'var(--primary)'; }}
+          onMouseOver={e => { if (floor < 50) e.currentTarget.style.borderColor = '#BE9D7C'; }}
           onMouseOut={e => { if (floor < 50) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
         >
           <ChevronRight size={16} />
@@ -688,3 +666,4 @@ const FloorView = () => {
 };
 
 export default FloorView;
+
