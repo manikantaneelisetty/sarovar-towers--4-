@@ -81,7 +81,7 @@ const LocationMap = () => {
           display: 'flex',
           flexDirection: 'column',
           border: '1px solid rgba(56, 189, 248, 0.25)',
-          borderRadius: '20px',
+          borderRadius: '5px',
           background: 'rgba(7, 7, 9, 0.7)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
@@ -103,11 +103,11 @@ const LocationMap = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' }}>
               <h3 style={{ 
                 margin: '0', 
-                fontFamily: 'var(--font-display)', 
-                fontSize: '1.15rem', 
-                fontWeight: '700',
+                fontFamily: 'var(--font-olivera)', 
+                fontSize: '1.25rem', 
+                fontWeight: '500',
                 color: 'white',
-                letterSpacing: '-0.2px'
+                letterSpacing: '1px'
               }}>
                 Neighborhood Directory
               </h3>
@@ -119,7 +119,7 @@ const LocationMap = () => {
                   color: 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontSize: '0.8rem',
-                  fontWeight: '600',
+                  fontWeight: '500',
                   padding: '2px',
                   display: 'flex',
                   alignItems: 'center',
@@ -153,11 +153,11 @@ const LocationMap = () => {
                           color: isActive ? '#000' : 'var(--text-secondary)',
                           padding: '0.45rem 0.95rem',
                           borderRadius: '20px',
-                          fontSize: '0.75rem',
-                          fontWeight: '600',
+                          fontSize: '0.85rem',
+                          fontWeight: '500',
                           cursor: 'pointer',
                           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                          fontFamily: 'var(--font-display)'
+                          letterSpacing: '1px'
                         }}
                         onMouseOver={e => {
                           if (!isActive) e.currentTarget.style.borderColor = 'var(--primary)';
@@ -186,7 +186,7 @@ const LocationMap = () => {
               gap: '6px'
             }}>
               <MapPin size={32} color="var(--primary)" />
-              <div style={{ fontSize: '1rem', fontWeight: '700', color: 'white' }}>
+              <div style={{ fontSize: '1rem', fontWeight: '500', letterSpacing: '0.5px', color: 'white' }}>
                 Neighborhood Directory
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -221,7 +221,7 @@ const LocationMap = () => {
                         padding: '0.75rem 0.85rem',
                         background: 'rgba(255, 255, 255, 0.02)',
                         border: '1px solid rgba(255, 255, 255, 0.04)',
-                        borderRadius: '12px',
+                        borderRadius: '5px',
                         transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                       }}
                       onMouseEnter={e => {
@@ -237,7 +237,7 @@ const LocationMap = () => {
                         <div style={{
                           background: 'rgba(56, 189, 248, 0.12)',
                           border: '1px solid rgba(56, 189, 248, 0.25)',
-                          borderRadius: '8px',
+                          borderRadius: '5px',
                           width: '32px',
                           height: '32px',
                           display: 'flex',
@@ -247,14 +247,14 @@ const LocationMap = () => {
                           <IconComponent size={14} color="var(--primary)" />
                         </div>
                         <div>
-                          <div style={{ fontSize: '0.85rem', fontWeight: '600', color: 'white' }}>
+                          <div style={{ fontSize: '0.85rem', fontWeight: '500', color: 'white' }}>
                             {place.name}
                           </div>
                           <span style={{
                             fontSize: '0.65rem',
                             color: 'var(--text-muted)',
                             textTransform: 'uppercase',
-                            fontWeight: '600',
+                            fontWeight: '500',
                             letterSpacing: '0.5px'
                           }}>
                             {place.category}

@@ -48,7 +48,10 @@ const FlatDetails = () => {
   const size = `${sqftMap[tower]} Sq.ft`;
   const bhkInfo = bhkMap[tower];
 
-  const flatImage = `/images/t${tower}-flats/1${flatSuffix}.png`;
+  let flatImage = `/images/t${tower}-flats/1${flatSuffix}.png`;
+  if (flat === '101') {
+    flatImage = '/images/f/isometric_Final_02.png';
+  }
   const floorPlan2DImage = `/images/2d/1${flatSuffix}.jpg`;
 
   const changeFlat = (step) => {
@@ -108,7 +111,7 @@ const FlatDetails = () => {
         minHeight: '100vh',
         height: 'calc(100vh - 80px)',
         overflow: 'hidden',
-        background: '#09090b',
+        background: '#FBF8F3',
         color: 'white',
         paddingLeft: '4%',
         paddingRight: '4%',
@@ -117,22 +120,33 @@ const FlatDetails = () => {
       }}
     >
       {/* Back button */}
-      <div style={{ marginBottom: '1.5rem' }}>
+      <div style={{ marginBottom: '1.5rem', marginTop: isMobile ? '1.25rem' : '3.5rem' }}>
         <Link to={`/floor/${tower}/${floor}`} style={{
-          color: 'var(--text-secondary)',
+          color: '#FFFFFF',
           textDecoration: 'none',
           display: 'inline-flex',
           alignItems: 'center',
           gap: '8px',
-          fontSize: '0.9rem',
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          padding: '0.5rem 1.2rem',
-          borderRadius: '20px',
-          transition: 'all 0.2s'
+          fontSize: '0.95rem',
+          background: '#000000',
+          border: '1px solid #333333',
+          padding: '0.55rem 1rem',
+          borderRadius: '24px',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          fontWeight: '600'
         }}
-        onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-        onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
+        onMouseOver={e => {
+          e.currentTarget.style.background = '#BE9D7C';
+          e.currentTarget.style.borderColor = '#BE9D7C';
+          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
+        onMouseOut={e => {
+          e.currentTarget.style.background = '#000000';
+          e.currentTarget.style.borderColor = '#333333';
+          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
         >
           <ArrowLeft size={16} />
           Back to Floor Layout
@@ -145,7 +159,8 @@ const FlatDetails = () => {
         gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1.15fr) minmax(320px, 0.85fr)',
         gap: isMobile ? '1.5rem' : '2rem',
         alignItems: 'stretch',
-        height: '100%',
+        height: 'calc(100% - 3.5rem)',
+        maxHeight: 'calc(100vh - 240px)',
         minHeight: 0
       }}
       className="flat-details-grid"
@@ -154,22 +169,19 @@ const FlatDetails = () => {
         <div style={{ position: 'relative', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
           <div
             className="flat-details-image-panel"
-            onMouseEnter={() => setIsImageHovered(true)}
-            onMouseLeave={() => setIsImageHovered(false)}
             style={{
               position: 'relative',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
-              background: 'radial-gradient(circle at center, #1b1924 0%, #0c0b11 100%)',
+              borderRadius: '5px',
+              border: '1px solid rgba(0, 0, 0, 0.05)',
+              background: '#FBF8F3',
               width: '100%',
-              height: isMobile ? 'auto' : 'min(68vh, 560px)',
-              minHeight: isMobile ? '320px' : '420px',
+              height: isMobile ? 'auto' : '100%',
+              minHeight: isMobile ? '320px' : '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: '1rem',
-              boxShadow: 'var(--shadow-lg)'
+              boxShadow: 'none'
             }}
           >
             <AnimatePresence mode="wait">
@@ -184,40 +196,13 @@ const FlatDetails = () => {
                 style={{
                   width: '100%',
                   height: '100%',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
+                  maxWidth: '85%',
+                  maxHeight: '85%',
                   objectFit: 'contain',
                   objectPosition: 'center'
                 }}
               />
             </AnimatePresence>
-
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 400 240"
-              preserveAspectRatio="none"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                pointerEvents: 'none',
-                opacity: isImageHovered ? 1 : 0,
-                transition: 'opacity 0.25s ease',
-                zIndex: 2
-              }}
-            >
-              <path
-                d="M12 12 H388 V228 H12 Z"
-                fill="none"
-                stroke="rgba(56, 189, 248, 0.9)"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
 
             {/* Float details indicator */}
             <div style={{
@@ -227,84 +212,96 @@ const FlatDetails = () => {
               background: 'rgba(9, 9, 11, 0.75)',
               backdropFilter: 'blur(8px)',
               border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '8px',
+              borderRadius: '5px',
               padding: '0.5rem 1rem',
               fontSize: '0.8rem',
               color: 'var(--text-secondary)'
             }}>
               3D Floor Rendering Plan
             </div>
+
+            {/* Left Arrow */}
+            <button
+              onClick={() => changeFlat(-1)}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '-20px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(15, 15, 18, 0.9)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'white',
+                cursor: 'pointer',
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: 'var(--shadow-md)',
+                transition: 'all 0.2s',
+                zIndex: 10
+              }}
+              onMouseOver={e => e.currentTarget.style.borderColor = '#BE9D7C'}
+              onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={() => changeFlat(1)}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '-20px',
+                transform: 'translateY(-50%)',
+                background: 'rgba(15, 15, 18, 0.9)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'white',
+                cursor: 'pointer',
+                width: '45px',
+                height: '45px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: 'var(--shadow-md)',
+                transition: 'all 0.2s',
+                zIndex: 10
+              }}
+              onMouseOver={e => e.currentTarget.style.borderColor = '#BE9D7C'}
+              onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+            >
+              <ChevronRight size={24} />
+            </button>
+
           </div>
-
-          {/* Left Arrow */}
-          <button
-            onClick={() => changeFlat(-1)}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '-20px',
-              transform: 'translateY(-50%)',
-              background: 'rgba(15, 15, 18, 0.9)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: 'white',
-              cursor: 'pointer',
-              width: '45px',
-              height: '45px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: 'var(--shadow-md)',
-              transition: 'all 0.2s'
-            }}
-            onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-            onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          {/* Right Arrow */}
-          <button
-            onClick={() => changeFlat(1)}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: '-20px',
-              transform: 'translateY(-50%)',
-              background: 'rgba(15, 15, 18, 0.9)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: 'white',
-              cursor: 'pointer',
-              width: '45px',
-              height: '45px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: 'var(--shadow-md)',
-              transition: 'all 0.2s'
-            }}
-            onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-            onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
-          >
-            <ChevronRight size={24} />
-          </button>
         </div>
 
         {/* Right Side: Flat Specifications & Info */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0, height: '100%', maxHeight: 'calc(100vh - 170px)' }}>
-          <div className="glass-panel" style={{ padding: '1.4rem', background: 'rgba(22, 22, 28, 0.6)', minHeight: 0, height: '100%', maxHeight: 'calc(100vh - 170px)', overflowY: 'auto', overflowX: 'hidden', boxShadow: 'var(--shadow-md)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0, height: '100%' }}>
+          <div className="glass-panel" style={{ 
+            padding: '1.4rem', 
+            background: 'rgba(4, 4, 4, 0.85)', 
+            border: '1px solid rgba(190, 157, 124, 0.35)',
+            minHeight: 0, 
+            height: '100%', 
+            overflowY: 'auto', 
+            overflowX: 'hidden', 
+            boxShadow: 'var(--shadow-md)' 
+          }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
               <span>{block} Block</span>
               <span>Floor {floor}</span>
             </div>
 
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', fontWeight: '700', margin: '0 0 0.5rem 0', color: 'white' }}>
+            <h2 style={{ fontFamily: 'var(--font-olivera)', fontSize: '2.2rem', fontWeight: '600', margin: '0 0 0.5rem 0', color: 'white' }}>
               Flat {flat}
             </h2>
 
             <p style={{
-              color: 'var(--primary)',
+              color: '#BE9D7C',
               fontSize: '1rem',
               fontWeight: '600',
               margin: '0 0 1.5rem 0',
@@ -313,9 +310,9 @@ const FlatDetails = () => {
               alignItems: 'center'
             }}>
               <span>{bhkInfo}</span>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--primary)' }}></span>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#BE9D7C' }}></span>
               <span>{size}</span>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--primary)' }}></span>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#BE9D7C' }}></span>
               <span>{facing}</span>
             </p>
 
@@ -342,7 +339,7 @@ const FlatDetails = () => {
                     borderBottom: '1px solid rgba(255,255,255,0.08)',
                     fontSize: '1.05rem',
                   }}>
-                    <span style={{ color: 'var(--text-secondary)', fontWeight: '500' }}>{spec[0]}</span>
+                    <span style={{ color: 'white', fontWeight: '500' }}>{spec[0]}</span>
                     <span style={{ fontWeight: '700', color: 'white' }}>{spec[1]}</span>
                   </div>
                 ))}
@@ -359,10 +356,10 @@ const FlatDetails = () => {
                 onClick={handleAddToCompare}
                 style={{
                   padding: '0.8rem',
-                  borderRadius: '8px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  color: 'white',
+                  borderRadius: '24px',
+                  background: '#000000',
+                  border: '1px solid #333333',
+                  color: '#FFFFFF',
                   cursor: 'pointer',
                   fontWeight: '600',
                   fontSize: '0.85rem',
@@ -370,10 +367,18 @@ const FlatDetails = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '6px',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
-                onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
-                onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = '#BE9D7C';
+                  e.currentTarget.style.borderColor = '#BE9D7C';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = '#000000';
+                  e.currentTarget.style.borderColor = '#333333';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
               >
                 <Plus size={16} />
                 Add to Compare
@@ -384,10 +389,10 @@ const FlatDetails = () => {
                 onClick={() => setIsCompareOpen(true)}
                 style={{
                   padding: '0.8rem',
-                  borderRadius: '8px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  color: compareList.length < 2 ? 'var(--text-muted)' : 'white',
+                  borderRadius: '24px',
+                  background: '#000000',
+                  border: '1px solid #333333',
+                  color: compareList.length < 2 ? 'var(--text-muted)' : '#FFFFFF',
                   cursor: compareList.length < 2 ? 'not-allowed' : 'pointer',
                   fontWeight: '600',
                   fontSize: '0.85rem',
@@ -395,13 +400,21 @@ const FlatDetails = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '6px',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 onMouseOver={e => {
-                  if (compareList.length >= 2) e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+                  if (compareList.length >= 2) {
+                    e.currentTarget.style.background = '#BE9D7C';
+                    e.currentTarget.style.borderColor = '#BE9D7C';
+                    e.currentTarget.style.color = '#FFFFFF';
+                  }
                 }}
                 onMouseOut={e => {
-                  if (compareList.length >= 2) e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                  if (compareList.length >= 2) {
+                    e.currentTarget.style.background = '#000000';
+                    e.currentTarget.style.borderColor = '#333333';
+                    e.currentTarget.style.color = '#FFFFFF';
+                  }
                 }}
               >
                 Compare ({compareList.length})
@@ -411,10 +424,10 @@ const FlatDetails = () => {
                 onClick={() => setIs2DOpen(true)}
                 style={{
                   padding: '0.8rem',
-                  borderRadius: '8px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  color: 'white',
+                  borderRadius: '24px',
+                  background: '#000000',
+                  border: '1px solid #333333',
+                  color: '#FFFFFF',
                   cursor: 'pointer',
                   fontWeight: '600',
                   fontSize: '0.85rem',
@@ -422,27 +435,51 @@ const FlatDetails = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '6px',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   gridColumn: 'span 2'
                 }}
-                onMouseOver={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
-                onMouseOut={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = '#BE9D7C';
+                  e.currentTarget.style.borderColor = '#BE9D7C';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = '#000000';
+                  e.currentTarget.style.borderColor = '#333333';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
               >
-                <Eye size={16} color="var(--primary)" />
+                <Eye size={16} />
                 View 2D Layout Plan
               </button>
 
               <button 
                 onClick={() => setIsRequestOpen(true)}
-                className="btn btn-primary"
                 style={{
                   padding: '0.8rem',
+                  borderRadius: '24px',
+                  background: '#000000',
+                  border: '1px solid #333333',
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  fontWeight: '600',
                   fontSize: '0.85rem',
-                  gridColumn: 'span 2',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px'
+                  gap: '6px',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  gridColumn: 'span 2'
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = '#BE9D7C';
+                  e.currentTarget.style.borderColor = '#BE9D7C';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = '#000000';
+                  e.currentTarget.style.borderColor = '#333333';
+                  e.currentTarget.style.color = '#FFFFFF';
                 }}
               >
                 <DollarSign size={16} />
@@ -481,11 +518,11 @@ const FlatDetails = () => {
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               style={{
-                width: '90%',
-                maxWidth: '900px',
-                background: 'rgba(22, 22, 28, 0.95)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '16px',
+                width: '95%',
+                maxWidth: '1200px',
+                background: 'rgba(4, 4, 4, 0.95)',
+                border: '1px solid rgba(190, 157, 124, 0.35)',
+                borderRadius: '5px',
                 padding: '1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -517,23 +554,24 @@ const FlatDetails = () => {
               </div>
               
               <div style={{
-                maxHeight: '70vh',
+                maxHeight: '85vh',
                 overflow: 'hidden',
-                borderRadius: '8px',
+                borderRadius: '5px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 background: 'white'
               }}>
-                <img 
-                  src={floorPlan2DImage} 
-                  alt="2D Floor plan" 
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '65vh',
-                    objectFit: 'contain'
-                  }}
-                />
+                  <img 
+                    src={floorPlan2DImage} 
+                    alt="2D Floor plan" 
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '80vh',
+                      objectFit: 'contain',
+                      marginTop: '2rem'
+                    }}
+                  />
               </div>
             </motion.div>
           </motion.div>
@@ -572,7 +610,7 @@ const FlatDetails = () => {
                 overflowY: 'auto',
                 background: 'rgba(22, 22, 28, 0.95)',
                 border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: '16px',
+                borderRadius: '5px',
                 padding: '1.5rem',
                 boxShadow: 'var(--shadow-lg)'
               }}
@@ -692,23 +730,40 @@ const FlatDetails = () => {
                       onClick={() => setIsRequestOpen(false)}
                       style={{
                         padding: '0.75rem 1.25rem',
-                        borderRadius: '8px',
+                        borderRadius: '24px',
                         border: '1px solid rgba(255,255,255,0.08)',
                         background: 'none',
                         color: 'var(--text-secondary)',
                         fontWeight: '600',
                         fontSize: '0.85rem',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        transition: 'all 0.3s'
                       }}
+                      onMouseOver={e => e.currentTarget.style.color = '#FFFFFF'}
+                      onMouseOut={e => e.currentTarget.style.color = 'var(--text-secondary)'}
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="btn btn-primary"
                       style={{
                         padding: '0.75rem 1.5rem',
-                        fontSize: '0.85rem'
+                        fontSize: '0.85rem',
+                        borderRadius: '24px',
+                        background: '#BE9D7C',
+                        border: '1px solid #BE9D7C',
+                        color: '#000000',
+                        fontWeight: '700',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                      }}
+                      onMouseOver={e => {
+                        e.currentTarget.style.background = '#000000';
+                        e.currentTarget.style.color = '#FFFFFF';
+                      }}
+                      onMouseOut={e => {
+                        e.currentTarget.style.background = '#BE9D7C';
+                        e.currentTarget.style.color = '#000000';
                       }}
                     >
                       Request Quote

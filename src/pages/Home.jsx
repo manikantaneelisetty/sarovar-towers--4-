@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, Layers, Compass, Home as HomeIcon, Map } from 'lucide-react';
+import { Building2, Layers, Compass, Home as HomeIcon, Map, MousePointerClick } from 'lucide-react';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -213,7 +213,7 @@ const Home = () => {
                 zIndex: 50,
                 width: '260px',
                 padding: '1.25rem',
-                borderRadius: '16px',
+                borderRadius: '5px',
                 background: 'rgba(7, 7, 9, 0.85)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
@@ -237,7 +237,7 @@ const Home = () => {
                 <span style={{
                   fontSize: '0.7rem',
                   padding: '2px 8px',
-                  borderRadius: '12px',
+                  borderRadius: '5px',
                   background: `rgba(56, 189, 248, 0.12)`,
                   color: 'var(--primary)',
                   border: `1px solid rgba(56, 189, 248, 0.25)`
@@ -282,6 +282,40 @@ const Home = () => {
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+
+      {/* Instructions Overlay */}
+      <div style={{
+        position: 'absolute',
+        bottom: '2rem',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 40,
+         background: 'rgb(2, 2, 2)',
+        backdropFilter: 'blur(8px)',
+         border: '1px solid rgba(5, 4, 4, 0)',
+        padding: '0.5rem 1rem',
+                 opacity: 0.70,
+        borderRadius: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        color: 'white',
+        boxShadow: 'var(--shadow-md)',
+        pointerEvents: 'none'
+      }}>
+        <MousePointerClick size={15} color="white" />
+         <span style={{ 
+          textcolor:"white",
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.8rem', 
+          fontWeight: '400', 
+         
+          letterSpacing: '0.3px',
+          
+        }}>
+          Click on a tower of your interest
+        </span>
       </div>
 
       {/* Project Overview Card (Bottom Right Floating) */}
@@ -383,8 +417,10 @@ const Home = () => {
 
       <div
         style={{
-          fontSize: "1rem",
-          fontWeight: "700",
+          fontFamily: "var(--font-olivera)",
+          fontSize: "1.1rem",
+          fontWeight: "400",
+          letterSpacing: "0.04em",
           color: "white",
         }}
       >
@@ -417,12 +453,12 @@ const Home = () => {
     >
       <h2
         style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "1.5rem",
-          fontWeight: "700",
+          fontFamily: "var(--font-olivera)",
+          fontSize: "1.6rem",
+          fontWeight: "400",
           color: "white",
           marginBottom: "0.25rem",
-          letterSpacing: "-0.3px",
+          letterSpacing: "0.04em",
         }}
       >
         Sarovar Towers
@@ -479,14 +515,14 @@ const Home = () => {
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(255,255,255,0.05)",
               padding: "0.6rem 0.75rem",
-              borderRadius: "12px",
+              borderRadius: '5px',
             }}
           >
             <div
               style={{
                 background: "rgba(56,189,248,0.1)",
                 border: "1px solid rgba(56,189,248,0.15)",
-                borderRadius: "8px",
+                borderRadius: '5px',
                 width: "32px",
                 height: "32px",
                 display: "flex",

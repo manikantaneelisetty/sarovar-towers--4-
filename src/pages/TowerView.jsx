@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Layers, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Layers, ChevronLeft, ChevronRight, MousePointerClick } from 'lucide-react';
 import { tower1Data, tower2Data, tower3Data } from '../services/towerData';
 import { getBlockName } from '../services/flatData';
 
@@ -92,34 +92,51 @@ const TowerView = () => {
       }}
     >
       {/* Floating Header Controls */}
-        <div style={{
-          position: 'absolute',
-          top: isMobile ? '1.25rem' : '5rem',
-          left: '2rem',
+      <div style={{
+        position: 'absolute',
+        top: isMobile ? '1.25rem' : '4rem',
+        marginTop: '3rem',
+        left: '1.25rem',
+        right: '1.25rem',
         zIndex: 20,
         display: 'flex',
         alignItems: 'center',
-        padding: isMobile ? '0.55rem 0.7rem' : '0.6rem 0.85rem',
-        borderRadius: '999px',
-        background: 'rgba(0, 0, 0, 0.68)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
-        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.35)'
+        padding: '0.75rem 0',
+        pointerEvents: 'none'
       }}>
-        <Link to="/" style={{
-          color: 'white',
-          textDecoration: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          fontSize: isMobile ? '0.78rem' : '0.85rem',
-          fontWeight: '600',
-          whiteSpace: 'nowrap'
-        }}>
-          <ArrowLeft size={isMobile ? 14 : 15} />
-          <span>{isMobile ? 'Back' : 'Back'}</span>
-        </Link>
+        <div style={{ position: 'absolute', left: '1.5rem', pointerEvents: 'auto' }}>
+          <Link to="/" style={{
+            color: '#FFFFFF',
+            textDecoration: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '0.95rem',
+            background: '#000000',
+            border: '1px solid #333333',
+            padding: '0.55rem 1rem',
+            borderRadius: '24px',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            fontWeight: '600',
+            flexShrink: 0
+          }}
+          onMouseOver={e => {
+            e.currentTarget.style.background = '#BE9D7C';
+            e.currentTarget.style.borderColor = '#BE9D7C';
+            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.color = '#FFFFFF';
+          }}
+          onMouseOut={e => {
+            e.currentTarget.style.background = '#000000';
+            e.currentTarget.style.borderColor = '#333333';
+            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.color = '#FFFFFF';
+          }}
+          >
+            <ArrowLeft size={16} />
+            <span>Back</span>
+          </Link>
+        </div>
       </div>
 
       {/* Main Interactive Visual Frame (Edge-to-edge) */}
@@ -217,7 +234,7 @@ const TowerView = () => {
                     zIndex: 40,
                     width: '220px',
                     padding: '0.9rem',
-                    borderRadius: '16px',
+                    borderRadius: '5px',
                     background: 'rgba(7, 7, 9, 0.85)',
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
@@ -321,7 +338,7 @@ const TowerView = () => {
               display: 'flex',
               flexDirection: 'column',
               border: isMobile ? 'none' : '1px solid rgba(56, 189, 248, 0.25)',
-              borderRadius: isMobile ? '0' : '16px',
+              borderRadius: isMobile ? '0' : '5px',
               background: isMobile ? 'rgba(7, 7, 9, 0.95)' : 'rgba(8, 8, 12, 0.73)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
@@ -341,7 +358,7 @@ const TowerView = () => {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Layers size={16} color="var(--primary)" />
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: '600', color: 'white' }}>
+                <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: '1.25rem', fontWeight: '600', color: 'white' }}>
                   Floors Directory ({filteredFloors.length})
                 </h3>
               </div>
@@ -398,7 +415,7 @@ const TowerView = () => {
                       fontSize: '0.7rem',
                       color: 'var(--text-secondary)',
                       padding: '2px 8px',
-                      borderRadius: '12px',
+                      borderRadius: '5px',
                       background: 'rgba(255,255,255,0.05)'
                     }}>
                       {item.type}
@@ -407,7 +424,7 @@ const TowerView = () => {
                       fontSize: '0.7rem',
                       color: 'var(--primary)',
                       padding: '2px 8px',
-                      borderRadius: '12px',
+                      borderRadius: '5px',
                       background: 'rgba(56, 189, 248, 0.08)',
                       fontWeight: '600'
                     }}>
@@ -426,6 +443,39 @@ const TowerView = () => {
         )}
       </AnimatePresence>
 
+      {/* Instructions Overlay */}
+      <div style={{
+        position: 'absolute',
+        bottom: isMobile ? '6rem' : '2%',
+        left: isMobile ? '1.25rem' : '10rem',
+        zIndex: 40,
+        background: 'rgb(2, 2, 2)',
+         opacity: 0.70,
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(5, 4, 4, 0)',
+        padding: '0.5rem 1rem',
+        borderRadius: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        color: 'white',
+        boxShadow: 'var(--shadow-md)',
+        pointerEvents: 'none'
+      }}>
+        <MousePointerClick size={15} color="white"  />
+         <span style={{ 
+          textcolor:"white",
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.8rem', 
+          fontWeight: '400', 
+          // textShadow: '0 0 4px rgba(236, 195, 31, 0.4)',
+          letterSpacing: '0.3px',
+          // opacity: 0.80
+        }}>
+          Click on a floor of your interest
+        </span>
+      </div>
+
       {/* Floating Tower Switcher Slider */}
             <div style={{
               position: 'absolute',
@@ -439,7 +489,7 @@ const TowerView = () => {
         alignItems: 'center',
         gap: isMobile ? '0.5rem' : '1.5rem',
         padding: '0.6rem 1.25rem',
-        borderRadius: '24px',
+        borderRadius: '5px',
         background: 'rgba(7, 7, 9, 0.75)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',

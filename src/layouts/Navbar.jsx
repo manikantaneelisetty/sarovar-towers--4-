@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useCompare } from '../context/CompareContext';
 import { Menu, X, ArrowLeftRight } from 'lucide-react';
 
@@ -7,6 +7,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { compareList, setIsCompareOpen } = useCompare();
+  const location = useLocation();
+  const isFloorView = location.pathname.startsWith('/floor/') || location.pathname.startsWith('/flat/') || location.pathname.startsWith('/tower/');
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -27,11 +29,11 @@ const Navbar = () => {
     <header className={`topbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         <Link to="/" className="logo-area" onClick={closeMenu}>
-          <img src="/Ap-logo.png" alt="Aparna Logo" className="logo" />
+          <img src="/Aparna Sarover.png" alt="Aparna Logo" className="logo" />
         </Link>
 
         {/* Desktop Navbar */}
-        <nav className={`navbar ${isOpen ? 'active' : ''}`}>
+        <nav className={`navbar ${isOpen ? 'active' : ''} ${isFloorView ? 'floor-view-nav' : ''}`}>
           <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} onClick={closeMenu}>
             Home
           </NavLink>
@@ -89,7 +91,7 @@ const Navbar = () => {
 
         {/* Mobile menu toggle */}
         <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
-          {isOpen ? <X size={24} color="white" /> : <Menu size={24} color="white" />}
+          {isOpen ? <X size={24} color={isFloorView ? "black" : "white"} /> : <Menu size={24} color={isFloorView ? "black" : "white"} />}
         </button>
       </div>
     </header>

@@ -35,7 +35,7 @@ const FlatCompareModal = () => {
           maxWidth: '1600px',
           background: '#ffffff',
           border: '1px solid rgba(0, 0, 0, 0.1)',
-          borderRadius: '24px',
+          borderRadius: '5px',
           padding: '2.5rem',
           maxHeight: '90vh',
           display: 'flex',
@@ -49,13 +49,14 @@ const FlatCompareModal = () => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-          paddingBottom: '1rem',
-          marginBottom: '2rem'
+          background: '#BE9D7C',
+          padding: '0.75rem 1.5rem',
+          borderRadius: '5px',
+          marginBottom: '1.5rem'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <ArrowLeftRight size={24} color="var(--primary)" />
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: '700', margin: 0, color: 'black' }}>
+            <ArrowLeftRight size={22} color="black" />
+            <h2 style={{ fontFamily: 'var(--font-olivera)', fontSize: '1.4rem', fontWeight: '600', margin: 0, color: 'black' }}>
               Compare Apartments
             </h2>
           </div>
@@ -65,14 +66,14 @@ const FlatCompareModal = () => {
               style={{
                 background: 'none',
                 border: 'none',
-                color: '#555555',
+                color: '#0a0a0a',
                 cursor: 'pointer',
-                fontSize: '0.95rem',
+                fontSize: '0.9rem',
                 fontWeight: '600',
                 transition: 'color 0.2s'
               }}
-              onMouseOver={e => e.currentTarget.style.color = '#ff4d4d'}
-              onMouseOut={e => e.currentTarget.style.color = '#555555'}
+              onMouseOver={e => e.currentTarget.style.color = 'black'}
+              onMouseOut={e => e.currentTarget.style.color = '#333'}
             >
               Clear All
             </button>
@@ -83,10 +84,13 @@ const FlatCompareModal = () => {
                 border: 'none',
                 color: 'black',
                 cursor: 'pointer',
-                fontSize: '1.25rem'
+                fontSize: '1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
-              <X size={24} />
+              <X size={22} />
             </button>
           </div>
         </div>
@@ -109,7 +113,7 @@ const FlatCompareModal = () => {
                 style={{
                   // background: '#f5f5dc',
                   border: '1px solid rgba(0, 0, 0, 0.1)',
-                  borderRadius: '16px',
+                  borderRadius: '5px',
                   padding: '2rem',
                   display: 'flex',
                   flexDirection: 'column',
@@ -146,8 +150,8 @@ const FlatCompareModal = () => {
                 {/* Flat Layout Image */}
                 <div style={{
                   background: 'white',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                  borderRadius: '5px',
+                  border: 'none',
                   padding: '1.5rem',
                   display: 'flex',
                   alignItems: 'center',
@@ -167,7 +171,7 @@ const FlatCompareModal = () => {
 
                 {/* Information */}
                 <div>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: '700', margin: '0 0 0.25rem 0', color: 'black' }}>
+                  <h3 style={{ fontFamily: 'var(--font-olivera)', fontSize: '1.9rem', fontWeight: '600', margin: '0 0 0.25rem 0', color: 'black' }}>
                     Flat {flat.flat}
                   </h3>
                   <span style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '600', display: 'block', marginBottom: '0.75rem' }}>

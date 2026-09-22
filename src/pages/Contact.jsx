@@ -136,7 +136,7 @@ const Contact = () => {
               style={{
                 flex: 1,
                 padding: '0.8rem',
-                borderRadius: '8px',
+                borderRadius: '5px',
                 background: '#25D366',
                 color: 'black',
                 fontWeight: '700',
@@ -160,7 +160,7 @@ const Contact = () => {
               style={{
                 flex: 1,
                 padding: '0.8rem',
-                borderRadius: '8px',
+                borderRadius: '5px',
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 color: 'white',
@@ -260,7 +260,7 @@ const Contact = () => {
                     style={{
                       background: 'rgba(0,0,0,0.2)',
                       border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: '8px',
+                      borderRadius: '5px',
                       padding: '0.8rem',
                       color: 'white',
                       fontSize: '0.9rem',
@@ -303,7 +303,7 @@ const Contact = () => {
                   style={{
                     background: 'rgba(0,0,0,0.2)',
                     border: '1px solid rgba(255,255,255,0.08)',
-                    borderRadius: '8px',
+                    borderRadius: '5px',
                     padding: '0.8rem',
                     color: 'white',
                     fontSize: '0.9rem',

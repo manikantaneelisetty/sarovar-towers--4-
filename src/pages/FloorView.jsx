@@ -140,18 +140,18 @@ const FloorView = () => {
         padding: '0.75rem 0',
         pointerEvents: 'none'
       }}>
-        <div style={{ position: 'absolute', left: 0, pointerEvents: 'auto' }}>
+        <div style={{ position: 'absolute', left: '1.5rem', pointerEvents: 'auto' }}>
           <Link to={`/tower/${tower}`} style={{
             color: '#FFFFFF',
             textDecoration: 'none',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
-            fontSize: '0.8rem',
+            gap: '8px',
+            fontSize: '0.95rem',
             background: '#000000',
             border: '1px solid #333333',
-            padding: '0.4rem 0.8rem',
-            borderRadius: '20px',
+            padding: '0.55rem 1rem',
+            borderRadius: '24px',
             transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
             fontWeight: '600',
             flexShrink: 0
@@ -169,22 +169,22 @@ const FloorView = () => {
             e.currentTarget.style.color = '#FFFFFF';
           }}
           >
-            <ArrowLeft size={12} />
+            <ArrowLeft size={16} />
             {isMobile ? 'Back' : `Tower ${tower} View`}
           </Link>
         </div>
         
         <div style={{ pointerEvents: 'auto', textAlign: 'center' }}>
           <h1 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: isMobile ? '1.2rem' : '1.6rem',
-            fontWeight: '700',
+            fontFamily: 'var(--font-olivera)',
+            fontSize: isMobile ? '1.5rem' : '2.1rem',
+            fontWeight: '600',
             margin: 0,
-            letterSpacing: '-0.3px',
-            color: '#BE9D7C',
+            letterSpacing: '0.04em',
+            color: '#000000',
             textShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}>
-            {block} Block — Floor {floor}
+            {block} Block - Floor <span style={{ fontFamily: 'var(--font-body)', fontWeight: '400', fontSize: '0.85em' }}>{floor}</span>
           </h1>
         </div>
       </div>
@@ -216,7 +216,7 @@ const FloorView = () => {
             maxHeight: 'calc(100vh - 140px)',
             
             overflow: 'hidden',
-            borderRadius: '20px',
+            borderRadius: '5px',
             // background: '#000000',
             // boxShadow: '0 10px 35px rgba(0,0,0,0.45)'
             
@@ -300,7 +300,7 @@ const FloorView = () => {
                   zIndex: 20,
                   width: 'min(90%, 280px)',
                   padding: '1.25rem',
-                  borderRadius: '16px',
+                  borderRadius: '5px',
                   background: 'rgba(4, 4, 4, 0.85)',
                   backdropFilter: 'blur(25px)',
                   WebkitBackdropFilter: 'blur(25px)',
@@ -363,7 +363,7 @@ const FloorView = () => {
                   width: 'min(90%, 240px)',
                   maxWidth: '240px',
                   padding: '1rem',
-                  borderRadius: '12px',
+                  borderRadius: '5px',
                   background: 'rgba(3, 3, 3, 0.9)',
                   backdropFilter: 'blur(10px)',
                   border: '1px solid #BE9D7C',
@@ -458,7 +458,7 @@ const FloorView = () => {
               display: 'flex',
               flexDirection: 'column',
               border: isMobile ? 'none' : '1px solid rgba(190, 157, 124, 0.4)',
-              borderRadius: isMobile ? '0' : '16px',
+              borderRadius: isMobile ? '0' : '5px',
               background: isMobile ? 'rgba(13, 13, 15, 0.97)' : 'rgba(13, 13, 15, 0.97)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
@@ -477,8 +477,8 @@ const FloorView = () => {
               flexShrink: 0
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px',  }}>
-                <Layers size={16} color="#BE9D7C" />
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: isMobile ? '0.9rem' : '1rem', fontWeight: '600', color: 'white' }}>
+                <Layers size={18} color="#BE9D7C" />
+                <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: isMobile ? '1.05rem' : '1.25rem', fontWeight: '400', color: 'white', letterSpacing: '0.04em' }}>
                   Jump to Floor
                 </h3>
               </div>
@@ -513,31 +513,31 @@ const FloorView = () => {
                 <span style={{ fontSize: isMobile ? '0.65rem' : '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-secondary)' }}>Floor overview</span>
                 <span style={{ fontSize: isMobile ? '0.7rem' : '0.75rem', fontWeight: '700', color: '#BE9D7C' }}>Floor {floor}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Tower</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>Tower {tower}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Block</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>{block}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Apartment Type</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>{floorDetail.bhk}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Super Built-up</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>{floorDetail.area}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Selected Flat</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>{previewFlatNo}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Flat Area</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>{previewFlatArea}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
                 <span>Facing</span>
                 <span style={{ fontWeight: '600', color: 'white' }}>{previewFacing}</span>
               </div>
@@ -606,7 +606,7 @@ const FloorView = () => {
         alignItems: 'center',
         gap: '1rem',
         padding: '0.6rem 1.25rem',
-        borderRadius: '24px',
+        borderRadius: '5px',
         background: 'rgba(1, 1, 5, 0.87)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',

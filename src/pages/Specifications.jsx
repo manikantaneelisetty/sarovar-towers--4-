@@ -19,7 +19,7 @@ const SpecCard = ({ title, icon: Icon, delay, children }) => {
         backdropFilter: 'blur(20px)',
         border: '1px solid rgba(56, 189, 248, 0.15)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.5)',
-        borderRadius: '20px',
+        borderRadius: '5px',
         display: 'flex',
         flexDirection: 'column',
         gap: '1.25rem',
@@ -40,7 +40,7 @@ const SpecCard = ({ title, icon: Icon, delay, children }) => {
         <div style={{
           background: 'rgba(56, 189, 248, 0.12)',
           border: '1px solid rgba(56, 189, 248, 0.25)',
-          borderRadius: '12px',
+          borderRadius: '5px',
           width: '42px',
           height: '42px',
           display: 'flex',
