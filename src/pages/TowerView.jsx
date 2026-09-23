@@ -76,6 +76,7 @@ const TowerView = () => {
 
   return (
     <motion.div
+      className="dark-theme-override"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -121,8 +122,8 @@ const TowerView = () => {
             flexShrink: 0
           }}
           onMouseOver={e => {
-            e.currentTarget.style.background = '#BE9D7C';
-            e.currentTarget.style.borderColor = '#BE9D7C';
+            e.currentTarget.style.background = '#ecc31f';
+            e.currentTarget.style.borderColor = '#ecc31f';
             e.currentTarget.style.boxShadow = 'none';
             e.currentTarget.style.color = '#FFFFFF';
           }}
@@ -203,8 +204,8 @@ const TowerView = () => {
                     key={idx}
                     d={floorData.d}
                     fill={isHovered ? 'rgba(56, 189, 248, 0.35)' : 'transparent'}
-                    stroke={isHovered ? 'var(--primary)' : 'transparent'}
-                    strokeWidth={isHovered ? '0.35' : '0.2'}
+                    stroke={isHovered ? '#ecc31f' : 'transparent'}
+                    strokeWidth={isHovered ? '0.2' : '0.1'}
                     style={{
                       cursor: 'pointer',
                       transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',

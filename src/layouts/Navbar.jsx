@@ -9,6 +9,7 @@ const Navbar = () => {
   const { compareList, setIsCompareOpen } = useCompare();
   const location = useLocation();
   const isFloorView = location.pathname.startsWith('/floor/') || location.pathname.startsWith('/flat/') || location.pathname.startsWith('/tower/');
+  const isLightNav = location.pathname.startsWith('/floor/') || location.pathname.startsWith('/flat/');
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -33,7 +34,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navbar */}
-        <nav className={`navbar ${isOpen ? 'active' : ''} ${isFloorView ? 'floor-view-nav' : ''}`}>
+        <nav className={`navbar ${isOpen ? 'active' : ''} ${isFloorView ? 'floor-view-nav' : ''} ${isLightNav ? 'light-nav-items' : ''}`}>
           <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} onClick={closeMenu}>
             Home
           </NavLink>
@@ -58,25 +59,25 @@ const Navbar = () => {
               }}
               style={{
                 background: 'rgba(56, 189, 248, 0.15)',
-                border: '1px solid var(--primary)',
-                color: 'var(--primary)',
+                border: '1px solid #ecc31f',
+                color: '#ecc31f',
                 cursor: 'pointer',
                 borderRadius: '20px',
                 padding: '0.4rem 1rem',
                 fontSize: '0.85rem',
-                fontWeight: '600',
+                fontWeight: '500',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                fontFamily: 'var(--font-display)',
+                fontFamily: 'var(--font-cinzel)',
                 marginLeft: '10px',
                 boxShadow: '0 0 10px rgba(56, 189, 248, 0.1)'
               }}
               className="compare-badge"
               onMouseOver={e => {
                 e.currentTarget.style.background = 'rgba(56, 189, 248, 0.25)';
-                e.currentTarget.style.boxShadow = '0 0 15px rgba(56, 189, 248, 0.3)';
+                e.currentTarget.style.boxShadow = '0 0 15px rgba(236, 195, 31, 0.4)';
               }}
               onMouseOut={e => {
                 e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)';

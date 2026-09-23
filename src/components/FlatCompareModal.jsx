@@ -33,8 +33,8 @@ const FlatCompareModal = () => {
         style={{
           width: '100%',
           maxWidth: '1600px',
-          background: '#ffffff',
-          border: '1px solid rgba(0, 0, 0, 0.1)',
+          background: 'var(--bg-darker)',
+          border: '1px solid var(--border-color)',
           borderRadius: '5px',
           padding: '2.5rem',
           maxHeight: '90vh',
@@ -56,7 +56,7 @@ const FlatCompareModal = () => {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <ArrowLeftRight size={22} color="black" />
-            <h2 style={{ fontFamily: 'var(--font-olivera)', fontSize: '1.4rem', fontWeight: '600', margin: 0, color: 'black' }}>
+            <h2 style={{ fontFamily: 'var(--font-cinzel)', fontSize: '1.4rem', fontWeight: '600', margin: 0, color: 'black' }}>
               Compare Apartments
             </h2>
           </div>
@@ -111,14 +111,15 @@ const FlatCompareModal = () => {
               <div 
                 key={`${flat.tower}-${flat.flat}`}
                 style={{
-                  // background: '#f5f5dc',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                  background: '#ffffff',
+                  border: '1px solid rgba(0, 0, 0, 0.05)',
                   borderRadius: '5px',
                   padding: '2rem',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.5rem',
-                  position: 'relative'
+                  position: 'relative',
+                  boxShadow: 'var(--shadow-sm)'
                 }}
               >
                 {/* Trash/Remove Button */}
@@ -171,7 +172,7 @@ const FlatCompareModal = () => {
 
                 {/* Information */}
                 <div>
-                  <h3 style={{ fontFamily: 'var(--font-olivera)', fontSize: '1.9rem', fontWeight: '600', margin: '0 0 0.25rem 0', color: 'black' }}>
+                  <h3 style={{ fontFamily: 'var(--font-cinzel)', fontSize: '1.9rem', fontWeight: '600', margin: '0 0 0.25rem 0', color: 'black' }}>
                     Flat {flat.flat}
                   </h3>
                   <span style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '600', display: 'block', marginBottom: '0.75rem' }}>

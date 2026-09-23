@@ -136,8 +136,8 @@ const FlatDetails = () => {
           fontWeight: '600'
         }}
         onMouseOver={e => {
-          e.currentTarget.style.background = '#BE9D7C';
-          e.currentTarget.style.borderColor = '#BE9D7C';
+          e.currentTarget.style.background = '#ecc31f';
+          e.currentTarget.style.borderColor = '#ecc31f';
           e.currentTarget.style.boxShadow = 'none';
           e.currentTarget.style.color = '#FFFFFF';
         }}
@@ -172,7 +172,7 @@ const FlatDetails = () => {
             style={{
               position: 'relative',
               borderRadius: '5px',
-              border: '1px solid rgba(0, 0, 0, 0.05)',
+              // border: '1px solid rgba(0, 0, 0, 0.05)',
               background: '#FBF8F3',
               width: '100%',
               height: isMobile ? 'auto' : '100%',
@@ -206,6 +206,7 @@ const FlatDetails = () => {
 
             {/* Float details indicator */}
             <div style={{
+             
               position: 'absolute',
               bottom: '1.5rem',
               left: '1.5rem',
@@ -215,7 +216,7 @@ const FlatDetails = () => {
               borderRadius: '5px',
               padding: '0.5rem 1rem',
               fontSize: '0.8rem',
-              color: 'var(--text-secondary)'
+              color: 'var(--text-white)'
             }}>
               3D Floor Rendering Plan
             </div>
@@ -242,7 +243,7 @@ const FlatDetails = () => {
                 transition: 'all 0.2s',
                 zIndex: 10
               }}
-              onMouseOver={e => e.currentTarget.style.borderColor = '#BE9D7C'}
+              onMouseOver={e => e.currentTarget.style.borderColor = '#ecc31f'}
               onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
             >
               <ChevronLeft size={24} />
@@ -270,7 +271,7 @@ const FlatDetails = () => {
                 transition: 'all 0.2s',
                 zIndex: 10
               }}
-              onMouseOver={e => e.currentTarget.style.borderColor = '#BE9D7C'}
+              onMouseOver={e => e.currentTarget.style.borderColor = '#ecc31f'}
               onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
             >
               <ChevronRight size={24} />
@@ -284,16 +285,16 @@ const FlatDetails = () => {
           <div className="glass-panel" style={{ 
             padding: '1.4rem', 
             background: 'rgba(4, 4, 4, 0.85)', 
-            border: '1px solid rgba(190, 157, 124, 0.35)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
             minHeight: 0, 
             height: '100%', 
             overflowY: 'auto', 
             overflowX: 'hidden', 
             boxShadow: 'var(--shadow-md)' 
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
-              <span>{block} Block</span>
-              <span>Floor {floor}</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem'  }}>
+              <span style={{ color: 'white' }}>{block} Block</span>
+              <span style={{ color: 'white' }}>Floor {floor}</span>
             </div>
 
             <h2 style={{ fontFamily: 'var(--font-olivera)', fontSize: '2.2rem', fontWeight: '600', margin: '0 0 0.5rem 0', color: 'white' }}>
@@ -301,7 +302,7 @@ const FlatDetails = () => {
             </h2>
 
             <p style={{
-              color: '#BE9D7C',
+              color: '#ecc31f',
               fontSize: '1rem',
               fontWeight: '600',
               margin: '0 0 1.5rem 0',
@@ -310,9 +311,9 @@ const FlatDetails = () => {
               alignItems: 'center'
             }}>
               <span>{bhkInfo}</span>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#BE9D7C' }}></span>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#ecc31f' }}></span>
               <span>{size}</span>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#BE9D7C' }}></span>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#ecc31f' }}></span>
               <span>{facing}</span>
             </p>
 
@@ -370,8 +371,8 @@ const FlatDetails = () => {
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = '#BE9D7C';
-                  e.currentTarget.style.borderColor = '#BE9D7C';
+                  e.currentTarget.style.background = '#ecc31f';
+                  e.currentTarget.style.borderColor = '#ecc31f';
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
                 onMouseOut={e => {
@@ -404,8 +405,8 @@ const FlatDetails = () => {
                 }}
                 onMouseOver={e => {
                   if (compareList.length >= 2) {
-                    e.currentTarget.style.background = '#BE9D7C';
-                    e.currentTarget.style.borderColor = '#BE9D7C';
+                    e.currentTarget.style.background = '#ecc31f';
+                    e.currentTarget.style.borderColor = '#ecc31f';
                     e.currentTarget.style.color = '#FFFFFF';
                   }
                 }}
@@ -439,8 +440,8 @@ const FlatDetails = () => {
                   gridColumn: 'span 2'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = '#BE9D7C';
-                  e.currentTarget.style.borderColor = '#BE9D7C';
+                  e.currentTarget.style.background = '#ecc31f';
+                  e.currentTarget.style.borderColor = '#ecc31f';
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
                 onMouseOut={e => {
@@ -472,8 +473,8 @@ const FlatDetails = () => {
                   gridColumn: 'span 2'
                 }}
                 onMouseOver={e => {
-                  e.currentTarget.style.background = '#BE9D7C';
-                  e.currentTarget.style.borderColor = '#BE9D7C';
+                  e.currentTarget.style.background = '#ecc31f';
+                  e.currentTarget.style.borderColor = '#ecc31f';
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
                 onMouseOut={e => {
@@ -521,7 +522,7 @@ const FlatDetails = () => {
                 width: '95%',
                 maxWidth: '1200px',
                 background: 'rgba(4, 4, 4, 0.95)',
-                border: '1px solid rgba(190, 157, 124, 0.35)',
+                border: '1px solid rgba(56, 189, 248, 0.35)',
                 borderRadius: '5px',
                 padding: '1.5rem',
                 display: 'flex',
@@ -750,8 +751,8 @@ const FlatDetails = () => {
                         padding: '0.75rem 1.5rem',
                         fontSize: '0.85rem',
                         borderRadius: '24px',
-                        background: '#BE9D7C',
-                        border: '1px solid #BE9D7C',
+                        background: '#ecc31f',
+                        border: '1px solid #ecc31f',
                         color: '#000000',
                         fontWeight: '700',
                         cursor: 'pointer',
@@ -762,7 +763,7 @@ const FlatDetails = () => {
                         e.currentTarget.style.color = '#FFFFFF';
                       }}
                       onMouseOut={e => {
-                        e.currentTarget.style.background = '#BE9D7C';
+                        e.currentTarget.style.background = '#ecc31f';
                         e.currentTarget.style.color = '#000000';
                       }}
                     >
