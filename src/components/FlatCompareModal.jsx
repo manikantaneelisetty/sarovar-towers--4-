@@ -17,7 +17,7 @@ const FlatCompareModal = () => {
       width: '100vw',
       height: '100vh',
       zIndex: 200,
-      background: 'rgba(255, 255, 255, 0.85)',
+      background: 'rgba(255, 254, 254, 0.84)',
       backdropFilter: 'blur(10px)',
       display: 'flex',     
       alignItems: 'center',
@@ -33,7 +33,7 @@ const FlatCompareModal = () => {
         style={{
           width: '100%',
           maxWidth: '1600px',
-          background: 'var(--bg-darker)',
+          background: '#FFFFFF',
           border: '1px solid var(--border-color)',
           borderRadius: '5px',
           padding: '2.5rem',
@@ -49,7 +49,7 @@ const FlatCompareModal = () => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          background: '#BE9D7C',
+          background: '#a1dee2',
           padding: '0.75rem 1.5rem',
           borderRadius: '5px',
           marginBottom: '1.5rem'
@@ -101,7 +101,7 @@ const FlatCompareModal = () => {
           flexGrow: 1,
           display: 'grid',
           gridTemplateColumns: `repeat(${compareList.length}, 1fr)`,
-          gap: '2rem'
+          gap: '1rem'
         }}
         className="compare-grid"
         >

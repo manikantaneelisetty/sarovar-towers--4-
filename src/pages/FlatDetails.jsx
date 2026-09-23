@@ -18,6 +18,8 @@ const FlatDetails = () => {
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
   const [isImageHovered, setIsImageHovered] = useState(false);
+  const [slideDir, setSlideDir] = useState(0);
+  const [isSpecsOpen, setIsSpecsOpen] = useState(false);
   
   // Form state
   const [formData, setFormData] = useState({ name: '', email: '', mobile: '' });
@@ -59,6 +61,8 @@ const FlatDetails = () => {
     let nextIdx = flatIndex + step;
     if (nextIdx < 1) nextIdx = 4;
     if (nextIdx > 4) nextIdx = 1;
+    
+    setSlideDir(step);
     
     const nextFlatNo = `${floor}${String(nextIdx).padStart(2, '0')}`;
     navigate(`/flat/${tower}/${floor}/${nextFlatNo}`);
@@ -111,7 +115,7 @@ const FlatDetails = () => {
         minHeight: '100vh',
         height: 'calc(100vh - 80px)',
         overflow: 'hidden',
-        background: '#FBF8F3',
+        background: '#f8f8f8',
         color: 'white',
         paddingLeft: '4%',
         paddingRight: '4%',
@@ -120,7 +124,12 @@ const FlatDetails = () => {
       }}
     >
       {/* Back button */}
-      <div style={{ marginBottom: '1.5rem', marginTop: isMobile ? '1.25rem' : '3.5rem' }}>
+      <div style={{ 
+        position: 'absolute', 
+        top: isMobile ? '100px' : '110px', 
+        left: '4%', 
+        zIndex: 10 
+      }}>
         <Link to={`/floor/${tower}/${floor}`} style={{
           color: '#FFFFFF',
           textDecoration: 'none',
@@ -131,7 +140,7 @@ const FlatDetails = () => {
           background: '#000000',
           border: '1px solid #333333',
           padding: '0.55rem 1rem',
-          borderRadius: '24px',
+          borderRadius: '5px',
           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           fontWeight: '600'
         }}
@@ -155,71 +164,76 @@ const FlatDetails = () => {
 
       {/* Main layout */}
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1.15fr) minmax(320px, 0.85fr)',
-        gap: isMobile ? '1.5rem' : '2rem',
-        alignItems: 'stretch',
-        height: 'calc(100% - 3.5rem)',
-        maxHeight: 'calc(100vh - 240px)',
-        minHeight: 0
-      }}
-      className="flat-details-grid"
-      >
-        {/* Left Side: 3D Visualization */}
-        <div style={{ position: 'relative', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
-          <div
-            className="flat-details-image-panel"
-            style={{
-              position: 'relative',
-              borderRadius: '5px',
-              // border: '1px solid rgba(0, 0, 0, 0.05)',
-              background: '#FBF8F3',
-              width: '100%',
-              height: isMobile ? 'auto' : '100%',
-              minHeight: isMobile ? '320px' : '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1rem',
-              boxShadow: 'none'
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={flat}
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'transparent',
+        padding: 0,
+        paddingTop: '90px'
+      }}>
+        {/* Main Interactive Visual Frame */}
+        <div style={{
+          position: 'relative',
+          width: 'min(92vw, 800px)',
+          height: 'min(82vh, 600px)',
+          maxHeight: 'calc(100vh - 140px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <AnimatePresence>
+            <motion.div
+              key={flat}
+              initial={{ opacity: 0, x: slideDir > 0 ? '100vw' : '-100vw' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: slideDir > 0 ? '-100vw' : '100vw' }}
+              transition={{ duration: 0.7, ease: 'easeInOut' }}
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                overflow: 'hidden',
+                borderRadius: '5px'
+              }}
+            >
+              <img 
                 src={flatImage}
                 alt={`Flat ${flat} 3D plan`}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3 }}
                 style={{
                   width: '100%',
                   height: '100%',
-                  maxWidth: '85%',
-                  maxHeight: '85%',
+                  display: 'block',
                   objectFit: 'contain',
-                  objectPosition: 'center'
+                  objectPosition: 'center',
+                  background: 'transparent',
+                  userSelect: 'none'
                 }}
               />
-            </AnimatePresence>
+            </motion.div>
+          </AnimatePresence>
 
-            {/* Float details indicator */}
-            <div style={{
-             
-              position: 'absolute',
-              bottom: '1.5rem',
-              left: '1.5rem',
-              background: 'rgba(9, 9, 11, 0.75)',
-              backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: '5px',
-              padding: '0.5rem 1rem',
-              fontSize: '0.8rem',
-              color: 'var(--text-white)'
-            }}>
-              3D Floor Rendering Plan
-            </div>
+          {/* Float details indicator */}
+          <div style={{
+            position: 'absolute',
+            bottom: '1.5rem',
+            left: '1.5rem',
+            background: 'rgba(9, 9, 11, 0.75)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: '5px',
+            padding: '0.5rem 1rem',
+            fontSize: '0.8rem',
+            color: 'var(--text-white)',
+            zIndex: 15
+          }}>
+            3D Floor Rendering Plan
+          </div>
 
             {/* Left Arrow */}
             <button
@@ -227,26 +241,26 @@ const FlatDetails = () => {
               style={{
                 position: 'absolute',
                 top: '50%',
-                left: '-20px',
+                left: '-25px',
                 transform: 'translateY(-50%)',
-                background: 'rgba(15, 15, 18, 0.9)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: 'white',
-                cursor: 'pointer',
+                zIndex: 10,
+                background: 'rgba(255, 255, 255, 0.8)',
+                border: '1px solid #ecc31f',
+                borderRadius: '50%',
                 width: '45px',
                 height: '45px',
-                borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: 'var(--shadow-md)',
-                transition: 'all 0.2s',
-                zIndex: 10
+                color: '#ecc31f',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
               }}
-              onMouseOver={e => e.currentTarget.style.borderColor = '#ecc31f'}
-              onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+              onMouseOver={e => { e.currentTarget.style.background = '#ecc31f'; e.currentTarget.style.color = '#fff'; }}
+              onMouseOut={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'; e.currentTarget.style.color = '#ecc31f'; }}
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={28} />
             </button>
 
             {/* Right Arrow */}
@@ -255,59 +269,140 @@ const FlatDetails = () => {
               style={{
                 position: 'absolute',
                 top: '50%',
-                right: '-20px',
+                right: '-25px',
                 transform: 'translateY(-50%)',
-                background: 'rgba(15, 15, 18, 0.9)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: 'white',
-                cursor: 'pointer',
+                zIndex: 10,
+                background: 'rgba(255, 255, 255, 0.8)',
+                border: '1px solid #ecc31f',
+                borderRadius: '50%',
                 width: '45px',
                 height: '45px',
-                borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: 'var(--shadow-md)',
-                transition: 'all 0.2s',
-                zIndex: 10
+                color: '#ecc31f',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
               }}
-              onMouseOver={e => e.currentTarget.style.borderColor = '#ecc31f'}
-              onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+              onMouseOver={e => { e.currentTarget.style.background = '#ecc31f'; e.currentTarget.style.color = '#fff'; }}
+              onMouseOut={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'; e.currentTarget.style.color = '#ecc31f'; }}
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={28} />
             </button>
-
           </div>
         </div>
 
-        {/* Right Side: Flat Specifications & Info */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', minHeight: 0, height: '100%' }}>
-          <div className="glass-panel" style={{ 
-            padding: '1.4rem', 
-            background: 'rgba(4, 4, 4, 0.85)', 
-            border: '1px solid rgba(56, 189, 248, 0.35)',
-            minHeight: 0, 
-            height: '100%', 
-            overflowY: 'auto', 
-            overflowX: 'hidden', 
-            boxShadow: 'var(--shadow-md)' 
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem'  }}>
+        {/* Glowing Toggle Button at Bottom Right */}
+        <AnimatePresence>
+          {!isSpecsOpen && (
+            <motion.button
+              initial={{ opacity: 0, y: 50, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 50, scale: 0.8 }}
+              transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+              onClick={() => setIsSpecsOpen(true)}
+              style={{
+                position: 'absolute',
+                bottom: '2rem',
+                right: '2rem',
+                zIndex: 30,
+                background: '#0a0a0a',
+                border: '1px solid #ecc31f',
+                boxShadow: '0 0 15px rgba(236,195,31,0.4)',
+                borderRadius: '5px',
+                padding: '0.6rem 1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#ecc31f',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-display)',
+                fontWeight: '600',
+                fontSize: '0.9rem'
+              }}
+            >
+              <div style={{ width: '12px', height: '2px', background: '#ecc31f' }}></div>
+              View Specifications
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* Floating Specifications Panel */}
+        <AnimatePresence>
+          {isSpecsOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 150, scale: 0.8, transformOrigin: 'bottom right' }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 150, scale: 0.8 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              style={{
+                position: 'absolute',
+                bottom: '2rem',
+                right: '2rem',
+                width: isMobile ? '100vw' : '280px',
+                maxWidth: isMobile ? '100vw' : '300px',
+                height: isMobile ? '55vh' : 'auto',
+                maxHeight: '60vh',
+                display: 'flex',
+                flexDirection: 'column',
+                border: isMobile ? 'none' : '1px solid #ecc31f',
+                borderRadius: isMobile ? '5px 5px 0 0' : '5px',
+                background: 'rgba(13, 13, 15, 0.97)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                zIndex: 35,
+                boxShadow: '-8px 8px 32px rgba(0,0,0,0.6)'
+              }}
+            >
+              <div style={{
+                padding: '0.8rem 1rem',
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexShrink: 0
+              }}>
+                <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: isMobile ? '1.05rem' : '1.15rem', fontWeight: '400', color: 'white', letterSpacing: '0.04em' }}>
+                  Specifications
+                </h3>
+                <button 
+                  onClick={() => setIsSpecsOpen(false)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-muted)',
+                    cursor: 'pointer',
+                    fontSize: '1.2rem',
+                    fontWeight: '400',
+                    lineHeight: 1
+                  }}
+                >
+                  &times;
+                </button>
+              </div>
+              
+              <div className="scrollbar-styled" style={{ 
+                padding: isMobile ? '0.75rem' : '0.9rem', 
+                overflowY: 'auto', 
+                overflowX: 'hidden' 
+              }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'var(--text-secondary)', marginBottom: '0.5rem'  }}>
               <span style={{ color: 'white' }}>{block} Block</span>
               <span style={{ color: 'white' }}>Floor {floor}</span>
             </div>
 
-            <h2 style={{ fontFamily: 'var(--font-olivera)', fontSize: '2.2rem', fontWeight: '600', margin: '0 0 0.5rem 0', color: 'white' }}>
+            <h2 style={{ fontFamily: 'var(--font-olivera)', fontSize: isMobile ? '1.5rem' : '1.8rem', fontWeight: '600', margin: '0 0 0.5rem 0', color: 'white' }}>
               Flat {flat}
             </h2>
 
             <p style={{
               color: '#ecc31f',
-              fontSize: '1rem',
+              fontSize: isMobile ? '0.75rem' : '0.85rem',
               fontWeight: '600',
-              margin: '0 0 1.5rem 0',
+              margin: '0 0 1rem 0',
               display: 'flex',
-              gap: '10px',
+              gap: '6px',
               alignItems: 'center'
             }}>
               <span>{bhkInfo}</span>
@@ -318,27 +413,27 @@ const FlatDetails = () => {
             </p>
 
             {/* Specifications Box */}
-            <div style={{ marginBottom: '2rem' }}>
+            <div style={{ marginBottom: '1.5rem' }}>
               <h3 style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '1.1rem',
+                fontSize: '0.95rem',
                 fontWeight: '600',
-                marginBottom: '1rem',
+                marginBottom: '0.75rem',
                 borderBottom: '1px solid rgba(255,255,255,0.05)',
-                paddingBottom: '0.5rem',
+                paddingBottom: '0.4rem',
                 color: 'white'
               }}>
                 Room Specifications
               </h3>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {specList.map((spec, idx) => (
                   <div key={idx} style={{ 
                     display: 'flex', 
                     justifyContent: 'space-between',
-                    paddingBottom: '0.75rem',
+                    paddingBottom: '0.5rem',
                     borderBottom: '1px solid rgba(255,255,255,0.08)',
-                    fontSize: '1.05rem',
+                    fontSize: isMobile ? '0.8rem' : '0.85rem',
                   }}>
                     <span style={{ color: 'white', fontWeight: '500' }}>{spec[0]}</span>
                     <span style={{ fontWeight: '700', color: 'white' }}>{spec[1]}</span>
@@ -351,23 +446,23 @@ const FlatDetails = () => {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '12px'
+              gap: '8px'
             }}>
               <button 
                 onClick={handleAddToCompare}
                 style={{
-                  padding: '0.8rem',
+                  padding: '0.55rem',
                   borderRadius: '24px',
                   background: '#000000',
                   border: '1px solid #333333',
                   color: '#FFFFFF',
                   cursor: 'pointer',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.75rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
+                  gap: '4px',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 onMouseOver={e => {
@@ -381,26 +476,26 @@ const FlatDetails = () => {
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
               >
-                <Plus size={16} />
-                Add to Compare
+                <Plus size={14} />
+                Compare
               </button>
 
               <button 
                 disabled={compareList.length < 2}
                 onClick={() => setIsCompareOpen(true)}
                 style={{
-                  padding: '0.8rem',
+                  padding: '0.55rem',
                   borderRadius: '24px',
                   background: '#000000',
                   border: '1px solid #333333',
                   color: compareList.length < 2 ? 'var(--text-muted)' : '#FFFFFF',
                   cursor: compareList.length < 2 ? 'not-allowed' : 'pointer',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.75rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
+                  gap: '4px',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 onMouseOver={e => {
@@ -418,24 +513,24 @@ const FlatDetails = () => {
                   }
                 }}
               >
-                Compare ({compareList.length})
+                View ({compareList.length})
               </button>
 
               <button 
                 onClick={() => setIs2DOpen(true)}
                 style={{
-                  padding: '0.8rem',
+                  padding: '0.55rem',
                   borderRadius: '24px',
                   background: '#000000',
                   border: '1px solid #333333',
                   color: '#FFFFFF',
                   cursor: 'pointer',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.75rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
+                  gap: '4px',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   gridColumn: 'span 2'
                 }}
@@ -450,25 +545,25 @@ const FlatDetails = () => {
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
               >
-                <Eye size={16} />
-                View 2D Layout Plan
+                <Eye size={14} />
+                View 2D Plan
               </button>
 
               <button 
                 onClick={() => setIsRequestOpen(true)}
                 style={{
-                  padding: '0.8rem',
+                  padding: '0.55rem',
                   borderRadius: '24px',
                   background: '#000000',
                   border: '1px solid #333333',
                   color: '#FFFFFF',
                   cursor: 'pointer',
                   fontWeight: '600',
-                  fontSize: '0.85rem',
+                  fontSize: '0.75rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px',
+                  gap: '4px',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   gridColumn: 'span 2'
                 }}
@@ -483,13 +578,14 @@ const FlatDetails = () => {
                   e.currentTarget.style.color = '#FFFFFF';
                 }}
               >
-                <DollarSign size={16} />
-                Request Pricing Details
+                <DollarSign size={14} />
+                Request Pricing
               </button>
             </div>
           </div>
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* 2D Zoomable Floorplan Modal */}
       <AnimatePresence>

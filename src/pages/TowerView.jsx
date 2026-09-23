@@ -205,7 +205,7 @@ const TowerView = () => {
                     d={floorData.d}
                     fill={isHovered ? 'rgba(56, 189, 248, 0.35)' : 'transparent'}
                     stroke={isHovered ? '#ecc31f' : 'transparent'}
-                    strokeWidth={isHovered ? '0.2' : '0.1'}
+                    strokeWidth={isHovered ? '0.4' : '0.1'}
                     style={{
                       cursor: 'pointer',
                       transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',

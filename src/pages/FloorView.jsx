@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ChevronLeft, ChevronRight, Info, Compass, Layers } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Info, Compass, Layers, MousePointerClick } from 'lucide-react';
 import { floorPlans, towerFloorDetails, getBlockName } from '../services/flatData';
 
 const FloorView = () => {
@@ -16,6 +16,7 @@ const FloorView = () => {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
+  const [slideDir, setSlideDir] = useState(0);
   const imgRef = useRef(null);
   const containerRef = useRef(null);
   const [svgOverlayStyle, setSvgOverlayStyle] = useState({});
@@ -27,6 +28,9 @@ const FloorView = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+
+
 
   // measure image position and size and apply to SVG overlay so hotspots align
   const measureOverlay = () => {
@@ -100,7 +104,10 @@ const FloorView = () => {
     let nextFloor = floor + direction;
     if (nextFloor < 1) nextFloor = 1;
     if (nextFloor > 50) nextFloor = 50;
-    navigate(`/floor/${tower}/${nextFloor}`);
+    if (nextFloor !== floor) {
+      setSlideDir(direction);
+      navigate(`/floor/${tower}/${nextFloor}`);
+    }
   };
 
   const handleFlatClick = (flatIdx) => {
@@ -201,49 +208,84 @@ const FloorView = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-             background: '#FBF8F3',
+          background: '#FBF8F3',
           padding: 0,
           paddingTop: '90px'
         }}
       >
-        <div 
-          onMouseMove={handleMouseMove}
+        {/* Left Arrow */}
+        <button 
+          disabled={floor <= 1}
+          onClick={() => changeFloor(-1)}
           style={{
-            marginRight:"100px",
-            position: 'relative',
-            width: 'min(92vw, 1000px)',
-            height: 'min(82vh, 700px)',
-            maxHeight: 'calc(100vh - 140px)',
-            
-            overflow: 'hidden',
-            borderRadius: '5px',
-            // background: '#000000',
-            // boxShadow: '0 10px 35px rgba(0,0,0,0.45)'
-            
+            position: 'absolute',
+            left: 'max(2%, calc(50vw - 520px))',
+            zIndex: 10,
+            background: 'rgba(255, 255, 255, 0.8)',
+            border: '1px solid #ecc31f',
+            borderRadius: '50%',
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: floor <= 1 ? '#ccc' : '#ecc31f',
+            cursor: floor <= 1 ? 'not-allowed' : 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
           }}
-          ref={containerRef}
+          onMouseOver={e => { if (floor > 1) { e.currentTarget.style.background = '#ecc31f'; e.currentTarget.style.color = '#fff'; } }}
+          onMouseOut={e => { if (floor > 1) { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'; e.currentTarget.style.color = '#ecc31f'; } }}
         >
-          {/* Layout Plan Image */}
-          <img 
-            src={`/images/tower${tower}/${currentPlan.image}`}
-            alt={`${block} Floor ${floor} Plan`}
-            ref={imgRef}
-            onLoad={handleImageLoad}
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'block',
-              objectFit: 'contain',
-              objectPosition: 'center',
-             background: '#FBF8F3',
-             
-              userSelect: 'none'
-            }}
-          />
+          <ChevronLeft size={28} />
+        </button>
 
-          {/* SVG Hotspots overlay */}
-          <svg
-            viewBox="0 0 459.802 258.638"
+        <div style={{
+          position: 'relative',
+          width: 'min(92vw, 1000px)',
+          height: 'min(82vh, 700px)',
+          maxHeight: 'calc(100vh - 140px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <AnimatePresence>
+            <motion.div
+              key={floor}
+              initial={{ opacity: 0, x: slideDir > 0 ? '100vw' : '-100vw' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: slideDir > 0 ? '-100vw' : '100vw' }}
+              transition={{ duration: 0.7, ease: 'easeInOut' }}
+              onMouseMove={handleMouseMove}
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                overflow: 'hidden',
+                borderRadius: '5px'
+              }}
+              ref={containerRef}
+            >
+            {/* Layout Plan Image */}
+            <img 
+              src={`/images/tower${tower}/${currentPlan.image}`}
+              alt={`${block} Floor ${floor} Plan`}
+              ref={imgRef}
+              onLoad={handleImageLoad}
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                objectFit: 'contain',
+                objectPosition: 'center',
+                background: '#FBF8F3',
+                userSelect: 'none'
+              }}
+            />
+
+            {/* SVG Hotspots overlay */}
+            <svg
+              viewBox="0 0 459.802 258.638"
             preserveAspectRatio="xMidYMid meet"
             xmlns="http://www.w3.org/2000/svg"
             style={{
@@ -410,61 +452,129 @@ const FloorView = () => {
               </motion.div>
             )}
           </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
         </div>
-      </div>
 
-      {/* Floating Toggle Button for Mobile Directory */}
-      {isMobile && (
-        <button
-          onClick={() => setIsDirectoryOpen(!isDirectoryOpen)}
+        {/* Right Arrow */}
+        <button 
+          disabled={floor >= 50}
+          onClick={() => changeFloor(1)}
           style={{
             position: 'absolute',
-            top: '1.25rem',
-            right: '1.25rem',
-            zIndex: 30,
-            background: 'rgba(7, 7, 9, 0.8)',
-            border: '1px solid rgba(56, 189, 248, 0.4)',
+            right: 'max(2%, calc(50vw - 520px))',
+            zIndex: 10,
+            background: 'rgba(255, 255, 255, 0.8)',
+            border: '1px solid #ecc31f',
             borderRadius: '50%',
-            width: '40px',
-            height: '40px',
+            width: '48px',
+            height: '48px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#ecc31f',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
-            cursor: 'pointer'
+            color: floor >= 50 ? '#ccc' : '#ecc31f',
+            cursor: floor >= 50 ? 'not-allowed' : 'pointer',
+            transition: 'all 0.3s ease',
+            boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
           }}
+          onMouseOver={e => { if (floor < 50) { e.currentTarget.style.background = '#ecc31f'; e.currentTarget.style.color = '#fff'; } }}
+          onMouseOut={e => { if (floor < 50) { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)'; e.currentTarget.style.color = '#ecc31f'; } }}
         >
-          <Layers size={18} />
+          <ChevronRight size={28} />
         </button>
-      )}
+      </div>
 
-      {/* Floating Jump to Floor Navigator panel (Right Side Overlay) */}
+      <div style={{
+        position: 'absolute',
+        bottom: isMobile ? '6rem' : '2%',
+        left: isMobile ? '1.25rem' : '10rem',
+        zIndex: 40,
+        background: 'rgb(2, 2, 2)',
+        opacity: 0.70,
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(5, 4, 4, 0)',
+        padding: '0.5rem 1rem',
+        borderRadius: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        color: 'white',
+        boxShadow: 'var(--shadow-md)',
+        pointerEvents: 'none'
+      }}>
+        <MousePointerClick size={15} color="white" />
+        <span style={{ 
+          color: "white",
+          fontFamily: 'var(--font-body)',
+          fontSize: '0.8rem', 
+          fontWeight: '400', 
+          letterSpacing: '0.3px',
+        }}>
+          Click on a flat of your interest
+        </span>
+      </div>
+
+      {/* Glowing Toggle Button at Bottom Right */}
       <AnimatePresence>
-        {(!isMobile || isDirectoryOpen) && (
-          <motion.div
-            initial={isMobile ? { x: 350 } : { opacity: 0, x: 20 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={isMobile ? { x: 350 } : { opacity: 0, x: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        {!isDirectoryOpen && (
+          <motion.button
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.8 }}
+            transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+            onClick={() => setIsDirectoryOpen(true)}
             style={{
               position: 'absolute',
-              top: isMobile ? 'calc(20% + 3rem)' : '6rem',
-              right: isMobile ? '0' : '1rem',
-              bottom: isMobile ? '0' : '1rem',
-              width: isMobile ? '82vw' : '280px',
-              maxWidth: isMobile ? '320px' : '300px',
-              height: isMobile ? '100%' : 'auto',
+              bottom: '2rem',
+              right: '2rem',
+              zIndex: 30,
+              background: '#0a0a0a',
+              border: '1px solid #ecc31f',
+              boxShadow: '0 0 15px rgba(236,195,31,0.4)',
+              borderRadius: '5px',
+              padding: '0.6rem 1.25rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#ecc31f',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-display)',
+              fontWeight: '600',
+              fontSize: '0.9rem'
+            }}
+          >
+            <div style={{ width: '12px', height: '2px', background: '#ecc31f' }}></div>
+            Jump to Floor
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Jump to Floor Navigator panel */}
+      <AnimatePresence>
+        {isDirectoryOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 150, scale: 0.8, transformOrigin: 'bottom right' }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 150, scale: 0.8 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+            style={{
+              position: 'absolute',
+              bottom: isMobile ? '0' : '2rem',
+              right: isMobile ? '0' : '2rem',
+              width: isMobile ? '100vw' : '280px',
+              maxWidth: isMobile ? '100vw' : '300px',
+              height: isMobile ? '55vh' : 'auto',
+              maxHeight: '60vh',
               display: 'flex',
               flexDirection: 'column',
-              border: isMobile ? 'none' : '1px solid rgba(56, 189, 248, 0.4)',
-              borderRadius: isMobile ? '0' : '5px',
-              background: isMobile ? 'rgba(13, 13, 15, 0.97)' : 'rgba(13, 13, 15, 0.97)',
+              border: isMobile ? 'none' : '1px solid #ecc31f',
+              borderRadius: isMobile ? '5px 5px 0 0' : '5px',
+              background: 'rgba(13, 13, 15, 0.97)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               overflow: 'hidden',
-              zIndex: 25,
-              boxShadow: '-8px 0 32px rgba(0,0,0,0.5)'
+              zIndex: 35,
+              boxShadow: '-8px 8px 32px rgba(0,0,0,0.6)'
             }}
           >
             <div style={{
@@ -476,28 +586,26 @@ const FloorView = () => {
               gap: '8px',
               flexShrink: 0
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px',  }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Layers size={18} color="#ecc31f" />
                 <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: isMobile ? '1.05rem' : '1.25rem', fontWeight: '400', color: 'white', letterSpacing: '0.04em' }}>
                   Jump to Floor
                 </h3>
               </div>
-              {isMobile && (
-                <button 
-                  onClick={() => setIsDirectoryOpen(false)}
-                  style={{
-                    background: 'none',
-                   
-                    border: 'none',
-                    color: 'var(--text-muted)',
-                    cursor: 'pointer',
-                    fontSize: '0.85rem',
-                    fontWeight: '600'
-                  }}
-                >
-                  Close
-                </button>
-              )}
+              <button 
+                onClick={() => setIsDirectoryOpen(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-muted)',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  fontWeight: '400',
+                  lineHeight: 1
+                }}
+              >
+                &times;
+              </button>
             </div>
             
             <div style={{
@@ -559,8 +667,7 @@ const FloorView = () => {
                   <button
                     key={fNum}
                     onClick={() => {
-                      navigate(`/floor/${tower}/${fNum}`);
-                      if (isMobile) setIsDirectoryOpen(false);
+                      changeFloor(fNum - floor);
                     }}
                     style={{
                       padding: '0.5rem 0',
@@ -594,73 +701,6 @@ const FloorView = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Floating Floor Switcher Slider */}
-          <div style={{
-        position: 'absolute',
-        bottom: '2rem',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        zIndex: 20,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1rem',
-        padding: '0.6rem 1.25rem',
-        borderRadius: '5px',
-        background: 'rgba(1, 1, 5, 0.87)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(56, 189, 248, 0.3)',
-        boxShadow: '0 8px 32px rgba(56, 189, 248, 0.15)',
-      }}>
-        <button 
-          disabled={floor <= 1}
-          onClick={() => changeFloor(-1)}
-          style={{
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '50%',
-            width: '32px',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: floor <= 1 ? 'var(--text-muted)' : 'white',
-            cursor: floor <= 1 ? 'not-allowed' : 'pointer',
-            transition: 'all 0.2s'
-          }}
-          onMouseOver={e => { if (floor > 1) e.currentTarget.style.borderColor = '#ecc31f'; }}
-          onMouseOut={e => { if (floor > 1) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
-        >
-          <ChevronLeft size={16} />
-        </button>
-
-        <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'white', minWidth: '90px', textAlign: 'center', fontFamily: 'var(--font-display)' }}>
-          Floor {floor} of 50
-        </span>
-
-        <button 
-          disabled={floor >= 50}
-          onClick={() => changeFloor(1)}
-          style={{
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: '50%',
-            width: '32px',
-            height: '32px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: floor >= 50 ? 'var(--text-muted)' : 'white',
-            cursor: floor >= 50 ? 'not-allowed' : 'pointer',
-            transition: 'all 0.2s'
-          }}
-          onMouseOver={e => { if (floor < 50) e.currentTarget.style.borderColor = '#ecc31f'; }}
-          onMouseOut={e => { if (floor < 50) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}
-        >
-          <ChevronRight size={16} />
-        </button>
-      </div>
     </motion.div>
   );
 };
