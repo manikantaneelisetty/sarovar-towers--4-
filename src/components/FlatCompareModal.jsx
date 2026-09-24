@@ -49,14 +49,14 @@ const FlatCompareModal = () => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          background: '#a1dee2',
+          background: '#0ce4f3',
           padding: '0.75rem 1.5rem',
           borderRadius: '5px',
           marginBottom: '1.5rem'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <ArrowLeftRight size={22} color="black" />
-            <h2 style={{ fontFamily: 'var(--font-cinzel)', fontSize: '1.4rem', fontWeight: '600', margin: 0, color: 'black' }}>
+            <h2 style={{ fontFamily: 'var(--font-cinzel)', fontSize: '1.4rem', fontWeight: '400', margin: 0, color: 'black' }}>
               Compare Apartments
             </h2>
           </div>
@@ -69,7 +69,7 @@ const FlatCompareModal = () => {
                 color: '#0a0a0a',
                 cursor: 'pointer',
                 fontSize: '0.9rem',
-                fontWeight: '600',
+                fontWeight: '400',
                 transition: 'color 0.2s'
               }}
               onMouseOver={e => e.currentTarget.style.color = 'black'}
@@ -101,7 +101,7 @@ const FlatCompareModal = () => {
           flexGrow: 1,
           display: 'grid',
           gridTemplateColumns: `repeat(${compareList.length}, 1fr)`,
-          gap: '1rem'
+          gap: '0'
         }}
         className="compare-grid"
         >
@@ -172,13 +172,13 @@ const FlatCompareModal = () => {
 
                 {/* Information */}
                 <div>
-                  <h3 style={{ fontFamily: 'var(--font-cinzel)', fontSize: '1.9rem', fontWeight: '600', margin: '0 0 0.25rem 0', color: 'black' }}>
+                  <h3 style={{ fontFamily: 'var(--font-cinzel)', fontSize: '1.9rem', fontWeight: '400', margin: '0 0 0.25rem 0', color: 'black' }}>
                     Flat {flat.flat}
                   </h3>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '600', display: 'block', marginBottom: '0.75rem' }}>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--primary)', fontWeight: '400', display: 'block', marginBottom: '0.75rem' }}>
                     {block} Block — Floor {flat.floor}
                   </span>
-                  <p style={{ fontSize: '0.95rem', color: '#333333', margin: 0, fontWeight: '500' }}>
+                  <p style={{ fontSize: '0.95rem', color: '#333333', margin: 0, fontWeight: '400' }}>
                     {flat.info}
                   </p>
                 </div>
@@ -199,8 +199,8 @@ const FlatCompareModal = () => {
                       paddingBottom: '6px',
                       borderBottom: '1px dashed rgba(0, 0, 0, 0.1)'
                     }}>
-                      <span style={{ color: '#111111', fontWeight: '600' }}>{spec[0]}</span>
-                      <strong style={{ color: 'black', fontWeight: '800' }}>{spec[1]}</strong>
+                      <span style={{ color: '#111111', fontWeight: '400' }}>{spec[0]}</span>
+                      <strong style={{ color: 'black', fontWeight: '700' }}>{spec[1]}</strong>
                     </div>
                   ))}
                 </div>

@@ -54,7 +54,7 @@ const SpecCard = ({ title, icon: Icon, delay, children }) => {
           margin: 0, 
           fontFamily: 'var(--font-display)', 
           fontSize: '1rem', 
-          fontWeight: '700', 
+          fontWeight: '600', 
           color: 'white',
           letterSpacing: '-0.2px',
           textTransform: 'uppercase'
@@ -96,7 +96,7 @@ const Specifications = () => {
       }}
     >
       <div style={{ marginBottom: '3.5rem', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: '800', margin: '0 0 0.5rem 0', letterSpacing: '-0.5px' }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: '700', margin: '0 0 0.5rem 0', letterSpacing: '-0.5px' }}>
           Luxury Specifications
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto' }}>

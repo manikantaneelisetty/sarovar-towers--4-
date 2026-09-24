@@ -222,7 +222,7 @@ const Home = () => {
                 fontFamily: 'var(--font-display)', 
                 color: 'white', 
                 fontSize: '1rem',
-                fontWeight: '600',
+                fontWeight: '400',
                 borderBottom: `1px solid rgba(255, 255, 255, 0.08)`,
                 paddingBottom: '0.6rem',
                 marginBottom: '0.75rem',
@@ -245,15 +245,15 @@ const Home = () => {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem 0.75rem', marginBottom: '0.75rem' }}>
                 <div>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Config</span>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '500' }}>{towerInfo[hoveredItem].bhk}</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '400' }}>{towerInfo[hoveredItem].bhk}</span>
                 </div>
                 <div>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Total Area</span>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '500' }}>{towerInfo[hoveredItem].area}</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '400' }}>{towerInfo[hoveredItem].area}</span>
                 </div>
                 <div style={{ gridColumn: 'span 2' }}>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Total Units</span>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '500' }}>{towerInfo[hoveredItem].units}</span>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '400' }}>{towerInfo[hoveredItem].units}</span>
                 </div>
               </div>
               <p style={{ 
@@ -270,7 +270,7 @@ const Home = () => {
                 marginTop: '0.8rem',
                 fontSize: '0.75rem',
                 color: 'var(--primary)',
-                fontWeight: '600',
+                fontWeight: '400',
                 textAlign: 'right',
                 textShadow: '0 0 8px rgba(56, 189, 248, 0.3)'
               }}>

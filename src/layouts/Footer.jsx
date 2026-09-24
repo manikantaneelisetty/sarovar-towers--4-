@@ -27,7 +27,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginBottom: '1rem', fontSize: '1rem', fontWeight: '600' }}>Quick Links</h4>
+          <h4 style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginBottom: '1rem', fontSize: '1rem', fontWeight: '400' }}>Quick Links</h4>
           <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             <li><Link to="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Home</Link></li>
             <li><Link to="/location" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Location Map</Link></li>
@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginBottom: '1rem', fontSize: '1rem', fontWeight: '600' }}>Contact Info</h4>
+          <h4 style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginBottom: '1rem', fontSize: '1rem', fontWeight: '400' }}>Contact Info</h4>
           <p style={{ lineHeight: '1.6', fontSize: '0.85rem' }}>
             Nallagandla, Hyderabad,<br />
             Telangana, India<br /><br />

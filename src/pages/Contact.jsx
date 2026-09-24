@@ -47,7 +47,7 @@ const Contact = () => {
       }}
     >
       <div style={{ marginBottom: '3rem' }}>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: '800', margin: '0 0 0.5rem 0' }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: '700', margin: '0 0 0.5rem 0' }}>
           Get In Touch
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '600px', margin: 0 }}>
@@ -72,7 +72,7 @@ const Contact = () => {
               margin: '0 0 0.75rem 0',
               fontFamily: 'var(--font-display)',
               fontSize: '1.15rem',
-              fontWeight: '700',
+              fontWeight: '600',
               color: 'var(--primary-light)',
               display: 'flex',
               alignItems: 'center',
@@ -93,7 +93,7 @@ const Contact = () => {
               margin: '0 0 0.75rem 0',
               fontFamily: 'var(--font-display)',
               fontSize: '1.15rem',
-              fontWeight: '700',
+              fontWeight: '600',
               color: 'var(--primary-light)',
               display: 'flex',
               alignItems: 'center',
@@ -139,7 +139,7 @@ const Contact = () => {
                 borderRadius: '5px',
                 background: '#25D366',
                 color: 'black',
-                fontWeight: '700',
+                fontWeight: '600',
                 fontSize: '0.85rem',
                 textDecoration: 'none',
                 display: 'flex',
@@ -164,7 +164,7 @@ const Contact = () => {
                 background: 'rgba(255, 255, 255, 0.05)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 color: 'white',
-                fontWeight: '700',
+                fontWeight: '600',
                 fontSize: '0.85rem',
                 textDecoration: 'none',
                 display: 'flex',
@@ -185,7 +185,7 @@ const Contact = () => {
 
         {/* Right Column: Form Panel */}
         <div className="glass-panel" style={{ padding: '2.5rem', background: 'rgba(22, 22, 28, 0.6)' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', fontWeight: '700', color: 'white', marginBottom: '0.5rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', fontWeight: '600', color: 'white', marginBottom: '0.5rem' }}>
             Consultation Enquiry Form
           </h2>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '2rem' }}>
@@ -197,7 +197,7 @@ const Contact = () => {
               <div style={{ display: 'inline-flex', marginBottom: '1rem' }}>
                 <CheckCircle2 size={56} color="var(--accent-teal)" />
               </div>
-              <h3 style={{ margin: '0 0 0.5rem 0', fontWeight: '700' }}>Enquiry Submitted!</h3>
+              <h3 style={{ margin: '0 0 0.5rem 0', fontWeight: '600' }}>Enquiry Submitted!</h3>
               <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>
                 Thank you for your interest. We will contact you shortly.
               </p>
@@ -206,7 +206,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               
               {errorMsg && (
-                <div style={{ color: '#ff4d4d', fontSize: '0.85rem', fontWeight: '600' }}>
+                <div style={{ color: '#ff4d4d', fontSize: '0.85rem', fontWeight: '400' }}>
                   {errorMsg}
                 </div>
               )}

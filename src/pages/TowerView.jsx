@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Layers, ChevronLeft, ChevronRight, MousePointerClick } from 'lucide-react';
+import { ArrowLeft, Layers, MousePointerClick } from 'lucide-react';
+import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 import { tower1Data, tower2Data, tower3Data } from '../services/towerData';
 import { getBlockName } from '../services/flatData';
 
@@ -106,33 +107,32 @@ const TowerView = () => {
         pointerEvents: 'none'
       }}>
         <div style={{ position: 'absolute', left: '1.5rem', pointerEvents: 'auto' }}>
-          <Link to="/" style={{
-            color: '#FFFFFF',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontSize: '0.95rem',
-            background: '#000000',
-            border: '1px solid #333333',
-            padding: '0.55rem 1rem',
-            borderRadius: '24px',
-            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            fontWeight: '600',
-            flexShrink: 0
-          }}
-          onMouseOver={e => {
-            e.currentTarget.style.background = '#ecc31f';
-            e.currentTarget.style.borderColor = '#ecc31f';
-            e.currentTarget.style.boxShadow = 'none';
-            e.currentTarget.style.color = '#FFFFFF';
-          }}
-          onMouseOut={e => {
-            e.currentTarget.style.background = '#000000';
-            e.currentTarget.style.borderColor = '#333333';
-            e.currentTarget.style.boxShadow = 'none';
-            e.currentTarget.style.color = '#FFFFFF';
-          }}
+          <Link to="/"style={{
+          color: '#FFFFFF',
+          textDecoration: 'none',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '0.95rem',
+          background: '#000000',
+          border: '1px solid #333333',
+          padding: '0.55rem 1rem',
+          borderRadius: '5px',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          fontWeight: '600'
+        }}
+        onMouseOver={e => {
+          e.currentTarget.style.background = '#38BDF8';
+          e.currentTarget.style.borderColor = '#38BDF8';
+          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
+        onMouseOut={e => {
+          e.currentTarget.style.background = '#000000';
+          e.currentTarget.style.borderColor = '#333333';
+          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
           >
             <ArrowLeft size={16} />
             <span>Back</span>
@@ -251,7 +251,7 @@ const TowerView = () => {
                     paddingBottom: '0.5rem',
                     marginBottom: '0.6rem'
                   }}>
-                    <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, fontWeight: '700', fontSize: '0.9rem', color: 'white' }}>
+                    <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, fontWeight: '600', fontSize: '0.9rem', color: 'white' }}>
                       {hoveredFloor.floor}
                     </h4>
                     <span style={{
@@ -260,7 +260,7 @@ const TowerView = () => {
                       color: 'var(--primary)',
                       padding: '2px 8px',
                       borderRadius: '10px',
-                      fontWeight: '600',
+                      fontWeight: '400',
                       border: '1px solid rgba(56, 189, 248, 0.2)'
                     }}>
                       {hoveredFloor.type}
@@ -269,18 +269,18 @@ const TowerView = () => {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>Available flats</span>
-                      <span style={{ fontWeight: '600', color: 'white' }}>{hoveredFloor.units}</span>
+                      <span style={{ fontWeight: '400', color: 'white' }}>{hoveredFloor.units}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>Floor Area</span>
-                      <span style={{ fontWeight: '600', color: 'white' }}>{hoveredFloor.area}</span>
+                      <span style={{ fontWeight: '400', color: 'white' }}>{hoveredFloor.area}</span>
                     </div>
                   </div>
                   <div style={{
                     marginTop: '0.8rem',
                     fontSize: '0.75rem',
                     color: 'var(--primary)',
-                    fontWeight: '600',
+                    fontWeight: '400',
                     textAlign: 'right',
                     textShadow: '0 0 8px rgba(56, 189, 248, 0.3)'
                   }}>
@@ -359,7 +359,7 @@ const TowerView = () => {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Layers size={16} color="var(--primary)" />
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: '1.25rem', fontWeight: '600', color: 'white' }}>
+                <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: '1.25rem', fontWeight: '400', color: 'white' }}>
                   Floors Directory ({filteredFloors.length})
                 </h3>
               </div>
@@ -372,7 +372,7 @@ const TowerView = () => {
                     color: 'var(--text-muted)',
                     cursor: 'pointer',
                     fontSize: '0.85rem',
-                    fontWeight: '600'
+                    fontWeight: '400'
                   }}
                 >
                   Close
@@ -408,7 +408,7 @@ const TowerView = () => {
                   onClick={() => handleFloorClick(item.floor)}
                 >
                   <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: '600', color: hoveredFloor?.floor === item.floor ? 'white' : 'var(--text-primary)' }}>{item.floor}</div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: '400', color: hoveredFloor?.floor === item.floor ? 'white' : 'var(--text-primary)' }}>{item.floor}</div>
                     <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>{item.area}</div>
                   </div>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -427,7 +427,7 @@ const TowerView = () => {
                       padding: '2px 8px',
                       borderRadius: '5px',
                       background: 'rgba(56, 189, 248, 0.08)',
-                      fontWeight: '600'
+                      fontWeight: '400'
                     }}>
                       {item.units}
                     </span>
@@ -502,11 +502,11 @@ const TowerView = () => {
         <button
           onClick={goToPrevTower}
           style={{
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            background: 'rgba(0, 0, 0, 0.6)',
+            border: 'none',
             borderRadius: '50%',
-            width: '32px',
-            height: '32px',
+            width: '40px',
+            height: '40px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -514,10 +514,8 @@ const TowerView = () => {
             cursor: 'pointer',
             transition: 'all 0.2s'
           }}
-          onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-          onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
         >
-          <ChevronLeft size={16} />
+          <HiArrowSmLeft size={16} />
         </button>
 
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
@@ -538,7 +536,7 @@ const TowerView = () => {
                   background: isActive ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
                   color: isActive ? 'white' : 'var(--text-secondary)',
                   fontSize: '0.8rem',
-                  fontWeight: '600',
+                  fontWeight: '400',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   display: 'flex',
@@ -565,11 +563,11 @@ const TowerView = () => {
         <button
           onClick={goToNextTower}
           style={{
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            background: 'rgba(0, 0, 0, 0.6)',
+            border: 'none',
             borderRadius: '50%',
-            width: '32px',
-            height: '32px',
+            width: '40px',
+            height: '40px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -577,10 +575,8 @@ const TowerView = () => {
             cursor: 'pointer',
             transition: 'all 0.2s'
           }}
-          onMouseOver={e => e.currentTarget.style.borderColor = 'var(--primary)'}
-          onMouseOut={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
         >
-          <ChevronRight size={16} />
+          <HiArrowSmRight size={16} />
         </button>
       </div>
     </motion.div>
@@ -588,4 +584,5 @@ const TowerView = () => {
 };
 
 export default TowerView;
+
 

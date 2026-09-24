@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Building2, Sofa, UtensilsCrossed, ChefHat, Flame, BedDouble, Bed, ShowerHead,
   Shirt, Clapperboard, Briefcase, Trees, Waves, Dumbbell, HardHat, Video,
-  X, ChevronLeft, ChevronRight, Play, MapPin, Layers, Quote, ZoomIn, ArrowDown,
+  X, Play, MapPin, Layers, Quote, ZoomIn, ArrowDown,
   Heart, ArrowUp, Image as ImageIcon, Film, SlidersHorizontal, Volume2, VolumeX, Sparkles
 } from 'lucide-react';
+import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 
 /* =========================================================================
    TOKENS
@@ -454,7 +455,7 @@ const NavButton = memo(({ item, isActive, mediaCount, onClick, setRef }) => {
       </span>
       {typeof mediaCount === 'number' && (
         <span className="nav-count" style={{
-          fontSize: '0.65rem', fontWeight: 600, color: countColor,
+          fontSize: '0.65rem', fontWeight: 400, color: countColor,
           background: countBg, borderRadius: '4px', padding: '0.15rem 0.45rem', flexShrink: 0,
           transition: 'all 0.3s ease'
         }}>
@@ -492,7 +493,7 @@ const FloatingNav = ({ activeId, onNavigate }) => {
     }}>
       <div style={{ padding: '0 0.5rem 1rem 0.5rem', borderBottom: '1px solid #f1f5f9', marginBottom: '1rem' }}>
         <div 
-          style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#000000', cursor: 'default', transition: 'color 0.2s' }}
+          style={{ margin: 0, fontSize: '1.25rem', fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#000000', cursor: 'default', transition: 'color 0.2s' }}
         >
           Gallery Index
         </div>
@@ -548,7 +549,7 @@ const AnimatedStat = ({ label, value }) => {
       <div style={{ color: 'rgba(15, 23, 42, 0.5)', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: '4px' }}>
         {label}
       </div>
-      <div style={{ color: '#0f172a', fontSize: '1.15rem', fontWeight: 700, fontFamily: 'var(--font-olivera)' }}>
+      <div style={{ color: '#0f172a', fontSize: '1.15rem', fontWeight: 600, fontFamily: 'var(--font-olivera)' }}>
         {display ?? (match ? '0' + match[2] : value)}
       </div>
     </motion.div>
@@ -617,10 +618,10 @@ const HeroBlock = ({ section, onScrollToMedia }) => {
           borderRadius: '22px', padding: '1.75rem 2rem'
         }}
       >
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: GOLD, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '0.6rem' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: GOLD, fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '0.6rem' }}>
           <MapPin size={12} /> {section.location}
         </span>
-        <h2 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-olivera)', fontSize: 'clamp(1.8rem, 3.4vw, 2.8rem)', fontWeight: 600, color: '#0f172a', letterSpacing: '0.04em' }}>
+        <h2 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-olivera)', fontSize: 'clamp(1.8rem, 3.4vw, 2.8rem)', fontWeight: 400, color: '#0f172a', letterSpacing: '0.04em' }}>
           {section.title}
         </h2>
         <p style={{ margin: 0, color: 'rgba(15, 23, 42, 0.7)', fontSize: '0.95rem', maxWidth: '560px', lineHeight: 1.6 }}>
@@ -631,7 +632,7 @@ const HeroBlock = ({ section, onScrollToMedia }) => {
           style={{
             marginTop: '1.25rem', display: 'inline-flex', alignItems: 'center', gap: '8px',
             background: 'whitesmoke', border: `1px solid ${GOLD}`, color: GOLD, borderRadius: '30px',
-            padding: '0.55rem 1.2rem', fontSize: '0.78rem', fontWeight: 700, cursor: 'pointer',
+            padding: '0.55rem 1.2rem', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer',
             textTransform: 'uppercase', letterSpacing: '0.5px', fontFamily: 'var(--font-olivera)'
           }}
         >
@@ -683,7 +684,7 @@ const BeforeAfterSlider = ({ data }) => {
       initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6, ease: EASE }}
       style={{ margin: '2.5rem 0' }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: GOLD, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.75rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: GOLD, fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.75rem' }}>
         <SlidersHorizontal size={12} /> Drag to compare
       </div>
       <div
@@ -702,10 +703,10 @@ const BeforeAfterSlider = ({ data }) => {
           <img src={data.before} alt={data.beforeLabel} draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
 
-        <span style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(56,189,248,0.3)', color: '#0f172a', fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.75rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+        <span style={{ position: 'absolute', top: '1rem', left: '1rem', background: 'rgba(255,255,255,0.85)', border: '1px solid rgba(56,189,248,0.3)', color: '#0f172a', fontSize: '0.68rem', fontWeight: 600, padding: '0.3rem 0.75rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
           {data.beforeLabel}
         </span>
-        <span style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.85)', border: `1px solid ${GOLD}`, color: GOLD, fontSize: '0.68rem', fontWeight: 700, padding: '0.3rem 0.75rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+        <span style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(255,255,255,0.85)', border: `1px solid ${GOLD}`, color: GOLD, fontSize: '0.68rem', fontWeight: 600, padding: '0.3rem 0.75rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
           {data.afterLabel}
         </span>
 
@@ -715,8 +716,8 @@ const BeforeAfterSlider = ({ data }) => {
           width: '42px', height: '42px', borderRadius: '50%', background: 'rgba(255,255,255,0.95)', border: `1px solid ${GOLD}`,
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2px', pointerEvents: 'none'
         }}>
-          <ChevronLeft size={12} color={GOLD} />
-          <ChevronRight size={12} color={GOLD} />
+          <HiArrowSmLeft size={12} color={GOLD} />
+          <HiArrowSmRight size={12} color={GOLD} />
         </div>
       </div>
     </motion.div>
@@ -747,7 +748,7 @@ const MediaFilterTabs = ({ value, onChange, counts }) => {
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '6px', border: active ? `1px solid ${GOLD}` : '1px solid rgba(255,255,255,0.12)',
               background: active ? GOLD_SOFT : 'rgba(255,255,255,0.03)', color: active ? GOLD : 'rgba(255,255,255,0.6)',
-              borderRadius: '20px', padding: '0.4rem 0.9rem', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer',
+              borderRadius: '20px', padding: '0.4rem 0.9rem', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer',
               transition: 'all 0.25s ease'
             }}
           >
@@ -841,7 +842,7 @@ const MediaCard = memo(({ item, index, onOpen }) => {
         <div className="card-cursor-light" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', mixBlendMode: 'screen' }} />
         <div className="card-shine" style={{ position: 'absolute', top: '-50%', left: '-50%', width: '60%', height: '200%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)', transition: 'transform 0.3s ease-out', pointerEvents: 'none' }} />
         {isVideo && (
-          <div style={{ position: 'absolute', top: '0.8rem', left: '0.8rem', display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.85)', border: `1px solid ${GOLD}`, borderRadius: '20px', padding: '0.25rem 0.65rem', fontSize: '0.6rem', fontWeight: 700, color: GOLD, textTransform: 'uppercase' }}>
+          <div style={{ position: 'absolute', top: '0.8rem', left: '0.8rem', display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.85)', border: `1px solid ${GOLD}`, borderRadius: '20px', padding: '0.25rem 0.65rem', fontSize: '0.6rem', fontWeight: 600, color: GOLD, textTransform: 'uppercase' }}>
             <Play size={10} fill={GOLD} /> Motion
           </div>
         )}
@@ -858,7 +859,7 @@ const MediaCard = memo(({ item, index, onOpen }) => {
           <Heart size={13} color={saved ? GOLD : 'white'} fill={saved ? GOLD : 'none'} />
         </button>
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0.9rem', background: 'linear-gradient(to top, rgba(5,5,8,0.85), transparent)' }}>
-          <span style={{ color: 'black', fontSize: '0.75rem', fontWeight: 600 }}>{item.caption}</span>
+          <span style={{ color: 'black', fontSize: '0.75rem', fontWeight: 400 }}>{item.caption}</span>
         </div>
       </div>
     </motion.div>
@@ -880,7 +881,7 @@ const TimelineStrip = () => (
           <span style={{ width: '32px', height: '32px', borderRadius: '50%', border: `1px solid ${GOLD}`, background: GOLD_SOFT, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <step.icon size={14} color={GOLD} />
           </span>
-          <span style={{ fontSize: '0.78rem', color: 'black', fontWeight: 600, whiteSpace: 'nowrap' }}>{step.label}</span>
+          <span style={{ fontSize: '0.78rem', color: 'black', fontWeight: 400, whiteSpace: 'nowrap' }}>{step.label}</span>
         </motion.div>
         {i < TIMELINE_STEPS.length - 1 && <span style={{ flex: 1, minWidth: '20px', height: '1px', background: 'linear-gradient(90deg, rgba(212,175,55,0.5), rgba(56,189,248,0.2))' }} />}
       </React.Fragment>
@@ -959,7 +960,7 @@ const SectionBlock = forwardRef(({ section, onOpenViewer }, ref) => {
 
       {section.materials && section.materials[0] !== '-' && (
         <div style={{ marginTop: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: GOLD, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.6rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: GOLD, fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.6rem' }}>
             <Layers size={12} /> Materials
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -979,7 +980,7 @@ const SectionBlock = forwardRef(({ section, onOpenViewer }, ref) => {
           <p style={{ color: 'black', fontSize: '1rem', lineHeight: 1.6, fontStyle: 'italic', margin: '0 0 0.75rem 0' }}>
             &ldquo;{section.testimonial.quote}&rdquo;
           </p>
-          <span style={{ color: 'rgba(15, 23, 42, 0.5)', fontSize: '0.8rem', fontWeight: 600 }}>{section.testimonial.author}</span>
+          <span style={{ color: 'rgba(15, 23, 42, 0.5)', fontSize: '0.8rem', fontWeight: 400 }}>{section.testimonial.author}</span>
         </motion.div>
       )}
     </section>
@@ -1038,8 +1039,26 @@ const ProjectViewer = ({ section, index, onClose, onPrev, onNext }) => {
       <button onClick={onClose} style={{ position: 'absolute', top: '1.5rem', right: '4%', zIndex: 420, background: 'white', border: '1px solid rgba(56,189,248,0.3)', color: '#000000', cursor: 'pointer', borderRadius: '50%', width: '42px', height: '42px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <X size={18} />
       </button>
-      <button onClick={(e) => { e.stopPropagation(); onPrev(); }} style={navArrowStyle('left')}><ChevronLeft size={22} /></button>
-      <button onClick={(e) => { e.stopPropagation(); onNext(); }} style={navArrowStyle('right')}><ChevronRight size={22} /></button>
+      <button 
+        onClick={(e) => { e.stopPropagation(); onPrev(); }} 
+        style={{ ...navArrowStyle('left'), transition: 'all 0.3s ease' }}
+
+
+
+
+      >
+        <HiArrowSmLeft size={22} />
+      </button>
+      <button 
+        onClick={(e) => { e.stopPropagation(); onNext(); }} 
+        style={{ ...navArrowStyle('right'), transition: 'all 0.3s ease' }}
+
+
+
+
+      >
+        <HiArrowSmRight size={22} />
+      </button>
 
       <div onClick={(e) => e.stopPropagation()} style={{ margin: 'auto', width: '92%', maxWidth: '1180px', padding: '5rem 0 3rem', display: 'grid', gridTemplateColumns: 'minmax(0,1.6fr) minmax(220px,1fr)', gap: '2.5rem' }} className="viewer-grid">
         <div>
@@ -1085,8 +1104,8 @@ const ProjectViewer = ({ section, index, onClose, onPrev, onNext }) => {
         </div>
 
         <div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.6px' }}>{section.title}</span>
-          <h2 style={{ margin: '6px 0 1rem', fontFamily: 'var(--font-olivera)', fontSize: '1.6rem', fontWeight: 600, color: '#0f172a' }}>{item.caption}</h2>
+          <span style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.6px' }}>{section.title}</span>
+          <h2 style={{ margin: '6px 0 1rem', fontFamily: 'var(--font-olivera)', fontSize: '1.6rem', fontWeight: 400, color: '#0f172a' }}>{item.caption}</h2>
           <p style={{ color: 'black', fontSize: '0.88rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>{section.description || section.tagline}</p>
 
           <div style={{ marginBottom: '1.2rem' }}>
@@ -1095,7 +1114,7 @@ const ProjectViewer = ({ section, index, onClose, onPrev, onNext }) => {
               {section.stats.map((s) => (
                 <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: '0.4rem' }}>
                   <span style={{ color: 'rgba(15, 23, 42, 0.5)' }}>{s.label}</span>
-                  <span style={{ color: '#0f172a', fontWeight: 600 }}>{s.value}</span>
+                  <span style={{ color: '#0f172a', fontWeight: 400 }}>{s.value}</span>
                 </div>
               ))}
             </div>
@@ -1119,10 +1138,10 @@ const ProjectViewer = ({ section, index, onClose, onPrev, onNext }) => {
 
 const navArrowStyle = (side) => ({
   position: 'absolute', [side]: '1.5rem', top: '50%', transform: 'translateY(-50%)', zIndex: 420,
-  background: 'white', border: '1px solid rgba(56,189,248,0.25)', color: '#0f172a',
-  cursor: 'pointer', borderRadius: '50%', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+  background: 'rgba(0, 0, 0, 0.6)', border: '1px solid rgba(56,189,248,0.25)', color: '#fff',
+  cursor: 'pointer', borderRadius: '50%', width: '56px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center'
 });
-const chipGroupLabel = { color: GOLD, fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' };
+const chipGroupLabel = { color: GOLD, fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' };
 const tagChip = { fontSize: '0.75rem', color: 'black', background: 'transparent', border: '1px solid rgba(56,189,248,0.25)', borderRadius: '20px', padding: '0.3rem 0.75rem' };
 
 /* =========================================================================
@@ -1175,8 +1194,8 @@ const WalkthroughModal = ({ onClose }) => {
         style={{ width: '100%', maxWidth: '1100px' }}
       >
         <div style={{ marginBottom: '1rem', textAlign: 'center' }}>
-          <span style={{ color: GOLD, fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px' }}>{MASTER_WALKTHROUGH.subtitle}</span>
-          <h2 style={{ margin: '0.4rem 0 0', color: '#0f172a', fontFamily: 'var(--font-olivera)', fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', fontWeight: 600 }}>{MASTER_WALKTHROUGH.title}</h2>
+          <span style={{ color: GOLD, fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1.5px' }}>{MASTER_WALKTHROUGH.subtitle}</span>
+          <h2 style={{ margin: '0.4rem 0 0', color: '#0f172a', fontFamily: 'var(--font-olivera)', fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', fontWeight: 400 }}>{MASTER_WALKTHROUGH.title}</h2>
         </div>
         <div style={{ position: 'relative', borderRadius: '22px', overflow: 'hidden', border: `1px solid ${GOLD_SOFT}`, boxShadow: '0 30px 80px rgba(0,0,0,0.85)' }}>
           <video
@@ -1260,10 +1279,10 @@ const Gallery = () => {
       <FloatingNav activeId={activeId} onNavigate={handleNavigate} />
 
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '0 4% 2rem' }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: GOLD, fontSize: '0.7rem', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: GOLD, fontSize: '0.7rem', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
           <span style={{ width: '24px', height: '1px', background: GOLD }} /> Walk Through The Building <span style={{ width: '24px', height: '1px', background: GOLD }} />
         </span>
-        <h1 style={{ fontFamily: 'var(--font-olivera)', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 600, margin: '0 0 0.5rem 0', letterSpacing: '0.04em' }}>
+        <h1 style={{ fontFamily: 'var(--font-olivera)', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 400, margin: '0 0 0.5rem 0', letterSpacing: '0.04em' }}>
           The Project Experience
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '620px', margin: '0 auto' }}>
@@ -1338,7 +1357,7 @@ const GALLERY_STYLES = `
   }
   .walkthrough-fab-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(5,5,8,0.9); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .walkthrough-fab-text { display: flex; flex-direction: column; line-height: 1.25; }
-  .walkthrough-fab-text strong { color: #101014; font-size: 0.82rem; font-weight: 800; }
+  .walkthrough-fab-text strong { color: #101014; font-size: 0.82rem; font-weight: 700; }
   .walkthrough-fab-text em { color: rgba(16,16,20,0.65); font-size: 0.66rem; font-style: normal; }
 
   .scroll-top-btn {

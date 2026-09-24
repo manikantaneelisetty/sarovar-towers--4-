@@ -65,7 +65,7 @@ const Navbar = () => {
                 borderRadius: '20px',
                 padding: '0.4rem 1rem',
                 fontSize: '0.85rem',
-                fontWeight: '500',
+                fontWeight: '400',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',

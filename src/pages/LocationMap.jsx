@@ -105,7 +105,7 @@ const LocationMap = () => {
                 margin: '0', 
                 fontFamily: 'var(--font-olivera)', 
                 fontSize: '1.25rem', 
-                fontWeight: '500',
+                fontWeight: '400',
                 color: 'white',
                 letterSpacing: '1px'
               }}>
@@ -116,17 +116,17 @@ const LocationMap = () => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: 'var(--text-secondary)',
+                  color: 'var(--text-white)',
                   cursor: 'pointer',
                   fontSize: '0.8rem',
-                  fontWeight: '500',
+                  fontWeight: '400',
                   padding: '2px',
                   display: 'flex',
                   alignItems: 'center',
                   transition: 'color 0.2s ease'
                 }}
-                onMouseOver={e => e.currentTarget.style.color = 'var(--primary)'}
-                onMouseOut={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+                onMouseOver={e => e.currentTarget.style.color = '#38bdf8'}
+                onMouseOut={e => e.currentTarget.style.color = 'var(--text-white)'}
               >
                 {isDirectoryMinimized ? 'Expand' : 'Minimize'}
               </button>
@@ -147,20 +147,20 @@ const LocationMap = () => {
                         key={cat}
                         onClick={() => setActiveCategory(cat)}
                         style={{
-                          background: isActive ? 'var(--primary)' : 'rgba(255,255,255,0.03)',
+                          background: isActive ? '#38bdf8' : 'rgb(7, 6, 6)',
                           border: '1px solid',
-                          borderColor: isActive ? 'var(--primary)' : 'rgba(255,255,255,0.08)',
-                          color: isActive ? '#000' : 'var(--text-secondary)',
+                          borderColor: isActive ? '#38bdf8' : 'rgba(255,255,255,0.08)',
+                          color: isActive ? '#fdfdfd' : 'var(--text-white)',
                           padding: '0.45rem 0.95rem',
                           borderRadius: '20px',
                           fontSize: '0.85rem',
-                          fontWeight: '500',
+                          fontWeight: '400',
                           cursor: 'pointer',
                           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                           letterSpacing: '1px'
                         }}
                         onMouseOver={e => {
-                          if (!isActive) e.currentTarget.style.borderColor = 'var(--primary)';
+                          if (!isActive) e.currentTarget.style.borderColor = '#38bdf8';
                         }}
                         onMouseOut={e => {
                           if (!isActive) e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
@@ -185,8 +185,8 @@ const LocationMap = () => {
               textAlign: 'center',
               gap: '6px'
             }}>
-              <MapPin size={32} color="var(--primary)" />
-              <div style={{ fontSize: '1rem', fontWeight: '500', letterSpacing: '0.5px', color: 'white' }}>
+              <MapPin size={32} color="#38bdf8" />
+              <div style={{ fontSize: '1rem', fontWeight: '400', letterSpacing: '0.5px', color: 'white' }}>
                 Neighborhood Directory
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -244,17 +244,17 @@ const LocationMap = () => {
                           alignItems: 'center',
                           justifyContent: 'center'
                         }}>
-                          <IconComponent size={14} color="var(--primary)" />
+                          <IconComponent size={14} color="#38bdf8" />
                         </div>
                         <div>
-                          <div style={{ fontSize: '0.85rem', fontWeight: '500', color: 'white' }}>
+                          <div style={{ fontSize: '0.85rem', fontWeight: '400', color: 'white' }}>
                             {place.name}
                           </div>
                           <span style={{
                             fontSize: '0.65rem',
                             color: 'var(--text-muted)',
                             textTransform: 'uppercase',
-                            fontWeight: '500',
+                            fontWeight: '400',
                             letterSpacing: '0.5px'
                           }}>
                             {place.category}
@@ -267,8 +267,8 @@ const LocationMap = () => {
                         alignItems: 'center',
                         gap: '4px',
                         fontSize: '0.8rem',
-                        fontWeight: '700',
-                        color: 'var(--primary)'
+                        fontWeight: '600',
+                        color: '#38bdf8'
                       }}>
                         <MapPin size={12} />
                         {place.distance}
