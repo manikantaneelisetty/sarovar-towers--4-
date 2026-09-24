@@ -8,26 +8,51 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { compareList, setIsCompareOpen } = useCompare();
   const location = useLocation();
+
   const isFloorView = location.pathname.startsWith('/floor/') || location.pathname.startsWith('/flat/') || location.pathname.startsWith('/tower/');
-  const isLightNav = location.pathname.startsWith('/floor/') || location.pathname.startsWith('/flat/');
+
+  /* Pages that need black links (light background, no forced dark bar) */
+  const isLightNav =
+    location.pathname.startsWith('/floor/') ||
+    location.pathname.startsWith('/flat/');
+
+  /* Gallery, Specifications & Contact → same dark transparent navbar as LocationMap
+     (white links on a subtle dark bar, regardless of scroll position)     */
+  const isDarkForced =
+    location.pathname.startsWith('/gallery') ||
+    location.pathname.startsWith('/specifications') ||
+    location.pathname.startsWith('/contact');
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu  = () => setIsOpen(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  /* On route change reset scroll-state check immediately */
+  useEffect(() => {
+    setIsScrolled(window.scrollY > 20);
+  }, [location.pathname]);
+
+  /* ── inline style for header ── */
+  const headerStyle = isDarkForced && !isScrolled
+    ? {
+        background: 'rgba(5, 6, 8, 0.72)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+      }
+    : {};
+
   return (
-    <header className={`topbar ${isScrolled ? 'scrolled' : ''}`}>
+    <header
+      className={`topbar ${isScrolled ? 'scrolled' : ''}`}
+      style={headerStyle}
+    >
       <div className="nav-container">
         <Link to="/" className="logo-area" onClick={closeMenu}>
           <img src="/Aparna Sarover.png" alt="Aparna Logo" className="logo" />
@@ -58,9 +83,9 @@ const Navbar = () => {
                 closeMenu();
               }}
               style={{
-                background: 'rgba(56, 189, 248, 0.15)',
-                border: '1px solid #ecc31f',
-                color: '#ecc31f',
+                background: 'rgba(0, 0, 0, 0.4)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#FFFFFF',
                 cursor: 'pointer',
                 borderRadius: '20px',
                 padding: '0.4rem 1rem',
@@ -70,18 +95,17 @@ const Navbar = () => {
                 alignItems: 'center',
                 gap: '6px',
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                fontFamily: 'var(--font-cinzel)',
                 marginLeft: '10px',
-                boxShadow: '0 0 10px rgba(56, 189, 248, 0.1)'
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
               }}
               className="compare-badge"
               onMouseOver={e => {
-                e.currentTarget.style.background = 'rgba(56, 189, 248, 0.25)';
-                e.currentTarget.style.boxShadow = '0 0 15px rgba(236, 195, 31, 0.4)';
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
+                e.currentTarget.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.1)';
               }}
               onMouseOut={e => {
-                e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)';
-                e.currentTarget.style.boxShadow = '0 0 10px rgba(56, 189, 248, 0.1)';
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.4)';
+                e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
               }}
             >
               <ArrowLeftRight size={14} />
@@ -92,7 +116,9 @@ const Navbar = () => {
 
         {/* Mobile menu toggle */}
         <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle navigation">
-          {isOpen ? <X size={24} color={isFloorView ? "black" : "white"} /> : <Menu size={24} color={isFloorView ? "black" : "white"} />}
+          {isOpen
+            ? <X    size={24} color={isLightNav ? 'black' : 'white'} />
+            : <Menu size={24} color={isLightNav ? 'black' : 'white'} />}
         </button>
       </div>
     </header>

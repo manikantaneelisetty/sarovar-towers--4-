@@ -43,8 +43,10 @@ const FlatDetails = () => {
   const flatSuffix = String(flatIndex).padStart(2, '0'); // '01', '02', etc.
 
   // Flat configuration
-  const specList = towerData[tower]?.specs || [];
   const facing = (flatIndex === 1 || flatIndex === 2) ? 'West Facing' : 'East Facing';
+  
+  const towerSpecs = towerData[tower]?.specs;
+  const specList = Array.isArray(towerSpecs) ? towerSpecs : (towerSpecs?.[facing] || []);
   
   const sqftMap = { 1: 3348, 2: 2878, 3: 3700 };
   const bhkMap = { 1: '4 BHK', 2: '3 BHK', 3: '4 BHK' };
@@ -53,7 +55,7 @@ const FlatDetails = () => {
 
   let flatImage = `/images/f/t${tower}-flats/1${flatSuffix}.png`;
   
-  const floorPlan2DImage = `/images/2d/1${flatSuffix}.jpg`;
+  const floorPlan2DImage = `/images/t${tower}-flats/1${flatSuffix}.png`;
 
   const changeFlat = (step) => {
     // Current floor flats: flatIndex from 1 to 4
@@ -240,7 +242,7 @@ const FlatDetails = () => {
               style={{
                 position: 'fixed',
                 top: '50%',
-                left: 'max(2%, calc(50vw - 750px))',
+                left: 'max(2%, calc(50vw - 550px))',
                 transform: 'translateY(-50%)',
                 zIndex: 10,
                 background: 'rgba(0, 0, 0, 0.6)',
@@ -266,7 +268,7 @@ const FlatDetails = () => {
               style={{
                 position: 'fixed',
                 top: '50%',
-                right: 'max(2%, calc(50vw - 750px))',
+                right: 'max(2%, calc(50vw - 550px))',
                 transform: 'translateY(-50%)',
                 zIndex: 10,
                 background: 'rgba(0, 0, 0, 0.6)',
@@ -366,9 +368,9 @@ const FlatDetails = () => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: 'var(--text-muted)',
+                    color: '#38BDF8',
                     cursor: 'pointer',
-                    fontSize: '1.2rem',
+                    fontSize: '2.2rem',
                     fontWeight: '400',
                     lineHeight: 1
                   }}
@@ -616,8 +618,8 @@ const FlatDetails = () => {
               style={{
                 width: '95%',
                 maxWidth: '1200px',
-                background: 'rgba(4, 4, 4, 0.95)',
-                border: '1px solid rgba(56, 189, 248, 0.35)',
+                background: 'rgba(20, 19, 19, 0.95)',
+                border: '1px solid rgba(7, 7, 7, 0.35)',
                 borderRadius: '5px',
                 padding: '1.5rem',
                 display: 'flex',
@@ -628,7 +630,7 @@ const FlatDetails = () => {
               onClick={e => e.stopPropagation()}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '0.5rem' }}>
-                <div style={{ display: 'flex', gap: '8px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                <div style={{ display: 'flex', gap: '8px', fontSize: '0.9rem', color: 'var(--text-white)' }}>
                   <span style={{ color: 'white', fontWeight: '600' }}>2D layout</span>
                   <span>|</span>
                   <span>{size}</span>
@@ -640,7 +642,7 @@ const FlatDetails = () => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: 'var(--text-secondary)',
+                    color: 'var(--text-white)',
                     cursor: 'pointer',
                     fontSize: '1.2rem'
                   }}

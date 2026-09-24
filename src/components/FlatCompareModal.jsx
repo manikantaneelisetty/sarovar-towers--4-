@@ -68,7 +68,7 @@ const FlatCompareModal = () => {
                 border: 'none',
                 color: '#0a0a0a',
                 cursor: 'pointer',
-                fontSize: '0.9rem',
+                fontSize: '1.25rem',
                 fontWeight: '400',
                 transition: 'color 0.2s'
               }}
@@ -90,7 +90,7 @@ const FlatCompareModal = () => {
                 justifyContent: 'center'
               }}
             >
-              <X size={22} />
+              <X size={25} />
             </button>
           </div>
         </div>

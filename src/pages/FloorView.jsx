@@ -17,6 +17,8 @@ const FloorView = () => {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
+  const [showBlockSetup, setShowBlockSetup] = useState(false);
+  const [showFloorSetup, setShowFloorSetup] = useState(false);
   const [slideDir, setSlideDir] = useState(0);
   const imgRef = useRef(null);
   const containerRef = useRef(null);
@@ -163,18 +165,6 @@ const FloorView = () => {
           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           fontWeight: '600'
         }}
-        onMouseOver={e => {
-          e.currentTarget.style.background = '#38BDF8';
-          e.currentTarget.style.borderColor = '#38BDF8';
-          e.currentTarget.style.boxShadow = 'none';
-          e.currentTarget.style.color = '#FFFFFF';
-        }}
-        onMouseOut={e => {
-          e.currentTarget.style.background = '#000000';
-          e.currentTarget.style.borderColor = '#333333';
-          e.currentTarget.style.boxShadow = 'none';
-          e.currentTarget.style.color = '#FFFFFF';
-        }}
           >
             <ArrowLeft size={16} />
             {isMobile ? 'Back' : `Tower ${tower} View`}
@@ -232,7 +222,7 @@ const FloorView = () => {
             color: floor <= 1 ? 'rgba(255,255,255,0.3)' : 'white',
             cursor: floor <= 1 ? 'not-allowed' : 'pointer',
             transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
+            // boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
           }}
         >
           <HiArrowSmLeft size={20} />
@@ -473,7 +463,7 @@ const FloorView = () => {
             color: floor >= 50 ? 'rgba(255,255,255,0.3)' : 'white',
             cursor: floor >= 50 ? 'not-allowed' : 'pointer',
             transition: 'all 0.3s ease',
-            boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
+            // boxShadow: '0 4px 15px rgba(236,195,31,0.2)'
           }}
         >
           <HiArrowSmRight size={20} />
@@ -526,7 +516,7 @@ const FloorView = () => {
               zIndex: 30,
               background: '#0a0a0a',
               border: 'none',
-              boxShadow: '0 0 15px rgba(236,195,31,0.4)',
+              // boxShadow: '0 0 15px rgba(236,195,31,0.4)',
               borderRadius: '5px',
               padding: '0.6rem 1.25rem',
               display: 'flex',
@@ -573,127 +563,257 @@ const FloorView = () => {
               boxShadow: '-8px 8px 32px rgba(0,0,0,0.6)'
             }}
           >
-            <div style={{
-              padding: isMobile ? '0.75rem 0.75rem 0.6rem' : '1rem 1rem 0.8rem',
-              borderBottom: '1px solid rgba(255,255,255,0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '8px',
-              flexShrink: 0
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Layers size={18} color="#38BDF8" />
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: isMobile ? '1.05rem' : '1.25rem', fontWeight: '400', color: 'white', letterSpacing: '0.04em' }}>
-                  Jump to Floor
-                </h3>
+                                        <div style={{
+                padding: isMobile ? '0.75rem 0.75rem 0.6rem' : '1rem 1rem 0.8rem',
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.25rem',
+                flexShrink: 0
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <Layers size={18} color="#38BDF8" />
+                    <h3 style={{ margin: 0, fontFamily: 'var(--font-olivera)', fontSize: isMobile ? '1.05rem' : '1.15rem', fontWeight: '500', color: 'white', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                      Jump to Floor
+                    </h3>
+                  </div>
+                  <button 
+                    onClick={() => setIsDirectoryOpen(false)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#38BDF8',
+                      cursor: 'pointer',
+                      fontSize: '2.2rem',
+                      fontWeight: '300',
+                      lineHeight: 1,
+                      transition: 'color 0.2s'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.color = 'white'}
+                    onMouseOut={(e) => e.currentTarget.style.color = '#38BDF8'}
+                  >
+                    &times;
+                  </button>
+                </div>
               </div>
-              <button 
-                onClick={() => setIsDirectoryOpen(false)}
+
+              {/* Block Setup Toggle */}
+                <div 
+                  style={{
+                    padding: '0.6rem 1rem',
+                    borderBottom: '1px solid rgba(255,255,255,0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    position: 'relative'
+                  }}
+                  onMouseLeave={() => setShowBlockSetup(false)}
+                >
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-white)', fontWeight: '600' }}>BLOCK SETUP</span>
+                  
+                  <div
+                    style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                    onClick={() => setShowBlockSetup(!showBlockSetup)}
+                    onMouseEnter={() => setShowBlockSetup(true)}
+                  >
+                    <span style={{ fontSize: '0.75rem', color: '#38BDF8' }}>{block}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#38BDF8', transform: showBlockSetup ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>&#9660;</span>
+                  </div>
+                  
+                  {/* Absolute positioning to mask the card info */}
+                  <AnimatePresence>
+                    {showBlockSetup && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        style={{ 
+                          position: 'absolute',
+                          top: '100%',
+                          left: 0,
+                          right: 0,
+                          background: 'rgba(13, 13, 15, 0.98)', 
+                          padding: '0.75rem',
+                          borderBottom: '1px solid #38BDF8',
+                          zIndex: 10,
+                          boxShadow: '0 10px 30px rgba(0,0,0,0.8)'
+                        }}
+                      >
+                        <div style={{ 
+                          display: 'flex', 
+                          background: 'rgba(0,0,0,0.6)', 
+                          borderRadius: '2px', 
+                          padding: '4px',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                          boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)'
+                        }}>
+                          {[
+                            { id: 1, label: 'T1', sub: 'Canopus' },
+                            { id: 2, label: 'T2', sub: 'Sirius' },
+                            { id: 3, label: 'T3', sub: 'Vega' }
+                          ].map(t => {
+                            const isActive = tower === t.id;
+                            return (
+                              <button
+                                key={t.id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  navigate(`/floor/${t.id}/${floor}`);
+                                  setShowBlockSetup(false);
+                                }}
+                                style={{
+                                  flex: 1,
+                                  padding: '0.25rem 0',
+                                  background: isActive ? '#38BDF8' : 'transparent',
+                                  border: 'none',
+                                  borderRadius: '2px',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  alignItems: 'center',
+                                  gap: '1px',
+                                  cursor: 'pointer',
+                                  color: isActive ? '#000' : 'rgba(255,255,255,0.6)',
+                                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                                  boxShadow: isActive ? '0 4px 12px rgba(56,189,248,0.4)' : 'none'
+                                }}
+                              >
+                                <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isActive ? '#000' : 'white' }}>{t.label}</span>
+                                <span style={{ fontSize: '0.6rem', opacity: isActive ? 0.9 : 0.6, letterSpacing: '0.05em' }}>{t.sub}</span>
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              
+              {/* Floor Setup Toggle */}
+              <div 
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-muted)',
-                  cursor: 'pointer',
-                  fontSize: '1.2rem',
-                  fontWeight: '400',
-                  lineHeight: 1
+                  padding: '0.6rem 1rem',
+                  borderBottom: '1px solid rgba(255,255,255,0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  position: 'relative'
                 }}
+                onMouseLeave={() => setShowFloorSetup(false)}
               >
-                &times;
-              </button>
-            </div>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-white)', fontWeight: '600' }}>FLOOR SETUP</span>
+                
+                <div
+                  style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                  onClick={() => setShowFloorSetup(!showFloorSetup)}
+                  onMouseEnter={() => setShowFloorSetup(true)}
+                >
+                  <span style={{ fontSize: '0.75rem', color: '#38BDF8' }}>Floor {floor}</span>
+                  <span style={{ fontSize: '0.75rem', color: '#38BDF8', transform: showFloorSetup ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>&#9660;</span>
+                </div>
+                
+                {/* Absolute positioning to mask the card info */}
+                <AnimatePresence>
+                  {showFloorSetup && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      style={{ 
+                        position: 'absolute',
+                        top: '100%',
+                        left: 0,
+                        right: 0,
+                        background: 'rgba(13, 13, 15, 0.98)', 
+                        padding: '1rem',
+                        borderBottom: '1px solid #38BDF8',
+                        zIndex: 10,
+                        boxShadow: '0 10px 30px rgba(0,0,0,0.8)',
+                        maxHeight: '320px',
+                        overflowY: 'auto'
+                      }}
+                      className="scrollbar-styled"
+                    >
+                      <div 
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: 'repeat(5, 1fr)',
+                          gap: '4px'
+                        }}
+                      >
+                        {Array.from({ length: 50 }, (_, i) => i + 1).map(fNum => {
+                          const isCurrent = fNum === floor;
+                          return (
+                            <button
+                              key={fNum}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                changeFloor(fNum - floor);
+                                setShowFloorSetup(false);
+                              }}
+                              style={{
+                                padding: '0.5rem 0',
+                                borderRadius: '4px',
+                                border: isCurrent ? '1px solid #38BDF8' : '1px solid rgba(255,255,255,0.08)',
+                                background: isCurrent ? '#38BDF8' : 'rgba(0,0,0,0.3)',
+                                color: isCurrent ? '#000' : 'rgba(255,255,255,0.7)',
+                                fontSize: '0.85rem',
+                                fontWeight: isCurrent ? '800' : '500',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease',
+                                boxShadow: isCurrent ? '0 0 15px rgba(56,189,248,0.4)' : 'none'
+                              }}
+                              onMouseOver={e => {
+                                if (!isCurrent) {
+                                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                                  e.currentTarget.style.color = 'white';
+                                }
+                              }}
+                              onMouseOut={e => {
+                                if (!isCurrent) {
+                                  e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                                  e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
+                                }
+                              }}
+                            >
+                              {fNum}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             
             <div style={{
-              padding: isMobile ? '0.75rem' : '0.9rem',
-              borderBottom: '1px solid rgba(255,255,255,0.08)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: isMobile ? '0.6rem' : '0.7rem',
-              background: 'rgba(255,255,255,0.02)',
-              fontSize: isMobile ? '0.75rem' : '0.82rem'
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: isMobile ? '0.65rem' : '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-white)' }}>Floor overview</span>
-                <span style={{ fontSize: isMobile ? '0.7rem' : '0.75rem', fontWeight: '700', color: '#38BDF8' }}>Floor {floor}</span>
+                padding: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.8rem',
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                borderTop: '1px solid rgba(255,255,255,0.05)'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '0.6rem', borderBottom: '1px dashed rgba(255,255,255,0.15)' }}>
+                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--text-white)', fontWeight: '600' }}>Floor Overview</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#38BDF8', background: 'rgba(56,189,248,0.1)', padding: '3px 10px', borderRadius: '12px' }}>Floor {floor}</span>
+                </div>
+                
+                {[
+                  { label: 'Block', value: block },
+                  { label: 'Apartment Type', value: floorDetail.bhk },
+                  { label: 'Super Built-up', value: floorDetail.area },
+                  { label: 'Selected Flat', value: previewFlatNo },
+                  { label: 'Facing', value: previewFacing }
+                ].map((item, idx) => (
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ color: 'var(--text-white)', fontSize: '0.8rem', fontWeight: '400' }}>{item.label}</span>
+                    <span style={{ color: 'white', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.03em' }}>{item.value}</span>
+                  </div>
+                ))}
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Tower</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>Tower {tower}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Block</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>{block}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Apartment Type</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>{floorDetail.bhk}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Super Built-up</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>{floorDetail.area}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Selected Flat</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>{previewFlatNo}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Flat Area</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>{previewFlatArea}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: isMobile ? '0.75rem' : '0.82rem', color: 'white' }}>
-                <span>Facing</span>
-                <span style={{ fontWeight: '600', color: 'white' }}>{previewFacing}</span>
-              </div>
-            </div>
-            <div 
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '6px',
-                overflowY: 'auto',
-                flexGrow: 1,
-                padding: '0.75rem'
-              }}
-              className="scrollbar-styled"
-            >
-              {Array.from({ length: 50 }, (_, i) => 50 - i).map(fNum => {
-                const isCurrent = fNum === floor;
-                return (
-                  <button
-                    key={fNum}
-                    onClick={() => {
-                      changeFloor(fNum - floor);
-                    }}
-                    style={{
-                      padding: '0.5rem 0',
-                      borderRadius: '6px',
-                      border: isCurrent ? '#38BDF8' : '1px solid rgba(255,255,255,0.05)',
-                      background: isCurrent ? '#38BDF8' : 'rgba(255,255,255,0.02)',
-                      color: isCurrent ? 'white' : 'var(--text-secondary)',
-                      fontSize: '0.75rem',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                    }}
-                    onMouseOver={e => {
-                      if (!isCurrent) {
-                        e.currentTarget.style.borderColor = '#38BDF8';
-                        e.currentTarget.style.color = '#38BDF8';
-                      }
-                    }}
-                    onMouseOut={e => {
-                      if (!isCurrent) {
-                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)';
-                        e.currentTarget.style.color = 'var(--text-secondary)';
-                      }
-                    }}
-                  >
-                    {fNum}
-                  </button>
-                );
-              })}
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -702,5 +822,16 @@ const FloorView = () => {
 };
 
 export default FloorView;
+
+
+
+
+
+
+
+
+
+
+
 
 

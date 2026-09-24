@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&family=Cinzel:wght@400&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Olivera';
@@ -38,10 +38,10 @@
   --shadow-lg: 0 16px 45px rgba(0, 0, 0, 0.12);
   
   /* Fonts */
-  --font-display: 'Outfit', 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-olivera: 'Olivera', var(--font-display);
-  --font-cinzel: 'Cinzel', serif;
+  --font-display: 'Dosis', sans-serif;
+  --font-body: 'Dosis', sans-serif;
+  --font-olivera: 'Dosis', sans-serif;
+  --font-cinzel: 'Dosis', sans-serif;
   
   /* Transitions */
   --transition-fast: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -85,6 +85,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Dosis', sans-serif !important;
 }
 
 html, body {
@@ -323,7 +324,7 @@ h4, h5, h6 {
 
 .navbar {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
 }
 
@@ -341,6 +342,12 @@ h4, h5, h6 {
 .navbar a:hover {
   color: #ecc31f;
   text-shadow: 0 0 8px rgba(236, 195, 31, 0.4);
+}
+
+.navbar.floor-view-nav a:hover,
+.navbar.floor-view-nav a.active::after {
+  color: inherit !important;
+  text-shadow: none !important;
 }
 
 .navbar a.active {

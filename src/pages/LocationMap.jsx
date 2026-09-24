@@ -89,8 +89,8 @@ const LocationMap = () => {
           zIndex: 10,
           boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
           maxHeight: 'calc(100% - 3rem)',
-          minHeight: isDirectoryMinimized ? '170px' : '0',
-          height: isDirectoryMinimized ? '180px' : 'auto',
+          minHeight: isDirectoryMinimized ? '170px' : '500px',
+          height: isDirectoryMinimized ? '180px' : '500px',
           justifyContent: 'flex-start'
         }}
         className="floating-neighborhood-directory"
@@ -137,8 +137,9 @@ const LocationMap = () => {
                 {/* Category Filter Tabs */}
                 <div style={{
                   display: 'flex',
-                  gap: '6px',
-                  flexWrap: 'wrap'
+                  gap: '4px',
+                  flexWrap: 'nowrap',
+                  overflow: 'hidden'
                 }}>
                   {categories.map(cat => {
                     const isActive = activeCategory === cat;
@@ -151,13 +152,14 @@ const LocationMap = () => {
                           border: '1px solid',
                           borderColor: isActive ? '#38bdf8' : 'rgba(255,255,255,0.08)',
                           color: isActive ? '#fdfdfd' : 'var(--text-white)',
-                          padding: '0.45rem 0.95rem',
-                          borderRadius: '20px',
-                          fontSize: '0.85rem',
+                          padding: '0.3rem 0.4rem',
+                          borderRadius: '2px',
+                          fontSize: '0.7rem',
+                          whiteSpace: 'nowrap',
                           fontWeight: '400',
                           cursor: 'pointer',
                           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                          letterSpacing: '1px'
+                          letterSpacing: '0.2px'
                         }}
                         onMouseOver={e => {
                           if (!isActive) e.currentTarget.style.borderColor = '#38bdf8';
@@ -189,7 +191,7 @@ const LocationMap = () => {
               <div style={{ fontSize: '1rem', fontWeight: '400', letterSpacing: '0.5px', color: 'white' }}>
                 Neighborhood Directory
               </div>
-              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-white)' }}>
                 {filteredPlaces.length} places • {activeCategory}
               </div>
             </div>
@@ -218,7 +220,7 @@ const LocationMap = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: '0.75rem 0.85rem',
+                        padding: '0.5rem 0.6rem',
                         background: 'rgba(255, 255, 255, 0.02)',
                         border: '1px solid rgba(255, 255, 255, 0.04)',
                         borderRadius: '5px',
@@ -252,7 +254,7 @@ const LocationMap = () => {
                           </div>
                           <span style={{
                             fontSize: '0.65rem',
-                            color: 'var(--text-muted)',
+                            color: 'var(--text-white)',
                             textTransform: 'uppercase',
                             fontWeight: '400',
                             letterSpacing: '0.5px'

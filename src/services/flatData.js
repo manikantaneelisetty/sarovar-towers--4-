@@ -3,38 +3,70 @@
 export const towerData = {
   1: {
     block: "Tower-1",
-    specs: [
-      ["Dining", "17'6 X 16'0"],
-      ["Family-Living", "15'5 X 13'0"],
-      ["Drawing", "12'0 X 13'8"],
-      ["Bedroom-1", "12'0 X 13'0"],
-      ["Bedroom-2", "12'10 X 13'0"],
-      ["Bedroom-3", "11'0 X 13'0"],
-      ["M-Bedroom", "13'0 X 16'0"]
-    ]
+    specs: {
+      "West Facing": [
+        ["Dining", "15'9 X 12'0"],
+        ["Family-Living", "19'0 X 15'0"],
+        ["Drawing", "12'0 X 13'8"],
+        ["Bedroom-1", "12'9 X 13'0"],
+        ["Bedroom-2", "12'0 X 13'0"],
+        ["Bedroom-3", "13'0 X 14'0"],
+        ["M-Bedroom", "18'0 X 14'0"]
+      ],
+      "East Facing": [
+        ["Dining", "17'6 X 16'0"],
+        ["Family-Living", "15'5 X 13'0"],
+        ["Drawing", "12'0 X 13'8"],
+        ["Bedroom-1", "12'0 X 13'0"],
+        ["Bedroom-2", "12'10 X 13'0"],
+        ["Bedroom-3", "11'0 X 13'0"],
+        ["M-Bedroom", "13'0 X 16'0"]
+      ]
+    }
   },
   2: {
     block: "Tower-2",
-    specs: [
-      ["Dining", "12'0 X 22'7"],
-      ["Family-Living", "9'3 X 13'0"],
-      ["Drawing", "13'8 X 13'0"],
-      ["Bedroom-1", "12'0 X 13'0"],
-      ["Bedroom-2", "12'0 X 13'0"],
-      ["M-Bedroom", "16'0 X 12'0"]
-    ]
+    specs: {
+      "West Facing": [
+        ["Dining", "11'8 X 22'8"],
+        ["Family-Living", "9'8 X 13'0"],
+        ["Drawing", "13'8 X 13'0"],
+        ["Bedroom-1", "12'0 X 13'0"],
+        ["Bedroom-2", "11'0 X 13'0"],
+        ["M-Bedroom", "18'0 X 12'0"]
+      ],
+      "East Facing": [
+        ["Dining", "12'0 X 22'7"],
+        ["Family-Living", "9'3 X 13'0"],
+        ["Drawing", "13'8 X 13'0"],
+        ["Bedroom-1", "12'0 X 13'0"],
+        ["Bedroom-2", "11'0 X 13'0"],
+        ["M-Bedroom", "16'0 X 12'0"]
+      ]
+    }
   },
   3: {
     block: "Tower-3",
-    specs: [
-      ["Dining", "15'9 X 16'11"],
-      ["Family-Living", "21'0 X 13'0"],
-      ["Drawing", "13'0 X 13'0"],
-      ["Bedroom-1", "13'11 X 12'5"],
-      ["Bedroom-2", "12'10 X 12'5"],
-      ["Bedroom-3", "11'0 X 13'5"],
-      ["M-Bedroom", "13'0 X 17'5"]
-    ]
+    specs: {
+      "West Facing": [
+        ["Dining", "18'10 X 12'0"],
+        ["Family-Living", "18'0 X 16'5"],
+        ["Drawing", "13'0 X 13'0"],
+        ["Bedroom-1", "12'11 X 12'5"],
+        ["Bedroom-2", "14'0 X 12'5"],
+        ["Bedroom-3", "13'0 X 14'0"],
+        ["M-Bedroom", "18'0 X 13'11"]
+      ],
+      "East Facing": [
+        ["Dining", "15'9 X 16'11"],
+        ["Family-Living", "21'0 X 13'0"],
+        ["Drawing", "13'0 X 13'0"],
+        ["Bedroom-1", "13'11 X 12'5"],
+        ["Bedroom-2", "12'10 X 12'5"],
+        ["Bedroom-3", "11'0 X 13'5"],
+        ["M-Bedroom", "13'0 X 17'5"]
+      ]
+    }
   }
 };
 

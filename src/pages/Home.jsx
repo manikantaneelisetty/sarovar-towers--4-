@@ -28,7 +28,7 @@ const Home = () => {
     },
     'tower-3': {
       name: 'Tower 3 - Nova',
-      bhk: '2 & 3 BHK',
+      bhk: '3 BHK',
       units: '193 Units',
       area: '3,700 Sq.ft',
       details: 'Exquisite signature residences featuring premium automation and private deck terraces.',
@@ -244,15 +244,15 @@ const Home = () => {
               </h4>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem 0.75rem', marginBottom: '0.75rem' }}>
                 <div>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Config</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--text-primary)', display: 'block' }}>Config</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '400' }}>{towerInfo[hoveredItem].bhk}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Total Area</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--text-primary)', display: 'block' }}>Total Area</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '400' }}>{towerInfo[hoveredItem].area}</span>
                 </div>
                 <div style={{ gridColumn: 'span 2' }}>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Total Units</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--text-primary)', display: 'block' }}>Total Units</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: '400' }}>{towerInfo[hoveredItem].units}</span>
                 </div>
               </div>
@@ -325,8 +325,8 @@ const Home = () => {
     right: "2rem",
     zIndex: 40,
     width: isOverviewMinimized ? "240px" : "360px",
-    minHeight: isOverviewMinimized ? "140px" : "260px",
-    maxHeight: isOverviewMinimized ? "140px" : "calc(100vh - 4rem)",
+    minHeight: isOverviewMinimized ? "180px" : "260px",
+    maxHeight: isOverviewMinimized ? "180px" : "calc(100vh - 4rem)",
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
@@ -372,7 +372,7 @@ const Home = () => {
       style={{
         background: "none",
         border: "none",
-        color: "var(--text-secondary)",
+        color: "var(--text-primary)",
         cursor: "pointer",
         fontSize: "0.8rem",
         fontWeight: "600",
@@ -428,7 +428,7 @@ const Home = () => {
       <div
         style={{
           fontSize: "0.75rem",
-          color: "var(--text-secondary)",
+          color: "var(--text-primary)",
         }}
       >
         Nallagandla, Hyderabad
@@ -542,7 +542,7 @@ const Home = () => {
               <span
                 style={{
                   fontSize: "0.65rem",
-                  color: "var(--text-muted)",
+                  color: "var(--text-primary)",
                 }}
               >
                 {stat.label}

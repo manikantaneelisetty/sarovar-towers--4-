@@ -239,8 +239,8 @@ const TowerView = () => {
                     background: 'rgba(7, 7, 9, 0.85)',
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid var(--primary)',
-                    boxShadow: '0 8px 32px rgba(56, 189, 248, 0.25)'
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    // boxShadow: '0 8px 32px rgba(56, 189, 248, 0.25)'
                   }}
                 >
                   <div style={{ 
@@ -293,59 +293,67 @@ const TowerView = () => {
         </AnimatePresence>
       </div>
 
-      {/* Floating Toggle Button for Mobile Directory */}
-      {isMobile && (
-        <button
-          onClick={() => setIsDirectoryOpen(!isDirectoryOpen)}
-          style={{
-            position: 'absolute',
-            top: '1.25rem',
-            right: '1.25rem',
-            zIndex: 30,
-            background: 'rgba(7, 7, 9, 0.8)',
-            border: '1px solid rgba(56, 189, 248, 0.4)',
-            borderRadius: '50%',
-            width: '40px',
-            height: '40px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--primary)',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
-            cursor: 'pointer'
-          }}
-        >
-          <Layers size={18} />
-        </button>
-      )}
+      {/* Glowing Toggle Button at Bottom Right */}
+      <AnimatePresence>
+        {!isDirectoryOpen && (
+          <motion.button
+            initial={{ opacity: 0, y: 50, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.8 }}
+            transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+            onClick={() => setIsDirectoryOpen(true)}
+            style={{
+              position: 'absolute',
+              bottom: '2rem',
+              right: '2rem',
+              zIndex: 30,
+              background: '#0a0a0a',
+              border: 'none',
+              // boxShadow: '0 0 15px rgba(236,195,31,0.4)',
+              borderRadius: '5px',
+              padding: '0.6rem 1.25rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#38BDF8',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-display)',
+              fontWeight: '600',
+              fontSize: '0.9rem'
+            }}
+          >
+            <div style={{ width: '12px', height: '2px', background: '#38BDF8' }}></div>
+            Floors Directory
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Floating Floors Directory panel (Right Side Overlay) */}
       <AnimatePresence>
-        {(!isMobile || isDirectoryOpen) && (
+        {isDirectoryOpen && (
           <motion.div
-            initial={isMobile ? { x: 350 } : { opacity: 0, x: 20 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={isMobile ? { x: 350 } : { opacity: 0, x: 20 }}
+            initial={{ opacity: 0, y: 150, scale: 0.8, transformOrigin: 'bottom right' }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 150, scale: 0.8 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             style={{
               position: 'absolute',
-              top: isMobile ? '0' : '5rem',
-              right: isMobile ? '0' : '1.25rem',
-              bottom: isMobile ? '0' : '1.25rem',
-              width: isMobile ? '80vw' : '260px',
-              maxWidth: '280px',
-              height: isMobile ? '100%' : 'auto',
-              maxHeight: isMobile ? '100%' : 'calc(100vh - 6.5rem)',
+              bottom: isMobile ? '0' : '2rem',
+              right: isMobile ? '0' : '2rem',
+              width: isMobile ? '100vw' : '280px',
+              maxWidth: isMobile ? '100vw' : '300px',
+              height: isMobile ? '55vh' : 'auto',
+              maxHeight: '60vh',
               display: 'flex',
               flexDirection: 'column',
-              border: isMobile ? 'none' : '1px solid rgba(56, 189, 248, 0.25)',
-              borderRadius: isMobile ? '0' : '5px',
-              background: isMobile ? 'rgba(7, 7, 9, 0.95)' : 'rgba(8, 8, 12, 0.73)',
+              border: isMobile ? 'none' : '1px solid rgba(255,255,255,0.08)',
+              borderRadius: isMobile ? '5px 5px 0 0' : '5px',
+              background: 'rgba(13, 13, 15, 0.97)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
               overflow: 'hidden',
-              zIndex: 25,
-              boxShadow: '-8px 0 32px rgba(0,0,0,0.5)'
+              zIndex: 35,
+              boxShadow: '-8px 8px 32px rgba(0,0,0,0.6)'
             }}
           >
             <div style={{
@@ -363,21 +371,24 @@ const TowerView = () => {
                   Floors Directory ({filteredFloors.length})
                 </h3>
               </div>
-              {isMobile && (
-                <button 
-                  onClick={() => setIsDirectoryOpen(false)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-muted)',
-                    cursor: 'pointer',
-                    fontSize: '0.85rem',
-                    fontWeight: '400'
-                  }}
-                >
-                  Close
-                </button>
-              )}
+              <button 
+                onClick={() => setIsDirectoryOpen(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#38BDF8',
+                  cursor: 'pointer',
+                  fontSize: '2.2rem',
+                  fontWeight: '300',
+                  lineHeight: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0 4px'
+                }}
+              >
+                &times;
+              </button>
             </div>
 
             <div 
