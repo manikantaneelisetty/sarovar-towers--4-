@@ -305,8 +305,7 @@ const FlatDetails = () => {
                 right: '2rem',
                 zIndex: 30,
                 background: '#0a0a0a',
-                border: '1px solid #38BDF8',
-                boxShadow: '0 0 15px rgba(236,195,31,0.4)',
+               
                 borderRadius: '5px',
                 padding: '0.6rem 1.25rem',
                 display: 'flex',

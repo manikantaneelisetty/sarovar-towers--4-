@@ -128,7 +128,8 @@ const Home = () => {
               fill={hoveredItem === 'tower-1' ? 'rgba(56, 189, 248, 0.25)' : 'transparent'}
               stroke={hoveredItem === 'tower-1' ? '#ecc31f' : 'transparent'}
               strokeWidth="0.5"
-              // style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+             
+                style={{ cursor: 'pointer', transition: 'fill 0.2s ease, stroke 0.2s ease' }}
               onMouseEnter={() => setHoveredItem('tower-1')}
               onMouseLeave={() => setHoveredItem(null)}
               onClick={() => handleItemClick('tower-1')}

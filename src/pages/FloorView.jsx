@@ -610,7 +610,7 @@ const FloorView = () => {
                   }}
                   onMouseLeave={() => setShowBlockSetup(false)}
                 >
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-white)', fontWeight: '600' }}>BLOCK SETUP</span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-white)', fontWeight: '600' }}>SELECT TOWER</span>
                   
                   <div
                     style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
@@ -649,9 +649,9 @@ const FloorView = () => {
                           boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)'
                         }}>
                           {[
-                            { id: 1, label: 'T1', sub: 'Canopus' },
-                            { id: 2, label: 'T2', sub: 'Sirius' },
-                            { id: 3, label: 'T3', sub: 'Vega' }
+                            { id: 1, label: 'Tower-1', sub: 'Canopus' },
+                            { id: 2, label: 'Tower-2', sub: 'Orion' },
+                            { id: 3, label: 'Tower-3', sub: 'Nova' }
                           ].map(t => {
                             const isActive = tower === t.id;
                             return (
@@ -673,13 +673,13 @@ const FloorView = () => {
                                   alignItems: 'center',
                                   gap: '1px',
                                   cursor: 'pointer',
-                                  color: isActive ? '#000' : 'rgba(255,255,255,0.6)',
+                                  color: isActive ? '#000' : 'rgb(255, 255, 255)',
                                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                                   boxShadow: isActive ? '0 4px 12px rgba(56,189,248,0.4)' : 'none'
                                 }}
                               >
-                                <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isActive ? '#000' : 'white' }}>{t.label}</span>
-                                <span style={{ fontSize: '0.6rem', opacity: isActive ? 0.9 : 0.6, letterSpacing: '0.05em' }}>{t.sub}</span>
+                                <span style={{ fontWeight: '800', fontSize: '0.8rem', color: isActive ? '#0a0a0a' : 'white' }}>{t.label}</span>
+                                <span style={{ fontSize: '0.8rem', opacity: isActive ? 0.9 : 0.6, letterSpacing: '0.05em', color: isActive ? '#f0f0f0' : 'white' }}>{t.sub}</span>
                               </button>
                             )
                           })}
@@ -701,7 +701,7 @@ const FloorView = () => {
                 }}
                 onMouseLeave={() => setShowFloorSetup(false)}
               >
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-white)', fontWeight: '600' }}>FLOOR SETUP</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-white)', fontWeight: '600' }}>SELECT FLOOR</span>
                 
                 <div
                   style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}

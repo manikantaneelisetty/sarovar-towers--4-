@@ -268,11 +268,11 @@ const TowerView = () => {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>Available flats</span>
+                      <span style={{ color: 'var(--text-white)' }}>Available flats</span>
                       <span style={{ fontWeight: '400', color: 'white' }}>{hoveredFloor.units}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>Floor Area</span>
+                      <span style={{ color: 'var(--text-white)' }}>Floor Area</span>
                       <span style={{ fontWeight: '400', color: 'white' }}>{hoveredFloor.area}</span>
                     </div>
                   </div>
@@ -425,7 +425,7 @@ const TowerView = () => {
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <span style={{
                       fontSize: '0.7rem',
-                      color: 'var(--text-secondary)',
+                      color: 'var(--text-white)',
                       padding: '2px 8px',
                       borderRadius: '5px',
                       background: 'rgba(255,255,255,0.05)'
@@ -434,7 +434,7 @@ const TowerView = () => {
                     </span>
                     <span style={{
                       fontSize: '0.7rem',
-                      color: 'var(--primary)',
+                      color: 'var(--text-white)',
                       padding: '2px 8px',
                       borderRadius: '5px',
                       background: 'rgba(56, 189, 248, 0.08)',
@@ -494,7 +494,7 @@ const TowerView = () => {
               bottom: '2rem',
               
         left: '50%',
-        bottom:"2%",
+        bottom:"1%",
         transform: 'translateX(-50%)',
         zIndex: 20,
         display: 'flex',
@@ -505,7 +505,7 @@ const TowerView = () => {
         background: 'rgba(7, 7, 9, 0.75)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(56, 189, 248, 0.3)',
+        // border: '1px solid rgba(56, 189, 248, 0.3)',
         boxShadow: '0 8px 32px rgba(56, 189, 248, 0.15)',
         width: isMobile ? 'calc(100% - 2.5rem)' : 'auto',
         justifyContent: 'center',
@@ -546,8 +546,8 @@ const TowerView = () => {
                   border: isActive ? '1px solid var(--primary)' : '1px solid transparent',
                   background: isActive ? 'rgba(56, 189, 248, 0.15)' : 'transparent',
                   color: isActive ? 'white' : 'var(--text-secondary)',
-                  fontSize: '0.8rem',
-                  fontWeight: '400',
+                  fontSize: '1.1rem',
+                  fontWeight: '350',
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   display: 'flex',
@@ -559,11 +559,11 @@ const TowerView = () => {
                   if (!isActive) e.currentTarget.style.color = 'var(--primary)';
                 }}
                 onMouseOut={e => {
-                  if (!isActive) e.currentTarget.style.color = 'var(--text-secondary)';
+                  if (!isActive) e.currentTarget.style.color = 'var(--text-white)';
                 }}
               >
                 <span>{t.label}</span>
-                <span style={{ fontSize: '0.6rem', color: isActive ? 'var(--primary-light)' : 'var(--text-muted)', fontWeight: '400' }}>
+                <span style={{ fontSize: '0.8rem', color: isActive ? 'var(--primary-light)' : 'var(--text-muted)', fontWeight: '400' }}>
                   {t.code}
                 </span>
               </button>

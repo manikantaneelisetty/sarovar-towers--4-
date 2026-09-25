@@ -13,8 +13,9 @@ const FILTERS = [
   { key: 'all',          label: 'All' },
   { key: 'exterior',     label: 'Exterior' },
   { key: 'interiors',    label: 'Interiors' },
+   { key: 'construction', label: 'Progress' },
   { key: 'amenities',    label: 'Amenities' },
-  { key: 'construction', label: 'Progress' },
+ 
   { key: 'video',        label: 'Videos' },
 ];
 
@@ -391,14 +392,14 @@ const HeroSection = ({ activeFilter }) => {
 
       {/* Giant ghost word */}
       <div aria-hidden style={{
-        position: 'absolute', right: '-2rem', bottom: '-1.5rem',
+        position: 'absolute', right: '1rem', bottom: '1rem',
         fontSize: 'clamp(8rem,18vw,14rem)', fontWeight: 800,
-        color: '#f3f4f6', letterSpacing: '-6px',
+        color: '#f3f4f6', letterSpacing: '-5px',
         userSelect: 'none', lineHeight: 1,
         fontFamily: 'var(--font-display)',
         zIndex: 0
       }}>
-        VISUAL
+       Gallery
       </div>
     </div>
   );

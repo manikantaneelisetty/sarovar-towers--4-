@@ -380,12 +380,11 @@ const LayoutD = ({ title, icon: Icon, imageSrc, index, children }) => {
           {children}
         </motion.div>
 
-        {/* Rotated image panel */}
+        {/* Image panel */}
         <motion.div
-          initial={{ opacity: 0, rotate: 4, scale: 0.92 }}
-          animate={inView ? { opacity: 1, rotate: -2, scale: 1 } : {}}
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          whileHover={{ rotate: 0, scale: 1.02 }}
           style={{
             position: 'relative',
             height: '380px',
