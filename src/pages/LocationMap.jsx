@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Compass, Train, GraduationCap, Hospital, ShoppingBag, Eye } from 'lucide-react';
-import Footer from "../layouts/Footer"
+import { MapPin, Compass, Train, GraduationCap, Hospital, ShoppingBag } from 'lucide-react';
+
 const LocationMap = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [isDirectoryMinimized, setIsDirectoryMinimized] = useState(false);
@@ -31,7 +31,6 @@ const LocationMap = () => {
     : places.filter(p => p.category === activeCategory);
 
   return (
-    <>
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -284,8 +283,6 @@ const LocationMap = () => {
         </div>
       </div>
     </motion.div>
-  
-   </>
   );
 };
 

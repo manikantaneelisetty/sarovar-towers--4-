@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { CompareProvider } from './context/CompareContext';
 import Navbar from './layouts/Navbar';
+import Footer from './layouts/Footer';
 import FlatCompareModal from './components/FlatCompareModal';
 
 // Pages
@@ -14,16 +15,16 @@ import Gallery from './pages/Gallery';
 import Specifications from './pages/Specifications';
 import Contact from './pages/Contact';
 
-/* ── Floating Enquire Now Button ── */
+/* ── Floating Contact Us / Enquire Button ── */
 const EnquireNowButton = () => {
   const navigate = useNavigate();
   return (
     <>
       <style>{`
         @keyframes enquire-pulse {
-          0%   { box-shadow: 0 0 0 0 rgba(56,189,248,0.50); }
-          70%  { box-shadow: 0 0 0 10px rgba(56,189,248,0); }
-          100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
+          0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.50); }
+          70%  { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
         }
         .enquire-fab {
           position: fixed;
@@ -31,63 +32,85 @@ const EnquireNowButton = () => {
           top: 50%;
           transform: translateY(-50%);
           z-index: 9998;
-          writing-mode: vertical-rl;
-          text-orientation: mixed;
-          background: linear-gradient(180deg, #0ea5e9, #38BDF8);
-          color: #fff;
-          font-size: 0.82rem;
-          font-weight: 700;
-          letter-spacing: 1.5px;
-          text-transform: uppercase;
-          padding: 1.4rem 0.7rem;
-          border-radius: 0;
+          background: #38BDF8;
+          color: #000000;
+          padding: 1.25rem 0.65rem;
+          border-radius: 6px 0 0 6px;
           border: none;
           cursor: pointer;
           animation: enquire-pulse 2.5s infinite;
-          transition: padding 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
-          box-shadow: -3px 0 18px rgba(14,165,233,0.30);
-          font-family: inherit;
-          line-height: 1;
+          transition: padding 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+          box-shadow: -3px 0 18px rgba(56, 189, 248, 0.35);
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .enquire-fab:hover {
-          background: linear-gradient(180deg, #0284c7, #0ea5e9);
-          padding: 1.6rem 0.85rem;
+          background: #0284c7;
+          color: #ffffff;
+          padding: 1.35rem 0.75rem;
           animation: none;
-          box-shadow: -4px 0 28px rgba(14,165,233,0.50);
+          box-shadow: -4px 0 28px rgba(14, 165, 233, 0.60);
+        }
+        .enquire-fab-text {
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+          font-family: inherit;
+          font-size: 0.85rem;
+          font-weight: 800;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          line-height: 1;
+          white-space: nowrap;
         }
       `}</style>
       <button
         className="enquire-fab"
         onClick={() => navigate('/contact')}
-        aria-label="Enquire Now"
+        aria-label="Contact Us"
+        title="Contact Us"
       >
-        Enquire Now
+        <span className="enquire-fab-text">CONTACT US</span>
       </button>
     </>
   );
 };
 
+function AppContent() {
+  const location = useLocation();
+  const showFooter =
+    location.pathname.startsWith('/gallery') ||
+    location.pathname.startsWith('/specifications') ||
+    location.pathname.startsWith('/contact');
+
+  return (
+    <div className="app-container">
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tower/:id" element={<TowerView />} />
+          <Route path="/floor/:towerId/:floorNo" element={<FloorView />} />
+          <Route path="/flat/:towerId/:floorNo/:flatNo" element={<FlatDetails />} />
+          <Route path="/location" element={<LocationMap />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/specifications" element={<Specifications />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
+      {showFooter && <Footer />}
+      <FlatCompareModal />
+      <EnquireNowButton />
+    </div>
+  );
+}
+
 function App() {
   return (
     <CompareProvider>
       <Router>
-        <div className="app-container">
-          <Navbar />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/tower/:id" element={<TowerView />} />
-              <Route path="/floor/:towerId/:floorNo" element={<FloorView />} />
-              <Route path="/flat/:towerId/:floorNo/:flatNo" element={<FlatDetails />} />
-              <Route path="/location" element={<LocationMap />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/specifications" element={<Specifications />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </main>
-          <FlatCompareModal />
-          <EnquireNowButton />
-        </div>
+        <AppContent />
       </Router>
     </CompareProvider>
   );

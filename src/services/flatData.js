@@ -215,6 +215,32 @@ export function getFlatInfo(tower, flatNumber) {
   return `${bhkMap[tower]} | ${sqftMap[tower]} Sq.ft | ${facing}`;
 }
 
+// Refuge Floors according to high-rise building fire safety specifications
+export const REFUGE_FLOORS = [12, 21, 39, 48];
+
+export function isRefugeFlat(floorNo, flatIndexOrNumber) {
+  const f = parseInt(floorNo, 10);
+  if (!REFUGE_FLOORS.includes(f)) return false;
+
+  if (typeof flatIndexOrNumber === 'number') {
+    // 0-indexed: flat index 1 corresponds to the 2nd flat (e.g. idx 1 -> flat 02)
+    return flatIndexOrNumber === 1;
+  }
+  if (typeof flatIndexOrNumber === 'string') {
+    return flatIndexOrNumber.endsWith('02');
+  }
+  return false;
+}
+
+export function getRefugeInfo() {
+  return {
+    badge: "Refuge Area Flat",
+    title: "Designated Emergency Fire Refuge Area",
+    shortNote: "Mandatory safety refuge zone per National Building Code (NBC) high-rise regulations.",
+    description: "Designed as an emergency evacuation shelter with reinforced fire-rated doors, non-combustible materials, and dedicated open-air cross ventilation."
+  };
+}
+
 // Generate complete flat list data
 export const flatData = {};
 for (let t = 1; t <= 3; t++) {
@@ -222,11 +248,14 @@ for (let t = 1; t <= 3; t++) {
     for (let fl = 1; fl <= 4; fl++) {
       const flatNumber = `${f}${String(fl).padStart(2, "0")}`;
       const baseImage = `1${String(fl).padStart(2, "0")}`;
+      const isRefuge = isRefugeFlat(f, fl - 1);
 
       flatData[`${t}-${flatNumber}`] = {
         image: `/images/t${t}-flats/${baseImage}.png`,
-        title: `Flat ${flatNumber}`,
+        title: isRefuge ? `Flat ${flatNumber} (Refuge Flat)` : `Flat ${flatNumber}`,
         info: getFlatInfo(t, flatNumber),
+        isRefuge,
+        refugeInfo: isRefuge ? getRefugeInfo() : null,
         ...towerData[t]
       };
     }

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle2, ShieldCheck, MapPin, Eye, DollarSign, Plus } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ShieldCheck, Eye, DollarSign, Plus, ShieldAlert, AlertTriangle } from 'lucide-react';
 import { useCompare } from '../context/CompareContext';
-import { getBlockName, towerData } from '../services/flatData';
+import { getBlockName, towerData, isRefugeFlat } from '../services/flatData';
 
 const FlatDetails = () => {
   const { towerId, floorNo, flatNo } = useParams();
@@ -18,9 +18,8 @@ const FlatDetails = () => {
   const [is2DOpen, setIs2DOpen] = useState(false);
   const [isRequestOpen, setIsRequestOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 900);
-  const [isImageHovered, setIsImageHovered] = useState(false);
   const [slideDir, setSlideDir] = useState(0);
-  const [isSpecsOpen, setIsSpecsOpen] = useState(false);
+  const [isSpecsOpen, setIsSpecsOpen] = useState(true);
   
   // Form state
   const [formData, setFormData] = useState({ name: '', email: '', mobile: '' });
@@ -41,6 +40,7 @@ const FlatDetails = () => {
   const block = getBlockName(tower);
   const flatIndex = parseInt(flat.slice(-2)) || 1; // 1 to 4
   const flatSuffix = String(flatIndex).padStart(2, '0'); // '01', '02', etc.
+  const isRefuge = isRefugeFlat(floor, flat);
 
   // Flat configuration
   const facing = (flatIndex === 1 || flatIndex === 2) ? 'West Facing' : 'East Facing';
@@ -305,7 +305,7 @@ const FlatDetails = () => {
                 right: '2rem',
                 zIndex: 30,
                 background: '#0a0a0a',
-               
+                border: 'none',
                 borderRadius: '5px',
                 padding: '0.6rem 1.25rem',
                 display: 'flex',
@@ -342,7 +342,6 @@ const FlatDetails = () => {
                 maxHeight: '60vh',
                 display: 'flex',
                 flexDirection: 'column',
-                // border: isMobile ? 'none' : '1px solid #38BDF8',
                 borderRadius: isMobile ? '5px 5px 0 0' : '5px',
                 background: 'rgba(13, 13, 15, 0.97)',
                 backdropFilter: 'blur(20px)',
@@ -392,6 +391,25 @@ const FlatDetails = () => {
               Flat {flat}
             </h2>
 
+            {isRefuge && (
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'rgba(245, 158, 11, 0.15)',
+                border: '1px solid rgba(245, 158, 11, 0.4)',
+                borderRadius: '4px',
+                padding: '4px 8px',
+                marginBottom: '0.6rem',
+                color: '#F59E0B',
+                fontSize: '0.72rem',
+                fontWeight: '700'
+              }}>
+                <ShieldAlert size={13} color="#F59E0B" />
+                <span>DESIGNATED REFUGE FLAT (FIRE SAFETY SHELTER)</span>
+              </div>
+            )}
+
             <p style={{
               color: '#38BDF8',
               fontSize: isMobile ? '0.75rem' : '0.85rem',
@@ -407,6 +425,25 @@ const FlatDetails = () => {
               <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#38BDF8' }}></span>
               <span>{facing}</span>
             </p>
+
+            {isRefuge && (
+              <div style={{
+                marginBottom: '1.2rem',
+                padding: '0.65rem 0.8rem',
+                borderRadius: '5px',
+                background: 'rgba(245, 158, 11, 0.08)',
+                border: '1px solid rgba(245, 158, 11, 0.25)',
+                fontSize: '0.75rem',
+                color: 'rgba(255, 255, 255, 0.88)',
+                lineHeight: '1.4'
+              }}>
+                <div style={{ color: '#FBBF24', fontWeight: '700', marginBottom: '3px', display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.78rem' }}>
+                  <AlertTriangle size={13} color="#FBBF24" />
+                  Refuge Flat Safety Norms
+                </div>
+                Mandatory high-rise fire safety refuge area per National Building Code (NBC) guidelines. Engineered as a secure evacuation shelter equipped with 2-hour fire-rated enclosures and open-air cross ventilation.
+              </div>
+            )}
 
             {/* Specifications Box */}
             <div style={{ marginBottom: '1.5rem' }}>
@@ -877,9 +914,5 @@ const FlatDetails = () => {
 };
 
 export default FlatDetails;
-
-
-
-
 
 

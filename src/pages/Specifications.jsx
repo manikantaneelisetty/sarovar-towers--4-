@@ -339,7 +339,7 @@ const LayoutC = ({ title, icon: Icon, imageSrc, index, children }) => {
 };
 
 /* ─── LAYOUT D — diagonal image overlay ─── */
-const LayoutD = ({ title, icon: Icon, imageSrc, index, children }) => {
+const LayoutD = ({ title, icon: Icon, imageSrc, children }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 

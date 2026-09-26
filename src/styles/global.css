@@ -116,6 +116,24 @@ html, body {
   box-shadow: 0 0 10px var(--primary-glow);
 }
 
+.scrollbar-styled {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
+}
+.scrollbar-styled::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-styled::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-styled::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 4px;
+}
+.scrollbar-styled::-webkit-scrollbar-thumb:hover {
+  background: #38BDF8;
+}
+
 /* =========================================
    GLASSMORPHISM UTILITIES
 ========================================= */

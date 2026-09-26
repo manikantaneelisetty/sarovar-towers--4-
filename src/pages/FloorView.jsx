@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Info, Compass, Layers, MousePointerClick } from 'lucide-react';
+import { ArrowLeft, Info, Compass, Layers, MousePointerClick, ShieldAlert, AlertTriangle } from 'lucide-react';
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
-import { floorPlans, towerFloorDetails, getBlockName } from '../services/flatData';
+import { floorPlans, towerFloorDetails, getBlockName, isRefugeFlat, REFUGE_FLOORS } from '../services/flatData';
 
 const FloorView = () => {
   const { towerId, floorNo } = useParams();
@@ -64,7 +64,7 @@ const FloorView = () => {
         display: 'block',
         pointerEvents: 'auto'
       });
-    } catch (e) {
+    } catch {
       // ignore measurement errors
     }
   };
@@ -165,6 +165,18 @@ const FloorView = () => {
           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           fontWeight: '600'
         }}
+         onMouseOver={e => {
+          e.currentTarget.style.background = '#38BDF8';
+          e.currentTarget.style.borderColor = '#38BDF8';
+          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
+        onMouseOut={e => {
+          e.currentTarget.style.background = '#000000';
+          e.currentTarget.style.borderColor = '#333333';
+          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.color = '#FFFFFF';
+        }}
           >
             <ArrowLeft size={16} />
             {isMobile ? 'Back' : `Tower ${tower} View`}
@@ -183,6 +195,30 @@ const FloorView = () => {
           }}>
             {block} Block - Floor <span style={{ fontFamily: 'var(--font-body)', fontWeight: '400', fontSize: '0.85em' }}>{floor}</span>
           </h1>
+        </div>
+
+        <div style={{ position: 'absolute', right: '1.5rem', pointerEvents: 'auto' }}>
+          <button
+            onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+            style={{
+              background: isDetailsVisible ? 'rgba(56, 189, 248, 0.2)' : '#000000',
+              border: isDetailsVisible ? '1px solid #38BDF8' : '1px solid #333333',
+              borderRadius: '5px',
+              padding: '0.55rem 1rem',
+              color: isDetailsVisible ? '#38BDF8' : '#FFFFFF',
+              fontSize: '0.85rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+            aria-label="Toggle Floor Details"
+          >
+            <Info size={16} color={isDetailsVisible ? '#38BDF8' : '#FFFFFF'} />
+            {!isMobile && <span>Floor Details</span>}
+          </button>
         </div>
       </div>
 
@@ -289,25 +325,60 @@ const FloorView = () => {
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
+              <filter id="refugeHoverGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#F59E0B" floodOpacity="0.75" />
+                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
             </defs>
             {currentPlan.flats.map((flatData, idx) => {
               const flatNo = `${floor}${String(idx + 1).padStart(2, '0')}`;
               const isHovered = hoveredFlat && hoveredFlat.flatNo === flatNo;
+              const isRefuge = isRefugeFlat(floor, idx);
+
+              let fillColor = 'rgba(255, 255, 255, 0.001)';
+              let strokeColor = 'transparent';
+              let strokeWidth = '0.5';
+              let strokeDash = undefined;
+              let filterVal = undefined;
+
+              if (isRefuge) {
+                if (isHovered) {
+                  fillColor = 'rgba(245, 158, 11, 0.42)';
+                  strokeColor = '#F59E0B';
+                  strokeWidth = '1.4';
+                  filterVal = 'url(#refugeHoverGlow)';
+                } else {
+                  fillColor = 'rgba(245, 158, 11, 0.12)';
+                  strokeColor = 'rgba(245, 158, 11, 0.65)';
+                  strokeWidth = '0.9';
+                  strokeDash = '4 2';
+                }
+              } else if (isHovered) {
+                fillColor = 'rgba(89, 197, 243, 0.3)';
+                strokeColor = 'rgba(56, 189, 248, 0.3)';
+                strokeWidth = '0.8';
+                filterVal = 'url(#hoverGlow)';
+              }
 
               return (
                 <polygon
                   key={idx}
                   points={flatData.points}
-                  fill={isHovered ? 'rgba(89, 197, 243, 0.3)' : 'rgba(255, 255, 255, 0.001)'}
-                  stroke={isHovered ? 'rgba(56, 189, 248, 0.3)' : 'transparent'}
-                  strokeWidth={isHovered ? '0.8' : '0.5'}
-                  filter={isHovered ? 'url(#hoverGlow)' : undefined}
+                  fill={fillColor}
+                  stroke={strokeColor}
+                  strokeWidth={strokeWidth}
+                  strokeDasharray={strokeDash}
+                  filter={filterVal}
                   pointerEvents="all"
                   style={{
                     cursor: 'pointer',
-                    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
-                  onMouseEnter={() => setHoveredFlat({ ...flatData, flatNo })}
+                  onMouseEnter={() => setHoveredFlat({ ...flatData, flatNo, isRefuge })}
                   onMouseLeave={() => setHoveredFlat(null)}
                   onClick={() => handleFlatClick(idx)}
                 />
@@ -335,7 +406,7 @@ const FloorView = () => {
                   backdropFilter: 'blur(25px)',
                   WebkitBackdropFilter: 'blur(25px)',
                   border: '1px solid rgba(56, 189, 248, 0.35)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+                  // boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.85rem'
@@ -346,31 +417,61 @@ const FloorView = () => {
                   paddingBottom: '0.5rem',
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'space-between',
                   gap: '8px'
                 }}>
-                  <Info size={14} color="#38BDF8" />
-                  <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '0.95rem', fontWeight: '600', color: 'white' }}>
-                    Floor details
-                  </h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Info size={14} color="#38BDF8" />
+                    <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '0.95rem', fontWeight: '600', color: 'white' }}>
+                      Floor details
+                    </h4>
+                  </div>
+                  <button
+                    onClick={() => setIsDetailsVisible(false)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'rgba(255,255,255,0.6)',
+                      cursor: 'pointer',
+                      fontSize: '2rem',
+                      lineHeight: 1,
+                      padding: 0
+                    }}
+                    aria-label="Close Floor Details"
+                  >
+                    &times;
+                  </button>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.8rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>Tower Block</span>
+                    <span style={{ color: 'var(--text-white)' }}>Tower Block</span>
                     <span style={{ fontWeight: '600', color: 'white' }}>Tower {tower} ({block})</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>Apartment Type</span>
+                    <span style={{ color: 'var(--text-white)' }}>Apartment Type</span>
                     <span style={{ fontWeight: '600', color: '#38BDF8' }}>{floorDetail.bhk}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>Super Built-up</span>
+                    <span style={{ color: 'var(--text-white)' }}>Super Built-up</span>
                     <span style={{ fontWeight: '600', color: 'white' }}>{floorDetail.area}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>Flats per floor</span>
+                    <span style={{ color: 'var(--text-white)' }}>Flats per floor</span>
                     <span style={{ fontWeight: '600', color: 'white' }}>4 Apartments</span>
                   </div>
+                  {REFUGE_FLOORS.includes(floor) && (
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      paddingTop: '0.4rem',
+                      borderTop: '1px solid rgba(255,255,255,0.08)'
+                    }}>
+                      <span style={{ color: '#F59E0B', fontSize: '0.75rem', fontWeight: '600' }}>Refuge Floor</span>
+                      <span style={{ fontWeight: '700', color: '#FBBF24', fontSize: '0.75rem' }}>Flat {floor}02 (Refuge Zone)</span>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )}
@@ -378,67 +479,132 @@ const FloorView = () => {
 
           {/* Flat details tooltip */}
           <AnimatePresence>
-            {hoveredFlat && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.1 }}
-                style={{
-                  position: 'absolute',
-                  left: tooltipPos.x,
-                  top: tooltipPos.y,
-                  pointerEvents: 'none',
-                  zIndex: 40,
-                  width: 'min(90%, 240px)',
-                  maxWidth: '240px',
-                  padding: '1rem',
-                  borderRadius: '5px',
-                  background: 'rgba(3, 3, 3, 0.9)',
-                  backdropFilter: 'blur(10px)',
-                  border: 'none',
-                  boxShadow: '0 8px 32px rgba(56, 189, 248, 0.15)'
-                }}
-              >
-                <div style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                  paddingBottom: '0.4rem',
-                  marginBottom: '0.5rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}>
-                  <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, fontWeight: '700', fontSize: '1.05rem', color: 'white' }}>
-                    Apartment {hoveredFlat.flatNo}
-                  </h4>
-                  <span style={{ fontSize: '0.7rem', color: '#38BDF8', fontWeight: '600' }}>
-                    {floorDetail.bhk}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', fontSize: '0.8rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: 'white' }}>Carpet Area</span>
-                    <span style={{ fontWeight: '600', color: 'white' }}>{hoveredFlat.size}</span>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: 'white' }}>Orientation</span>
-                    <span style={{ fontWeight: '600', color: 'white', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Compass size={12} color="#38BDF8" />
-                      {hoveredFlat.facing}
+            {hoveredFlat && (() => {
+              const isRefuge = hoveredFlat.isRefuge || isRefugeFlat(floor, hoveredFlat.flatNo);
+
+              return (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.1 }}
+                  style={{
+                    position: 'absolute',
+                    left: tooltipPos.x,
+                    top: tooltipPos.y,
+                    pointerEvents: 'none',
+                    zIndex: 40,
+                    width: isRefuge ? 'min(90%, 260px)' : 'min(90%, 240px)',
+                    maxWidth: isRefuge ? '260px' : '240px',
+                    padding: '1rem',
+                    borderRadius: '6px',
+                    background: isRefuge ? 'rgba(15, 10, 5, 0.95)' : 'rgba(3, 3, 3, 0.9)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: isRefuge ? '1px solid rgba(245, 158, 11, 0.45)' : 'none',
+                    boxShadow: isRefuge
+                      ? '0 8px 32px rgba(245, 158, 11, 0.25), 0 0 16px rgba(245, 158, 11, 0.15)'
+                      : '0 8px 32px rgba(56, 189, 248, 0.15)'
+                  }}
+                >
+                  <div style={{
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                    paddingBottom: '0.45rem',
+                    marginBottom: '0.5rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start'
+                  }}>
+                    <div>
+                      <h4 style={{ fontFamily: 'var(--font-display)', margin: 0, fontWeight: '700', fontSize: '1.05rem', color: 'white' }}>
+                        Apartment {hoveredFlat.flatNo}
+                      </h4>
+                      {isRefuge && (
+                        <span style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          fontSize: '0.65rem',
+                          fontWeight: '700',
+                          color: '#F59E0B',
+                          background: 'rgba(245, 158, 11, 0.15)',
+                          border: '1px solid rgba(245, 158, 11, 0.4)',
+                          borderRadius: '3px',
+                          padding: '1px 6px',
+                          marginTop: '3px',
+                          letterSpacing: '0.5px'
+                        }}>
+                          <ShieldAlert size={10} color="#F59E0B" />
+                          REFUGE FLAT
+                        </span>
+                      )}
+                    </div>
+                    <span style={{ fontSize: '0.7rem', color: isRefuge ? '#F59E0B' : '#38BDF8', fontWeight: '700' }}>
+                      {floorDetail.bhk}
                     </span>
                   </div>
-                </div>
-                <div style={{
-                  marginTop: '0.6rem',
-                  fontSize: '0.75rem',
-                  color: '#38BDF8',
-                  fontWeight: '600',
-                  textAlign: 'right'
-                }}>
-                  View Specs &rarr;
-                </div>
-              </motion.div>
-            )}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', fontSize: '0.8rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'white' }}>Carpet Area</span>
+                      <span style={{ fontWeight: '600', color: 'white' }}>{hoveredFlat.size}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'white' }}>Orientation</span>
+                      <span style={{ fontWeight: '600', color: 'white', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <Compass size={12} color={isRefuge ? '#F59E0B' : '#38BDF8'} />
+                        {hoveredFlat.facing}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Refuge Flat Details Section */}
+                  {isRefuge && (
+                    <div style={{
+                      marginTop: '0.55rem',
+                      padding: '0.5rem 0.6rem',
+                      background: 'rgba(245, 158, 11, 0.08)',
+                      border: '1px solid rgba(245, 158, 11, 0.25)',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '3px'
+                    }}>
+                      <div style={{
+                        fontSize: '0.68rem',
+                        fontWeight: '700',
+                        color: '#FBBF24',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px'
+                      }}>
+                        <AlertTriangle size={11} color="#FBBF24" />
+                        Refuge Area Information
+                      </div>
+                      <p style={{
+                        margin: 0,
+                        fontSize: '0.7rem',
+                        color: 'rgba(255, 255, 255, 0.85)',
+                        lineHeight: '1.35'
+                      }}>
+                        Mandatory high-rise fire safety refuge flat per NBC norms. Features fire-resistant enclosure and open-air emergency evacuation ventilation.
+                      </p>
+                    </div>
+                  )}
+
+                  <div style={{
+                    marginTop: '0.6rem',
+                    fontSize: '0.75rem',
+                    color: isRefuge ? '#F59E0B' : '#38BDF8',
+                    fontWeight: '600',
+                    textAlign: 'right'
+                  }}>
+                    View Specs &rarr;
+                  </div>
+                </motion.div>
+              );
+            })()}
           </AnimatePresence>
           </motion.div>
         </AnimatePresence>
@@ -804,9 +970,10 @@ const FloorView = () => {
                 {[
                   { label: 'Block', value: block },
                   { label: 'Apartment Type', value: floorDetail.bhk },
-                  { label: 'Super Built-up', value: floorDetail.area },
-                  { label: 'Selected Flat', value: previewFlatNo },
-                  { label: 'Facing', value: previewFacing }
+                  { label: 'Super Built-up', value: previewFlatArea },
+                  { label: 'Selected Flat', value: isRefugeFlat(floor, previewFlatNo) ? `${previewFlatNo} (Refuge Flat)` : previewFlatNo },
+                  { label: 'Facing', value: previewFacing },
+                  ...(isRefugeFlat(floor, previewFlatNo) ? [{ label: 'Zone', value: 'Emergency Fire Refuge' }] : [])
                 ].map((item, idx) => (
                   <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ color: 'var(--text-white)', fontSize: '0.8rem', fontWeight: '400' }}>{item.label}</span>

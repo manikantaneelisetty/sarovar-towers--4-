@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { X, Trash2, ArrowLeftRight } from 'lucide-react';
 import { useCompare } from '../context/CompareContext';
 import { getBlockName } from '../services/flatData';
@@ -79,6 +79,7 @@ const FlatCompareModal = () => {
             </button>
             <button 
               onClick={() => setIsCompareOpen(false)}
+              aria-label="Close comparison modal"
               style={{
                 background: 'none',
                 border: 'none',
@@ -125,6 +126,8 @@ const FlatCompareModal = () => {
                 {/* Trash/Remove Button */}
                 <button
                   onClick={() => removeFromCompare(flat.tower, flat.flat)}
+                  aria-label="Remove flat"
+                  title="Remove flat"
                   style={{
                     position: 'absolute',
                     top: '1rem',

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer style={{
-      background: '#09090b',
+      background: '#ffffff',
       borderTop: '1px solid rgba(255, 255, 255, 0.05)',
       padding: '3rem 4% 2rem 4%',
       color: 'var(--text-secondary)',
@@ -29,11 +29,11 @@ const Footer = () => {
         <div>
           <h4 style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)', marginBottom: '1rem', fontSize: '1rem', fontWeight: '400' }}>Quick Links</h4>
           <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            <li><Link to="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Home</Link></li>
-            <li><Link to="/location" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Location Map</Link></li>
-            <li><Link to="/gallery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Gallery</Link></li>
-            <li><Link to="/specifications" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Specifications</Link></li>
-            <li><Link to="/contact" style={{ color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Contact</Link></li>
+            <li><Link to="/" style={{ color: 'var(--text-white)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Home</Link></li>
+            <li><Link to="/location" style={{ color: 'var(--text-white)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Location Map</Link></li>
+            <li><Link to="/gallery" style={{ color: 'var(--text-white)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Gallery</Link></li>
+            <li><Link to="/specifications" style={{ color: 'var(--text-white)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Specifications</Link></li>
+            <li><Link to="/contact" style={{ color: 'var(--text-white)', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Contact</Link></li>
           </ul>
         </div>
 
@@ -42,8 +42,8 @@ const Footer = () => {
           <p style={{ lineHeight: '1.6', fontSize: '0.85rem' }}>
             Nallagandla, Hyderabad,<br />
             Telangana, India<br /><br />
-            Mobile: +91 6309030303<br />
-            Email: info@thetrilight.com
+            Mobile: +91 91606 66534<br />
+            Email: info@sarovar.com
           </p>
         </div>
       </div>

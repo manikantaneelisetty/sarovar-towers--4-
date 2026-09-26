@@ -1,6 +1,8 @@
+/* eslint-disable react-refresh/only-export-components */
+// oxlint-disable react/only-export-components
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
-const CompareContext = createContext();
+export const CompareContext = createContext();
 
 export const useCompare = () => useContext(CompareContext);
 

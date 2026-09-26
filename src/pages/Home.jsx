@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, Layers, Compass, Home as HomeIcon, Map, MousePointerClick } from 'lucide-react';
+import { Building2, Layers, Home as HomeIcon, Map, MousePointerClick } from 'lucide-react';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -267,16 +267,6 @@ const Home = () => {
               }}>
                 {towerInfo[hoveredItem].details}
               </p>
-              {/* <div style={{
-                marginTop: '0.8rem',
-                fontSize: '0.75rem',
-                color: 'var(--primary)',
-                fontWeight: '400',
-                textAlign: 'right',
-                textShadow: '0 0 8px rgba(56, 189, 248, 0.3)'
-              }}>
-                Explore Floor layouts &rarr;
-              </div> */}
             </motion.div>
           )}
         </AnimatePresence>
@@ -304,13 +294,10 @@ const Home = () => {
       }}>
         <MousePointerClick size={15} color="white" />
          <span style={{ 
-          textcolor:"white",
           fontFamily: 'var(--font-body)',
           fontSize: '0.8rem', 
           fontWeight: '400', 
-         
           letterSpacing: '0.3px',
-          
         }}>
           Click on a tower of your interest
         </span>

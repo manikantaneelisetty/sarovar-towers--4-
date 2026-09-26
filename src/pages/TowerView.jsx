@@ -4,15 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Layers, MousePointerClick } from 'lucide-react';
 import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi";
 import { tower1Data, tower2Data, tower3Data } from '../services/towerData';
-import { getBlockName } from '../services/flatData';
 
 const towerHeroImages = {
   1: '/images/tower1/hero.jpg',
   2: '/images/tower2/hero.jpg',
   3: '/images/tower3/hero.jpg'
 };
-
-const towerIds = [1, 2, 3];
 
 const TowerView = () => {
   const { id } = useParams();
@@ -24,7 +21,6 @@ const TowerView = () => {
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
-  const [isSliderPaused, setIsSliderPaused] = useState(false);
 
   const goToTower = (targetId) => {
     const normalizedTowerId = targetId < 1 ? 3 : targetId > 3 ? 1 : targetId;
@@ -51,7 +47,6 @@ const TowerView = () => {
   };
 
   const towerDataList = getTowerData();
-  const blockName = getBlockName(towerId);
   const filteredFloors = towerDataList;
 
   const handleMouseMove = (e) => {
@@ -158,8 +153,6 @@ const TowerView = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: 'easeInOut' }}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsSliderPaused(true)}
-            onMouseLeave={() => setIsSliderPaused(false)}
             style={{
               position: 'absolute',
               top: 0,
@@ -240,7 +233,6 @@ const TowerView = () => {
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
                     border: '1px solid rgba(255,255,255,0.08)',
-                    // boxShadow: '0 8px 32px rgba(56, 189, 248, 0.25)'
                   }}
                 >
                   <div style={{ 
@@ -309,7 +301,6 @@ const TowerView = () => {
               zIndex: 30,
               background: '#0a0a0a',
               border: 'none',
-              // boxShadow: '0 0 15px rgba(236,195,31,0.4)',
               borderRadius: '5px',
               padding: '0.6rem 1.25rem',
               display: 'flex',
@@ -476,13 +467,10 @@ const TowerView = () => {
       }}>
         <MousePointerClick size={15} color="white"  />
          <span style={{ 
-          textcolor:"white",
           fontFamily: 'var(--font-body)',
           fontSize: '0.8rem', 
-          fontWeight: '400', 
-          // textShadow: '0 0 4px rgba(236, 195, 31, 0.4)',
+          fontWeight: '400',
           letterSpacing: '0.3px',
-          // opacity: 0.80
         }}>
           Click on a floor of your interest
         </span>
@@ -490,11 +478,8 @@ const TowerView = () => {
 
       {/* Floating Tower Switcher Slider */}
             <div style={{
-              position: 'absolute',
-              bottom: '2rem',
-              
         left: '50%',
-        bottom:"1%",
+        bottom: '1%',
         transform: 'translateX(-50%)',
         zIndex: 20,
         display: 'flex',
@@ -505,10 +490,10 @@ const TowerView = () => {
         background: 'rgba(7, 7, 9, 0.75)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        // border: '1px solid rgba(56, 189, 248, 0.3)',
         boxShadow: '0 8px 32px rgba(56, 189, 248, 0.15)',
         width: isMobile ? 'calc(100% - 2.5rem)' : 'auto',
         justifyContent: 'center',
+        position: 'absolute',
       }}>
         <button
           onClick={goToPrevTower}

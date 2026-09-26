@@ -84,8 +84,10 @@ const FloatField = ({ label, icon: Icon, type = 'text', value, onChange, require
               required={required}
               style={{
                 width: '100%', border: 'none', outline: 'none', background: 'transparent',
-                padding: active ? '26px 16px 10px' : '18px 16px',
-                paddingLeft: Icon ? (active ? '42px' : '42px') : '16px',
+                paddingTop: active ? '26px' : '18px',
+                paddingBottom: active ? '10px' : '18px',
+                paddingRight: '16px',
+                paddingLeft: Icon ? '42px' : '16px',
                 fontSize: '0.92rem', color: '#111',
                 fontFamily: 'inherit', boxSizing: 'border-box', borderRadius: '12px'
               }}
@@ -537,10 +539,11 @@ const Contact = () => {
                           onBlur={() => setMobileFocused(false)}
                           style={{
                             border: 'none', outline: 'none', background: 'transparent',
-                            padding: mobileActive ? '26px 8px 10px 8px' : '18px 8px',
+                            paddingTop: mobileActive ? '26px' : '18px',
+                            paddingBottom: mobileActive ? '10px' : '18px',
+                            paddingLeft: '8px',
+                            paddingRight: '20px',
                             fontSize: '0.82rem', color: '#555',
-                            fontFamily: 'inherit', cursor: 'pointer', appearance: 'none',
-                            paddingRight: '20px', minWidth: '72px'
                           }}
                         >
                           <option value="+91">+91 🇮🇳</option>
